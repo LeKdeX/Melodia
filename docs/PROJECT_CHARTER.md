@@ -70,7 +70,7 @@ Chaque objectif est assorti d'indicateurs mesurables. Ces indicateurs sont revus
 - **KPI** : 100 % des composants d'interface proviennent du design system versionné ; 0 style ad hoc en dehors de celui-ci (vérifié en revue, voir [[DEFINITION_OF_DONE.md]]).
 
 ### 3.5 Objectifs Performance
-- Voir le détail chiffré dans [[PERFORMANCE_BUDGET.md]]. Résumé : démarrage à froid < 2 s, recherche < 100 ms perçu, 60 FPS constant sur les animations et le défilement, y compris sur une bibliothèque de 100 000+ titres.
+- Voir le détail chiffré dans [[PERFORMANCE_BUDGET.md]]. Résumé : démarrage à froid < 2 s, recherche < 100 ms perçu, 60 FPS constant sur les animations et le défilement, y compris sur une bibliothèque de 200 000+ titres (référence relevée en Phase 0.5, voir [[PERFORMANCE_GUIDE.md]]).
 
 ### 3.6 Objectifs Accessibilité
 - Conformité WCAG 2.2 niveau AA sur l'ensemble des parcours critiques (lecture, navigation, recherche, gestion de playlists).

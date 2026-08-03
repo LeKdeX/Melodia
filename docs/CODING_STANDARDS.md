@@ -8,6 +8,8 @@
 
 Ce document définit à quoi ressemble le code de Melodia au quotidien : nommage, organisation de fichiers, structure des unités de code. Il matérialise en conventions concrètes les principes définis dans [[ENGINEERING_GUIDE.md]] et les frontières définies dans [[ARCHITECTURE_PRINCIPLES.md]].
 
+> **Amendement Phase 0.5** : depuis l'adoption du monorepo ([[STACK_DECISIONS.md]] §3), le `src/` ci-dessous ne vit plus à la racine unique du dépôt mais nichée dans `packages/app/src/` (features, UI applicative) et `packages/core/src/` (entities, data) — voir [[ARCHITECTURE.md]] pour l'arborescence complète. La forme et les conventions internes décrites ici restent inchangées, seule la racine de résolution change.
+
 ---
 
 ## 1. Organisation des dossiers — architecture Feature-Driven
@@ -130,3 +132,4 @@ Un dépassement n'est pas automatiquement bloquant mais doit être justifié exp
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Principal Frontend Engineer |
+| 0.1.1 | 2026-08-03 | Amendement Phase 0.5 : nichage de `src/` dans `packages/app` et `packages/core` suite à l'adoption du monorepo (voir [[ARCHITECTURE.md]]) | Principal Software Architect |

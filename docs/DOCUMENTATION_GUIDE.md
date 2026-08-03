@@ -12,6 +12,8 @@ Ce document est la carte de la documentation elle-même : quels documents existe
 
 ## 1. Carte documentaire
 
+### Phase 0 — fondations produit/ingénierie
+
 | Document | Rôle | Propriétaire |
 |---|---|---|
 | [[PROJECT_CHARTER.md]] | Référence suprême : vision, objectifs mesurables, périmètre, risques | CTO / Lead Software Architect |
@@ -24,9 +26,31 @@ Ce document est la carte de la documentation elle-même : quels documents existe
 | [[PERFORMANCE_BUDGET.md]] | Budgets de performance chiffrés | Principal Frontend Engineer |
 | [[SECURITY_GUIDELINES.md]] | Principes de sécurité | CTO / Lead Software Architect |
 | [[DEFINITION_OF_DONE.md]] | Checklist qualité minimale par fonctionnalité | Engineering Manager |
-| [[ADR_TEMPLATE.md]] | Processus et gabarit de décision d'architecture | Lead Software Architect |
+| [[ADR_TEMPLATE.md]] | Processus et gabarit de décision d'architecture (couvre aussi le besoin « ADR_GUIDE ») | Lead Software Architect |
 | [[DOCUMENTATION_GUIDE.md]] | Ce document — carte et gouvernance documentaire | Engineering Manager |
 | [[ROADMAP.md]] | Phases concrètes et vision long terme | CTO / Lead Product Designer |
+
+### Phase 0.5 — blueprint technique et décisions d'implémentation
+
+Ces documents ne redécident rien de la Phase 0 : ils en sont l'élaboration concrète et implémentable (voir chaque document pour ses renvois précis).
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[TECHNICAL_BLUEPRINT.md]] | Synthèse capstone reliant Phase 0 et Phase 0.5 en un blueprint unique | CTO |
+| [[STACK_DECISIONS.md]] | Confirmation des choix Phase 0 + décisions nouvelles (recherche, monorepo) | CTO / Principal Software Architect |
+| [[ARCHITECTURE.md]] | Arborescence monorepo concrète, frontières de packages | Principal Software Architect |
+| [[FRONTEND_ARCHITECTURE.md]] | Architecture React concrète, routing/rendu SPA | Lead Frontend Engineer |
+| [[DATA_LAYER.md]] | Règles de state, cache local, moteur de recherche | Principal Software Architect |
+| [[AUDIO_ENGINE.md]] | Queue, gapless, crossfade, ReplayGain, EQ, visualiseur | Lead Frontend Engineer |
+| [[JELLYFIN_INTEGRATION.md]] | Implémentation concrète de `JellyfinSource` | Principal Software Architect |
+| [[DESIGN_SYSTEM_ARCHITECTURE.md]] | Tokens, architecture de composants, theming | Lead Product Designer / Lead Frontend Engineer |
+| [[PERFORMANCE_GUIDE.md]] | Méthodologie et outillage pour tenir les budgets | Lead Frontend Engineer |
+| [[SECURITY_GUIDE.md]] | CSP concrète, scan de dépendances, secrets CI | CTO |
+| [[TESTING_STRATEGY.md]] | Pyramide de tests, obligations par type de changement | Engineering Manager / Lead Frontend Engineer |
+| [[CI_CD_GUIDE.md]] | Pipeline GitHub Actions concret | Lead DevOps Engineer |
+| [[QUALITY_GATES.md]] | Gates automatisés en CI (sous-ensemble de la Definition of Done) | Engineering Manager / Lead DevOps Engineer |
+| [[CHECKLISTS.md]] | Checklists opérationnelles (onboarding, release, ADR, sécurité, fin de phase) | Engineering Manager |
+| [[ENGINEERING_MANIFESTO.md]] | DDD ciblé, liste d'anti-patterns, mécanismes d'enforcement | CTO / Principal Software Architect |
 
 Emplacement physique : tous les documents fondateurs vivent dans `docs/` à la racine du dépôt. Les ADR individuels vivent dans `docs/adr/`.
 
@@ -64,3 +88,4 @@ Le « propriétaire » d'un document (tableau §1) est responsable de sa cohére
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Engineering Manager |
+| 0.2.0 | 2026-08-03 | Ajout de la carte des 15 documents de Phase 0.5 ; clarification qu'ADR_TEMPLATE.md couvre le besoin « ADR_GUIDE » sans fichier dupliqué | Engineering Manager |

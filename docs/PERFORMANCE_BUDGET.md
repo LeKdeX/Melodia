@@ -29,7 +29,7 @@ Mesuré sur : machine de référence Desktop (matériel milieu de gamme, 3 ans d
 ## 3. Temps de rendu et fluidité
 | Métrique | Cible | Seuil d'alerte |
 |---|---|---|
-| FPS pendant le défilement d'une liste de 100 000+ titres | 60 FPS constant | < 50 FPS soutenu |
+| FPS pendant le défilement d'une liste de 200 000+ titres | 60 FPS constant | < 50 FPS soutenu |
 | FPS pendant les animations d'interface (transitions, ouverture de panneaux) | 60 FPS | < 45 FPS |
 | Temps de premier rendu significatif (LCP-équivalent) | < 1,5 s | > 2,5 s |
 | Délai d'interactivité après navigation entre vues | < 100 ms | > 300 ms |
@@ -45,7 +45,7 @@ Mesuré sur : machine de référence Desktop (matériel milieu de gamme, 3 ans d
 | Scénario | Cible | Seuil d'alerte |
 |---|---|---|
 | Utilisation mémoire au repos (lecture en cours, app en arrière-plan) | < 150 Mo | > 250 Mo |
-| Utilisation mémoire avec bibliothèque de 100 000+ titres chargée en liste virtualisée | < 300 Mo | > 450 Mo |
+| Utilisation mémoire avec bibliothèque de 200 000+ titres chargée en liste virtualisée | < 350 Mo | > 500 Mo |
 
 ## 6. Re-renders (React)
 - Un changement d'état de lecture (progression de la barre de lecture) ne doit déclencher **aucun** re-render de la liste de titres ou de la file d'attente (isolation vérifiée par sélecteurs de store, voir [[ARCHITECTURE_PRINCIPLES.md]] §4).
@@ -63,7 +63,7 @@ Mesuré sur : machine de référence Desktop (matériel milieu de gamme, 3 ans d
 ## 8. Méthodologie de vérification
 
 - **En CI** : budgets de poids JS/CSS vérifiés automatiquement à chaque PR (échec de build si seuil d'alerte dépassé, sauf dérogation documentée en commentaire de PR référençant un ticket de dette technique — voir [[ENGINEERING_GUIDE.md]] §3).
-- **Manuellement, avant chaque release mineure/majeure** : profilage sur les appareils de référence (§1), avec bibliothèque de test de 100 000+ titres synthétiques.
+- **Manuellement, avant chaque release mineure/majeure** : profilage sur les appareils de référence (§1), avec bibliothèque de test de 200 000+ titres synthétiques (voir [[PERFORMANCE_GUIDE.md]] pour l'outillage et la méthodologie détaillée).
 - **Instrumentation continue** : mesures de démarrage et de FPS collectées de façon anonymisée si la télémétrie opt-in est activée par l'utilisateur (voir [[SECURITY_GUIDELINES.md]]).
 
 ---
@@ -73,3 +73,4 @@ Mesuré sur : machine de référence Desktop (matériel milieu de gamme, 3 ans d
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Principal Frontend Engineer |
+| 0.2.0 | 2026-08-03 | Amendement Phase 0.5 : référence de bibliothèque de stress-test relevée de 100 000 à 200 000 titres (budgets de rendu et mémoire ajustés en conséquence) ; voir [[PERFORMANCE_GUIDE.md]] | Lead Frontend Engineer |

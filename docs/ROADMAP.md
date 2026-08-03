@@ -37,7 +37,7 @@ Le projet est **architecturé** pour Web, Desktop et Mobile dès la Phase 0 (cho
 - Mode hors ligne complet (téléchargement de pistes, `LocalStore` natif — voir [[ARCHITECTURE_PRINCIPLES.md]] §3).
 - Synchronisation multi-appareils de l'état de lecture et des playlists (stratégie horodatée, voir [[PROJECT_CHARTER.md]] §5).
 - Enrichissements audio (égaliseur, crossfade, lecture sans interruption via Web Audio API).
-- Audit d'accessibilité manuel complet, audit de performance sur bibliothèque 100 000+ titres.
+- Audit d'accessibilité manuel complet, audit de performance sur bibliothèque 200 000+ titres.
 
 **Critère de sortie de phase** : Melodia est utilisable comme client principal sur les trois cibles, en ligne comme hors ligne, sans perte de contexte entre appareils.
 
