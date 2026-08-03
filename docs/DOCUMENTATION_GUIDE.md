@@ -63,6 +63,66 @@ Ces quatre documents ne redécident rien non plus : ils fournissent l'analyse tr
 | [[EXTREME_SCENARIOS.md]] | Validation de chaque décision majeure contre des scénarios extrêmes (échelle, connectivité, multi-serveurs, formats d'écran) | Staff Performance Engineer / Senior UX Engineer |
 | [[EVOLVABILITY.md]] | Évolutivité long terme (TV, auto, montres, API publique, SDK, plugins, marketplace, sync cloud), y compris la tension identifiée avec la charte | Principal Software Architect / Product Engineer |
 
+### Phase 1 — Product Bible (volume 1) : vision, positionnement, analyse concurrentielle, ADN produit
+
+Ces documents définissent le *quoi* et le *pourquoi* du produit — aucune identité visuelle (couleurs/logo/typographie), qui reste dans un futur `BRAND_BIBLE.md` explicitement différé (voir `CLAUDE.md`).
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[PRODUCT_BIBLE.md]] | Synthèse capstone reliant les 9 documents produit en une référence unique | Chief Product Officer |
+| [[VISION.md]] | Pourquoi le produit existe, positionnement face à Jellyfin/Plexamp/Spotify | CPO / Product Strategist |
+| [[MISSION.md]] | Déclaration de mission (quoi/pourquoi/pour qui/comment) | CPO |
+| [[PRODUCT_VALUES.md]] | Personnalité, ton, valeurs, vocabulaire — identité expérientielle, pas visuelle | Behavioural Designer / Music Experience Designer |
+| [[COMPETITIVE_ANALYSIS.md]] | Analyse de 12 concurrents + Navidrome (forces/faiblesses/à reproduire/à éviter/à améliorer) | Product Strategist / UX Researcher |
+| [[PERSONAS.md]] | 8 personas détaillés + matrice de recoupement par zone produit | UX Researcher / Product Manager Senior |
+| [[USER_JOURNEYS.md]] | 12 parcours complets avec frictions identifiées honnêtement | UX Designer / UX Researcher |
+| [[UX_PRINCIPLES.md]] | Charte UX — le raisonnement derrière chaque interaction | UX Designer / Music Experience Designer |
+| [[PRODUCT_RULES.md]] | Règles produit non négociables et vérifiables (dérivées de la charte UX) | Product Manager Senior / CPO |
+| [[SUCCESS_METRICS.md]] | Objectifs produit mesurables, distincts des budgets techniques | Product Manager Senior / Staff Performance Engineer |
+
+`ROADMAP.md` (Phase 0) porte désormais aussi la vue produit par phase — pas de `PRODUCT_ROADMAP.md` séparé, pour éviter deux feuilles de route qui divergent (voir son historique de révisions).
+
+### Phase 1 — Feature Bible (volume 2) : fonctionnalités, expérience utilisateur, règles métier
+
+Ces 14 documents définissent précisément *ce que le produit fait*, fonctionnalité par fonctionnalité, avec suffisamment de détail pour l'implémentation. Ne redécident aucune implémentation technique déjà actée en Phase 0.5 (ex. [[AUDIO_ENGINE.md]], [[DATA_LAYER.md]]) — uniquement le comportement produit visible.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[FEATURE_BIBLE.md]] | Synthèse capstone reliant les 13 spécifications en une référence unique | Chief Product Officer |
+| [[PLAYER_SPECIFICATION.md]] | Formes du lecteur, pochette dynamique, paroles, visualiseur, mode cinématique | Music Experience Designer / Interaction Designer |
+| [[QUEUE_SPECIFICATION.md]] | File d'attente, historique, queue persistante/temporaire/intelligente | Interaction Designer / Senior Product Manager |
+| [[SEARCH_SPECIFICATION.md]] | Recherche universelle, champs, pondération, autocomplétion | UX Research Lead / Senior Product Manager |
+| [[LIBRARY_SPECIFICATION.md]] | Bibliothèque, albums, artistes, favoris, vues, filtres | Senior Product Manager / Music Experience Designer |
+| [[PLAYLIST_SPECIFICATION.md]] | Playlists classiques à IA-prête, moteur de règles partagé | Senior Product Manager / UX Research Lead |
+| [[DISCOVERY_SPECIFICATION.md]] | Recommandations locales, Daily Mix | UX Research Lead / Music Experience Designer |
+| [[STATISTICS_SPECIFICATION.md]] | Tableau de bord d'écoute, fondation de l'historique local | Senior Product Manager / Audiophile Consultant |
+| [[WRAPPED_SPECIFICATION.md]] | Rétrospective locale partageable | Spotify Product Designer / Music Experience Designer |
+| [[SETTINGS_SPECIFICATION.md]] | Paramètres complets, notifications | Senior Product Manager / Jellyfin Specialist |
+| [[ERROR_STATES.md]] | Tous les cas d'erreur et comportements de récupération | UX Research Lead / Jellyfin Specialist |
+| [[EMPTY_STATES.md]] | Tous les états vides, distincts des erreurs | Music Experience Designer / UX Research Lead |
+| [[INTERACTION_GUIDELINES.md]] | Raccourcis clavier, gestes tactiles, micro-interactions | Interaction Designer / UX Research Lead |
+| [[FEATURE_ROADMAP.md]] | Priorisation MVP→Vision long terme + 50 fonctionnalités innovantes | Chief Product Officer / Senior Product Manager |
+
+**Décision de gouvernance de ce volume** : [[PRODUCT_RULES.md]] §10 a été clarifié (pas assoupli) pour distinguer la télémétrie serveur (opt-in) de l'historique d'écoute local (par défaut, jamais transmis) — voir son historique de révisions.
+
+### Phase 1 — UX Bible (volume 3) : expérience utilisateur, parcours, spécifications d'écrans
+
+11 nouveaux documents + extension de [[INTERACTION_GUIDELINES.md]] (pas de doublon créé sous le nom proche « INTERACTION_GUIDE.md »). Ce volume précise *comment* chaque fonctionnalité du volume 2 se vit à l'écran — il ne redécide aucun comportement produit déjà spécifié.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[UX_BIBLE.md]] | Synthèse capstone reliant les 11 documents UX aux volumes 1-2 | Senior UX Designer / Principal Interaction Designer |
+| [[USER_FLOWS.md]] | 108 flux atomiques (grain fin), distinct des 12 parcours macro de [[USER_JOURNEYS.md]] | UX Research Lead / Senior UX Designer |
+| [[SCREEN_SPECIFICATIONS.md]] | Inventaire et spécification de tous les écrans, groupés par famille | Senior UX Designer / Product Designer |
+| [[NAVIGATION_GUIDE.md]] | Architecture de l'information, navigation par méthode d'entrée | Information Architect / Senior UX Designer |
+| [[MOTION_GUIDELINES.md]] | Durées et courbes d'animation concrètes par contexte | Motion Designer / Principal Interaction Designer |
+| [[RESPONSIVE_GUIDE.md]] | Comportement précis par classe d'appareil | Senior UX Designer / Human Interface Designer |
+| [[ACCESSIBILITY_GUIDE.md]] | Patterns ARIA, navigation clavier, lecteurs d'écran | Accessibility Specialist / Human Interface Designer |
+| [[ONBOARDING_GUIDE.md]] | Séquence complète de première utilisation | Senior UX Designer / Behavioural Designer |
+| [[ERROR_EXPERIENCE.md]] | Taxonomie de patterns UI (toast/snackbar/bannière/modale) | Senior UX Designer / Cognitive Psychologist |
+| [[EMPTY_STATES_GUIDE.md]] | Traitement illustratif et rédactionnel des états vides | Motion Designer / Behavioural Designer |
+| [[WIREFRAMES_FUNCTIONAL.md]] | Wireframes textuels des écrans principaux, desktop et mobile | Product Designer / Information Architect |
+
 Emplacement physique : tous les documents fondateurs vivent dans `docs/` à la racine du dépôt. Les ADR individuels vivent dans `docs/adr/`.
 
 ---
@@ -101,3 +161,6 @@ Le « propriétaire » d'un document (tableau §1) est responsable de sa cohére
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Engineering Manager |
 | 0.2.0 | 2026-08-03 | Ajout de la carte des 15 documents de Phase 0.5 ; clarification qu'ADR_TEMPLATE.md couvre le besoin « ADR_GUIDE » sans fichier dupliqué | Engineering Manager |
 | 0.3.0 | 2026-08-03 | Ajout de la carte des 4 documents du complément Phase 0.5 (comparaisons, risques techniques, scénarios extrêmes, évolutivité) | Engineering Manager |
+| 0.4.0 | 2026-08-03 | Ajout de la carte des 10 documents Phase 1 (Product Bible volume 1) ; clarification que ROADMAP.md porte la vue produit sans PRODUCT_ROADMAP.md séparé | Engineering Manager |
+| 0.5.0 | 2026-08-03 | Ajout de la carte des 14 documents Phase 1 volume 2 (Feature Bible) | Engineering Manager |
+| 0.6.0 | 2026-08-03 | Ajout de la carte des 11 documents Phase 1 volume 3 (UX Bible) ; INTERACTION_GUIDELINES.md étendu plutôt que dupliqué sous INTERACTION_GUIDE.md | Engineering Manager |

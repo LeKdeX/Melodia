@@ -57,6 +57,25 @@ Le projet est **architecturé** pour Web, Desktop et Mobile dès la Phase 0 (cho
 
 ---
 
+## Vue produit par phase (complément Phase 1)
+
+Cette section ne redéfinit aucune phase ci-dessus — elle traduit chaque phase en ce que l'utilisateur peut réellement faire, à l'usage de l'équipe produit. Source des décisions : [[VISION.md]], [[PERSONAS.md]], [[USER_JOURNEYS.md]], [[COMPETITIVE_ANALYSIS.md]].
+
+| Phase | Ce que l'utilisateur peut faire | Personas principalement servis |
+|---|---|---|
+| Phase 1 | Se connecter à son serveur, parcourir sa bibliothèque, chercher, lancer une lecture continue, créer des playlists simples | Occasionnel, Jellyfin, Desktop |
+| Phase 2 | Écouter hors ligne, retrouver son état de lecture sur un autre appareil, profiter d'un moteur audio enrichi (EQ, crossfade) | Mobile, Audiophile, Collectionneur |
+| Phase 3 | Étendre le produit via des plugins, connecter une source alternative à Jellyfin | Utilisateur avancé, contributeur externe |
+| Phase 4+ | Utiliser Melodia sur les stores officiels, bénéficier d'un écosystème de plugins tiers mature | Ensemble des personas |
+
+### Décisions produit encore ouvertes avant d'entrer en implémentation (voir [[USER_JOURNEYS.md]] §13)
+- Pondération de la lecture aléatoire (équité perçue entre artistes) — à trancher avant l'implémentation de Phase 1 ([[AUDIO_ENGINE.md]] §1).
+- Comportement du cache local à la déconnexion (conservé par défaut vs choix explicite) — décision simple à trancher tôt en Phase 1.
+- Statut réel de la fonctionnalité de découverte interne ([[USER_JOURNEYS.md]] §8, inspirée de Plexamp) — non engagée comme livrable de Phase 1, à confirmer en conception détaillée de Phase 1 ou reportée en Phase 2.
+- Détection automatique d'un serveur Jellyfin sur le réseau local au premier lancement ([[USER_JOURNEYS.md]] §1) — amélioration non engagée, à évaluer techniquement avant toute promesse produit.
+
+---
+
 ## Vision par horizon (axes d'évolution)
 
 ### À 1 an
@@ -89,3 +108,4 @@ Releases mineures régulières en Phase 1-2 (cadence resserrée pour capter le r
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | CTO / Lead Product Designer |
+| 0.2.0 | 2026-08-03 | Ajout de la vue produit par phase (Phase 1, complément) plutôt que création d'un PRODUCT_ROADMAP.md concurrent | Product Manager Senior |
