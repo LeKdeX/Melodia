@@ -44,8 +44,16 @@ Voir [[CI_CD_GUIDE.md]] pour le détail du pipeline : le job de vérification de
 
 ---
 
-## 7. Historique des révisions
+## 7. Checklist de validation
+
+- [ ] La fixture de test couvre la cible engagée (200 000 titres, [[PERFORMANCE_BUDGET.md]]) — l'extension à 300 000 reste un ticket de dette technique ouvert, voir [[EXTREME_SCENARIOS.md]] §1.
+- [ ] Chaque outil de mesure (§3) a un propriétaire et une fréquence d'exécution définie.
+- [ ] Le risque de fixture non représentative est couvert dans [[RISK_REGISTER_TECHNICAL.md]] §8.
+- [x] Un appareil de référence tablette est ajouté à [[PERFORMANCE_BUDGET.md]] §1 (résolu pendant l'auto-audit de la Phase 0.5 complément).
+
+## 8. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Lead Frontend Engineer |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Lead Frontend Engineer |

@@ -87,8 +87,16 @@ Conformément à [[ARCHITECTURE_PRINCIPLES.md]] §8 (préparer sans sur-construi
 
 ---
 
-## 5. Historique des révisions
+## 5. Checklist de validation
+
+- [ ] L'arborescence monorepo est cohérente avec [[CODING_STANDARDS.md]] §1 (amendement de nichage).
+- [ ] Le tableau des frontières de packages (§2) ne contredit pas [[ARCHITECTURE_PRINCIPLES.md]] §7.
+- [ ] Les risques propres au monorepo sont couverts dans [[RISK_REGISTER_TECHNICAL.md]] §1.
+- [ ] L'évolutivité vers un SDK/plugins publiés depuis `@melodia/core` est cohérente avec [[EVOLVABILITY.md]] §8-10.
+
+## 6. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Principal Software Architect |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Principal Software Architect |

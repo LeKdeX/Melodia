@@ -55,8 +55,16 @@ Le connecteur déclare une plage de versions d'API Jellyfin supportées. Une ver
 
 ---
 
-## 8. Historique des révisions
+## 8. Checklist de validation
+
+- [ ] Le choix du SDK officiel est justifié sur les critères de dépendance d'[[ENGINEERING_GUIDE.md]] §2.3.
+- [ ] Les risques d'intégration (retard du SDK, changement de format non documenté) sont couverts dans [[RISK_REGISTER_TECHNICAL.md]] §6.
+- [ ] Le comportement multi-serveurs/multi-utilisateurs est validé dans [[EXTREME_SCENARIOS.md]] §3.
+- [ ] La synchronisation incrémentale tient à 200 000-300 000 titres — voir [[EXTREME_SCENARIOS.md]] §1 (zone ⚠️ signalée, non encore chronométrée au-delà de 200k).
+
+## 9. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Principal Software Architect |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Principal Software Architect |

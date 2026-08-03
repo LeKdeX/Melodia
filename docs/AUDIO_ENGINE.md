@@ -70,8 +70,16 @@ Toute panne d'une couche d'enrichissement se dégrade vers la couche immédiatem
 
 ---
 
-## 10. Historique des révisions
+## 10. Checklist de validation
+
+- [ ] Chaque couche (gapless, crossfade, ReplayGain, EQ, visualiseur) se dégrade sans jamais interrompre la lecture — vérifié en revue de code, pas seulement en conception.
+- [ ] Les risques audio (politique d'autoplay, dérive gapless, fuite mémoire visualiseur) sont couverts dans [[RISK_REGISTER_TECHNICAL.md]] §5.
+- [ ] Le comportement en connexion lente/interrompue pendant la lecture est validé dans [[EXTREME_SCENARIOS.md]] §2.
+- [ ] Aucune fonctionnalité d'enrichissement n'introduit de dépendance dure sur Web Audio API dans le chemin critique de lecture.
+
+## 11. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Lead Frontend Engineer |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Lead Frontend Engineer |

@@ -18,7 +18,7 @@ Ces budgets sont **chiffrés et vérifiables**, pas des aspirations qualitatives
 | Démarrage à chaud (reprise depuis arrière-plan) | < 500 ms | > 1 s |
 | Time-to-First-Play (reprise de lecture depuis état persistant) | < 1 s | > 2 s |
 
-Mesuré sur : machine de référence Desktop (matériel milieu de gamme, 3 ans d'âge), appareil mobile de référence (milieu de gamme, 2 ans d'âge), connexion réseau « bonne 4G / Wi-Fi domestique » pour le premier chargement des métadonnées.
+Mesuré sur : machine de référence Desktop (matériel milieu de gamme, 3 ans d'âge), appareil mobile de référence (milieu de gamme, 2 ans d'âge), tablette de référence (milieu de gamme, 2 ans d'âge — ajoutée en Phase 0.5 complément, voir [[EXTREME_SCENARIOS.md]] §4), connexion réseau « bonne 4G / Wi-Fi domestique » pour le premier chargement des métadonnées.
 
 ## 2. Temps de recherche
 | Scénario | Cible | Seuil d'alerte |
@@ -74,3 +74,4 @@ Mesuré sur : machine de référence Desktop (matériel milieu de gamme, 3 ans d
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Principal Frontend Engineer |
 | 0.2.0 | 2026-08-03 | Amendement Phase 0.5 : référence de bibliothèque de stress-test relevée de 100 000 à 200 000 titres (budgets de rendu et mémoire ajustés en conséquence) ; voir [[PERFORMANCE_GUIDE.md]] | Lead Frontend Engineer |
+| 0.2.1 | 2026-08-03 | Amendement Phase 0.5 complément : ajout d'un appareil de référence tablette (gap identifié dans [[EXTREME_SCENARIOS.md]] §4) | Staff Performance Engineer |

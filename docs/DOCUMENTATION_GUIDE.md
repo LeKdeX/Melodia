@@ -52,6 +52,17 @@ Ces documents ne redécident rien de la Phase 0 : ils en sont l'élaboration con
 | [[CHECKLISTS.md]] | Checklists opérationnelles (onboarding, release, ADR, sécurité, fin de phase) | Engineering Manager |
 | [[ENGINEERING_MANIFESTO.md]] | DDD ciblé, liste d'anti-patterns, mécanismes d'enforcement | CTO / Principal Software Architect |
 
+### Phase 0.5 (complément) — analyse comparative, risques, scénarios extrêmes, évolutivité
+
+Ces quatre documents ne redécident rien non plus : ils fournissent l'analyse transverse (comparaisons, risques par décision, validation contre des scénarios extrêmes, évolutivité long terme) qui sous-tend l'ensemble des décisions déjà actées, sans dupliquer leur contenu dans chacun des 15 documents ci-dessus — chacun y renvoie via sa propre checklist de fin de chapitre plutôt que de répéter l'analyse.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[TECHNOLOGY_COMPARISONS.md]] | Comparaisons technologiques complètes (7 paires) sur 7 axes, avec recommandation argumentée | Staff Frontend Engineer / Principal Software Architect |
+| [[RISK_REGISTER_TECHNICAL.md]] | Registre de risques par décision technique (risque/probabilité/impact/prévention/correction) | Security Engineer / Staff Performance Engineer / Principal Software Architect |
+| [[EXTREME_SCENARIOS.md]] | Validation de chaque décision majeure contre des scénarios extrêmes (échelle, connectivité, multi-serveurs, formats d'écran) | Staff Performance Engineer / Senior UX Engineer |
+| [[EVOLVABILITY.md]] | Évolutivité long terme (TV, auto, montres, API publique, SDK, plugins, marketplace, sync cloud), y compris la tension identifiée avec la charte | Principal Software Architect / Product Engineer |
+
 Emplacement physique : tous les documents fondateurs vivent dans `docs/` à la racine du dépôt. Les ADR individuels vivent dans `docs/adr/`.
 
 ---
@@ -89,3 +100,4 @@ Le « propriétaire » d'un document (tableau §1) est responsable de sa cohére
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Engineering Manager |
 | 0.2.0 | 2026-08-03 | Ajout de la carte des 15 documents de Phase 0.5 ; clarification qu'ADR_TEMPLATE.md couvre le besoin « ADR_GUIDE » sans fichier dupliqué | Engineering Manager |
+| 0.3.0 | 2026-08-03 | Ajout de la carte des 4 documents du complément Phase 0.5 (comparaisons, risques techniques, scénarios extrêmes, évolutivité) | Engineering Manager |

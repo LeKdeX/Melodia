@@ -45,8 +45,16 @@ Chaque composant du design system est documenté et testé visuellement dans Sto
 
 ---
 
-## 7. Historique des révisions
+## 7. Checklist de validation
+
+- [ ] Les tokens couvrent tous les cas d'usage identifiés (couleur, espacement, typographie, rayon, ombre, mouvement) sans valeur codée en dur autorisée ailleurs.
+- [ ] Le comportement responsive (petit écran, grand écran, tactile, 4K, tablette) est validé dans [[EXTREME_SCENARIOS.md]] §4.
+- [ ] Le risque de régression d'accessibilité lors d'une mise à jour Radix est couvert dans [[RISK_REGISTER_TECHNICAL.md]] §7.
+- [ ] L'architecture de composants reste compatible avec une éventuelle interface Android TV (focus D-pad) — voir [[EVOLVABILITY.md]] §3, non implémentée mais non bloquée.
+
+## 8. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Lead Product Designer / Lead Frontend Engineer |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Lead Product Designer / Lead Frontend Engineer |

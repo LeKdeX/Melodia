@@ -57,8 +57,17 @@ Si l'index local n'existe pas encore (premier lancement, synchronisation initial
 
 ---
 
-## 4. Historique des révisions
+## 4. Checklist de validation
+
+- [ ] L'arbre de décision d'état (§1) couvre tous les cas rencontrés dans les features prévues au Phase 1.
+- [ ] Le choix Dexie/SQLite est justifié comme complémentarité de plateforme, pas comme choix arbitraire — voir [[TECHNOLOGY_COMPARISONS.md]] §4.
+- [ ] La tenue du cache local et de l'index à 200 000-300 000 titres est validée dans [[EXTREME_SCENARIOS.md]] §1.
+- [ ] Les risques de divergence entre `SqliteStore`/`IndexedDbStore` sont couverts dans [[RISK_REGISTER_TECHNICAL.md]] §4.
+- [ ] Le comportement hors ligne/connexion interrompue est validé dans [[EXTREME_SCENARIOS.md]] §2.
+
+## 5. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Principal Software Architect |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Principal Software Architect |

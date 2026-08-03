@@ -45,21 +45,39 @@ Client musical premium auto-hébergé pour Jellyfin (Jellyfin = source de donné
 | Accessibilité | WCAG 2.2 AA | [[PROJECT_CHARTER.md]] §3.6 |
 | Licence | MIT (ADR formel à rédiger avant publication) | [[PROJECT_CHARTER.md]] §3.10 |
 
-## 5. État du dépôt à la fin de la Phase 0.5
+## 5. Analyse transverse (complément Phase 0.5)
+
+Quatre documents apportent une analyse qui traverse l'ensemble des décisions ci-dessus plutôt que d'en ajouter une nouvelle :
+
+- [[TECHNOLOGY_COMPARISONS.md]] — pourquoi chaque technologie a été préférée à son alternative la plus crédible, sur sept axes (facilité, performance, évolutivité, communauté, maintenance, maturité, compatibilité projet). Conclusion clé : tous les écarts ne se valent pas — certains sont des seuils mesurables (FlexSearch), d'autres des contraintes de plateforme (Dexie/SQLite), d'autres de vrais arbitrages (React/Vue).
+- [[RISK_REGISTER_TECHNICAL.md]] — risque, probabilité, impact, prévention, correction pour chaque décision structurante majeure, à un grain plus fin que le registre stratégique de [[PROJECT_CHARTER.md]] §5.
+- [[EXTREME_SCENARIOS.md]] — validation honnête (pas seulement affirmée) de l'architecture contre l'échelle (jusqu'à 300 000 titres), la connectivité, le multi-serveurs/multi-utilisateurs et les formats d'écran. Deux gaps réels y sont signalés plutôt que masqués : la tenue au-delà de 200 000 titres n'est pas mesurée, et la synchronisation multi-appareils attend encore son ADR formel.
+- [[EVOLVABILITY.md]] — évolutivité vers Android TV, Apple TV, CarPlay, Android Auto, montres connectées, API publique, SDK, plugins, marketplace et synchronisation cloud. Un seul point y est signalé comme tension réelle avec la charte plutôt que simple question technique : une synchronisation cloud centralisée opérée par le projet contredirait [[PROJECT_CHARTER.md]] §4 — voir [[EVOLVABILITY.md]] §12 pour les deux formes qui resteraient acceptables.
+
+## 6. État du dépôt à la fin de la Phase 0.5 (complément inclus)
 
 - Aucun code applicatif écrit — voulu, cette phase reste documentaire (rappel des règles absolues de cadrage de cette phase).
-- 28 documents fondateurs au total dans `docs/` (13 Phase 0 + 15 Phase 0.5), tous cross-référencés, carte à jour dans [[DOCUMENTATION_GUIDE.md]] §1.
+- 32 documents fondateurs au total dans `docs/` (13 Phase 0 + 15 Phase 0.5 + 4 complément), tous cross-référencés, carte à jour dans [[DOCUMENTATION_GUIDE.md]] §1.
 - Amendement notable : [[PERFORMANCE_BUDGET.md]] et [[CODING_STANDARDS.md]] ont chacun reçu un amendement documenté (bibliothèque de référence 200k, nichage monorepo) plutôt que d'être silencieusement contredits.
-- Ouvert avant d'entrer en Phase 1 : ADR de licence formel, initialisation effective du monorepo (squelette `apps/`/`packages/` vide, CI de base) — voir [[ROADMAP.md]] Phase 1 et [[CHECKLISTS.md]].
+- Gaps identifiés honnêtement plutôt que masqués (voir [[EXTREME_SCENARIOS.md]] §5) : fixture de test au-delà de 200k titres non exécutée, ADR de synchronisation multi-appareils non rédigé. (Le troisième gap identifié — appareil de référence tablette absent — a été corrigé dans la foulée pendant l'auto-audit de cette phase, voir [[PERFORMANCE_BUDGET.md]] historique des révisions.)
+- Ouvert avant d'entrer en Phase 1 : ADR de licence formel, initialisation effective du monorepo (squelette `apps/`/`packages/` vide, CI de base), résorption des deux gaps restants ci-dessus — voir [[ROADMAP.md]] Phase 1 et [[CHECKLISTS.md]].
 
-## 6. Ce que ce blueprint ne remplace pas
+## 7. Ce que ce blueprint ne remplace pas
 
 Il ne contient aucun chiffre, aucune convention et aucune décision qui ne soit pas également présente dans son document source — le lire seul suffit pour s'orienter, mais toute implémentation doit référencer le document source correspondant, jamais ce résumé.
 
+## 8. Checklist de validation
+
+- [ ] Les cinq décisions structurantes (§2) restent exactes après toute modification d'un document source.
+- [ ] Les chiffres qui font autorité (§4) sont identiques à leur source — vérifié à chaque relecture de phase ([[PROJECT_CHARTER.md]] §7).
+- [ ] Les gaps listés en §6 sont retirés dès qu'ils sont résorbés, jamais laissés obsolètes silencieusement.
+- [ ] Aucune nouvelle décision structurante n'apparaît ici sans exister d'abord dans son document source.
+
 ---
 
-## 7. Historique des révisions
+## 9. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | CTO |
+| 0.2.0 | 2026-08-03 | Ajout de la section d'analyse transverse (complément Phase 0.5), mise à jour du compte de documents (28→32) et des gaps identifiés, ajout de la checklist de validation | CTO |

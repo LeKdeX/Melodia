@@ -48,8 +48,15 @@ Les seuils listés ici sont des miroirs des chiffres de [[PERFORMANCE_BUDGET.md]
 
 ---
 
-## 5. Historique des révisions
+## 5. Checklist de validation
+
+- [ ] Chaque gate reste un miroir d'un chiffre déjà défini ailleurs (§4) — aucun seuil inventé localement.
+- [ ] La distinction avec [[DEFINITION_OF_DONE.md]] reste claire pour un nouveau contributeur (testée via la checklist d'onboarding, [[CHECKLISTS.md]] §1).
+- [ ] Les gates pré-release couvrent les zones ⚠️ identifiées dans [[EXTREME_SCENARIOS.md]] (200k+ titres, multi-appareils).
+
+## 6. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Engineering Manager / Lead DevOps Engineer |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Engineering Manager / Lead DevOps Engineer |

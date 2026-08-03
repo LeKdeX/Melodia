@@ -55,8 +55,16 @@ Une revue de sécurité manuelle (checklist dédiée, voir [[CHECKLISTS.md]]) es
 
 ---
 
-## 6. Historique des révisions
+## 6. Checklist de validation
+
+- [ ] La CSP (§1) est revue à chaque ajout de domaine externe requis par une nouvelle fonctionnalité.
+- [ ] Le choix pnpm audit + Dependabot plutôt qu'un service tiers payant est justifié par les critères de dépendance ([[ENGINEERING_GUIDE.md]] §2.1).
+- [ ] Les risques de sécurité par décision technique (Tauri, SDK Jellyfin, plugins natifs futurs) sont couverts dans [[RISK_REGISTER_TECHNICAL.md]].
+- [ ] Toute évolution vers des plugins natifs CarPlay/Android Auto (voir [[EVOLVABILITY.md]] §5-6) est soumise à la revue de sécurité de la §5 avant merge.
+
+## 7. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | CTO |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | CTO |

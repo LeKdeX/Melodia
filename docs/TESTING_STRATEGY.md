@@ -76,8 +76,16 @@ Suite de tests dédiée exécutant `JellyfinSource` contre plusieurs versions de
 
 ---
 
-## 11. Historique des révisions
+## 11. Checklist de validation
+
+- [ ] Chaque type de test a un seuil d'obligation clair par type de changement (§10), pas une recommandation vague.
+- [ ] Le périmètre restreint des tests visuels (`@melodia/ui` uniquement) est justifié explicitement (§7), pas laissé implicite.
+- [ ] Le gap E2E Mobile reste documenté de façon cohérente entre ce document, [[PROJECT_CHARTER.md]] §5 et [[TECH_STACK.md]] §1.
+- [ ] Les tests de contrat Jellyfin couvrent la plage de versions déclarée dans [[JELLYFIN_INTEGRATION.md]] §7.
+
+## 12. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Engineering Manager / Lead Frontend Engineer |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Engineering Manager / Lead Frontend Engineer |

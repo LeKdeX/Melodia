@@ -26,6 +26,8 @@ Checklists **opérationnelles**, ponctuelles et non liées à une fonctionnalit�
 - [ ] Rotation/validité des secrets de signature vérifiée ([[SECURITY_GUIDE.md]] §3).
 - [ ] Revue de sécurité effectuée si la release touche authentification/jetons/permissions natives ([[SECURITY_GUIDE.md]] §5).
 - [ ] Audit d'accessibilité manuel effectué si release mineure/majeure ([[DEFINITION_OF_DONE.md]]).
+- [ ] Zones ⚠️/❌ de [[EXTREME_SCENARIOS.md]] revues si la release touche l'échelle de bibliothèque, la synchronisation ou le responsive.
+- [ ] Nouveaux risques techniques introduits par la release ajoutés à [[RISK_REGISTER_TECHNICAL.md]] si applicable.
 - [ ] Artefacts Desktop/Mobile testés manuellement sur au moins un appareil réel par OS supporté ([[TECH_STACK.md]] §2).
 - [ ] `docs/` relu pour cohérence si la release introduit un changement structurant ([[PROJECT_CHARTER.md]] §7).
 - [ ] Entrée ajoutée au « Journal de phase » de `CLAUDE.md` si la release clôture une phase de [[ROADMAP.md]].
@@ -55,8 +57,14 @@ Checklists **opérationnelles**, ponctuelles et non liées à une fonctionnalit�
 
 ---
 
-## 6. Historique des révisions
+## 6. Checklist de validation (de ce document)
+
+- [ ] Chaque checklist opérationnelle reste distincte de [[DEFINITION_OF_DONE.md]] (par fonctionnalité) et de [[QUALITY_GATES.md]] (automatisé) — aucun chevauchement de contenu.
+- [ ] La checklist de release (§2) référence les documents du complément Phase 0.5 pertinents ([[RISK_REGISTER_TECHNICAL.md]], [[EXTREME_SCENARIOS.md]]) avant chaque release majeure touchant l'échelle ou la sécurité.
+
+## 7. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Engineering Manager |
+| 0.2.0 | 2026-08-03 | Ajout des renvois vers les documents du complément Phase 0.5 dans la checklist de release | Engineering Manager |

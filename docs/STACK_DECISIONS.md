@@ -73,8 +73,16 @@ Ce document ne re-décide **rien** de ce qui a déjà été tranché en Phase 0 
 
 ---
 
-## 4. Historique des révisions
+## 4. Checklist de validation
+
+- [ ] Chaque catégorie de [[TECH_STACK.md]] est confirmée sans être re-décidée.
+- [ ] Les deux décisions nouvelles (recherche, monorepo) ont une comparaison complète — voir [[TECHNOLOGY_COMPARISONS.md]] §7 et §1-3 respectivement pour le détail axe par axe.
+- [ ] Les risques de FlexSearch et du monorepo sont couverts dans [[RISK_REGISTER_TECHNICAL.md]] §1 et §3.
+- [ ] La tenue à 200 000-300 000 titres du couple FlexSearch/monorepo est validée dans [[EXTREME_SCENARIOS.md]] §1.
+
+## 5. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | CTO / Principal Software Architect |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Principal Software Architect |

@@ -45,8 +45,15 @@ Chaque entrée précise **comment** la violation est détectée, pas seulement p
 
 ---
 
-## 4. Historique des révisions
+## 4. Checklist de validation
+
+- [ ] Chaque anti-pattern du tableau (§2) a un mécanisme de détection réel, pas seulement une intention déclarée.
+- [ ] Le périmètre DDD (§1) reste proportionné — revérifié à chaque fin de phase, pas seulement à la création de ce document.
+- [ ] Aucun anti-pattern de cette liste ne duplique un principe déjà couvert dans [[ENGINEERING_GUIDE.md]] §1 sans y renvoyer.
+
+## 5. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | CTO / Principal Software Architect |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation | CTO / Principal Software Architect |

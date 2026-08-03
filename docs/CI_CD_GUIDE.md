@@ -64,8 +64,16 @@ Cache Turborepo partagé entre exécutions (remote cache GitHub Actions) : un jo
 
 ---
 
-## 6. Historique des révisions
+## 6. Checklist de validation
+
+- [ ] Chaque job de PR (§1) correspond à un gate défini dans [[QUALITY_GATES.md]] §1 — aucun gate sans job, aucun job sans gate.
+- [ ] Les jobs planifiés coûteux (E2E Desktop, fixture 200k, contrat Jellyfin) restent hors du chemin critique de chaque PR.
+- [ ] Le risque de cache Turborepo obsolète est couvert dans [[RISK_REGISTER_TECHNICAL.md]] §1.
+- [ ] Le pipeline de release couvre les trois cibles (Web/Desktop/Mobile) sans étape manuelle non documentée.
+
+## 7. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Lead DevOps Engineer |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Lead DevOps Engineer |

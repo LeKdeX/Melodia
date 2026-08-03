@@ -62,8 +62,16 @@ Changement de route annoncé aux technologies d'assistance (gestion du focus sur
 
 ---
 
-## 10. Historique des révisions
+## 10. Checklist de validation
+
+- [ ] Le choix TanStack Router vs React Router est justifié sur les sept axes de comparaison — voir [[TECHNOLOGY_COMPARISONS.md]] §5 pour l'axe TanStack Query connexe (même écosystème).
+- [ ] La résolution Next.js vs Vite est cohérente sur les trois documents qui la mentionnent ([[STACK_DECISIONS.md]] §1, [[TECHNOLOGY_COMPARISONS.md]] §2, ce document).
+- [ ] Le comportement responsive (petit écran, tactile, 4K) est validé dans [[EXTREME_SCENARIOS.md]] §4.
+- [ ] Aucun risque de re-render ou de dérive de layout n'est resté non documenté — voir [[RISK_REGISTER_TECHNICAL.md]] pour les risques transverses.
+
+## 11. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Lead Frontend Engineer |
+| 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Lead Frontend Engineer |
