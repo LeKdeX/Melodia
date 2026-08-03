@@ -14,11 +14,15 @@
 
 Si Melodia était une personne : quelqu'un de compétent qui n'a pas besoin de le prouver. Calme, précis, jamais bavard. La personne qui range sa collection de vinyles avec soin non pas pour impressionner mais parce que c'est ainsi qu'on prend soin de ce qu'on aime. Pas austère — capable de plaisir et de chaleur — mais jamais démonstratif.
 
+> **Approfondi en Phase 2** : [[PERSONALITY.md]] fait désormais autorité pour l'archétype de marque complet, les adjectifs à utiliser/éviter et le test de cohérence — ce paragraphe reste le résumé d'intention originel, non contredit.
+
 ## 2. Ton
 
 - **Direct, jamais familier de façon artificielle.** Pas de « Salut ! 👋 » ni de ton corporate-enjoué. Le produit parle quand il a quelque chose à dire, pas pour combler le silence.
 - **Confiant sans arrogance.** « Recherche instantanée » plutôt que « Recherche ultra-rapide propulsée par notre technologie exclusive » — l'affirmation sans la démonstration de force.
 - **Honnête sur ses limites.** Si une fonctionnalité est en dégradé (ex. absence de connexion, [[ARCHITECTURE_PRINCIPLES.md]] §5), le produit le dit clairement plutôt que de le masquer — cohérent avec la règle d'honnêteté déjà actée pour l'équipe (`CLAUDE.md`).
+
+> **Approfondi en Phase 2** : [[VOICE_AND_TONE.md]] fait désormais autorité pour les règles de ton par contexte (erreurs, succès, notifications, onboarding...) avec exemples concrets.
 
 ## 3. Émotions recherchées
 
@@ -48,6 +52,8 @@ Si Melodia était une personne : quelqu'un de compétent qui n'a pas besoin de l
 | Serveur (au sens Jellyfin de l'utilisateur) | Notre plateforme / nos serveurs (Melodia n'opère aucune infrastructure centrale, [[PROJECT_CHARTER.md]] §4) |
 | Votre musique | Le contenu (dépersonnalise ce qui est justement personnel) |
 
+> **Approfondi en Phase 2** : [[VOCABULARY.md]] fait désormais autorité pour le glossaire complet (contenu musical, découverte, infrastructure, confidentialité) et les formulations interdites.
+
 ## 6. Expérience et sensations recherchées
 
 - **Tactile et immédiat** : chaque interaction répond dans l'instant, sans latence perçue même si un traitement se poursuit en arrière-plan (cohérent avec l'UI optimiste, [[FRONTEND_ARCHITECTURE.md]] §8).
@@ -69,3 +75,4 @@ Si Melodia était une personne : quelqu'un de compétent qui n'a pas besoin de l
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1) | Behavioural Designer / Music Experience Designer |
+| 0.2.0 | 2026-08-03 | Phase 2 volume 1 : §1/§2/§5 renvoient vers PERSONALITY.md/VOICE_AND_TONE.md/VOCABULARY.md, désormais plus détaillés, sans contradiction ni duplication | Behavioural Designer |

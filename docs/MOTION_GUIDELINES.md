@@ -75,6 +75,17 @@ Aucune animation sur l'apparition des résultats au-delà d'un fondu très bref 
 
 `prefers-reduced-motion` remplace systématiquement les animations de transformation (translation, échelle, rotation) par de simples fondus courts (catégorie Micro), jamais par une absence totale de transition qui rendrait un changement d'état imperceptible ([[DESIGN_SYSTEM_ARCHITECTURE.md]] §5). Le réglage « niveau d'animation » des paramètres ([[SETTINGS_SPECIFICATION.md]] §4) offre un contrôle plus fin (complet/réduit/off) au-dessus de ce comportement de base.
 
+## 12bis. Personnalité de mouvement (ajout Phase 2 volume 2)
+
+> Section ajoutée plutôt que de créer un `MOTION_BRANDING.md` séparé — la personnalité de marque du mouvement est une extension directe des règles déjà posées ci-dessus, jamais un second système.
+
+Le mouvement de Melodia est **posé et intentionnel**, jamais rapide au point de paraître nerveux ni lent au point de paraître hésitant — cohérent avec l'archétype du Sage discret ([[PERSONALITY.md]] §1). Deux techniques de transition, en plus des catégories déjà définies (§1-11), complètent le vocabulaire de mouvement :
+
+- **Shared Element Transition** : l'élément cliqué (pochette, carte) est le même objet visuel qui se retransforme vers son état suivant, jamais deux éléments distincts qui s'échangent ([[UX_PRINCIPLES.md]] §2 déjà l'exige côté produit — ceci en est la traduction technique de mouvement). Utilisé pour toute navigation vers une page de détail (§4 déjà défini) et pour les transitions du lecteur (§5).
+- **Hero Animation** : variante de la Shared Element Transition réservée à un seul contexte — l'ouverture du Fullscreen Player depuis n'importe quelle forme du lecteur ([[PLAYER_SPECIFICATION.md]] §2), où la pochette grossit et devient le sujet dominant de l'écran. Réservée à ce contexte unique pour rester un moment reconnaissable, jamais généralisée à d'autres écrans.
+- **Ripple** : non retenu comme retour tactile générique — un ripple sur chaque pression ajouterait un mouvement sur des centaines d'interactions par session sans bénéfice fonctionnel, contraire à [[UX_PRINCIPLES.md]] §2. Le retour « pressed » reste la micro-interaction d'échelle déjà définie ([[INTERACTION_GUIDELINES.md]] §4).
+- **Skeleton (squelette de chargement)** : respecte la structure finale du composant (déjà spécifié en [[SCREEN_SPECIFICATIONS.md]] §7), pulsation douce et lente (catégorie Ambiance, §1) — jamais un shimmer rapide qui attirerait l'œil plus que le contenu réel une fois chargé.
+
 ---
 
 ## 13. Règles de synthèse
@@ -100,3 +111,4 @@ Aucune animation sur l'apparition des résultats au-delà d'un fondu très bref 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 3) | Motion Designer / Principal Interaction Designer |
+| 0.2.0 | 2026-08-03 | Phase 2 volume 2 : ajout §12bis (personnalité de mouvement, shared element/hero/ripple/skeleton) plutôt que MOTION_BRANDING.md en doublon | Motion Art Director |

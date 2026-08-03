@@ -123,6 +123,55 @@ Ces 14 documents définissent précisément *ce que le produit fait*, fonctionna
 | [[EMPTY_STATES_GUIDE.md]] | Traitement illustratif et rédactionnel des états vides | Motion Designer / Behavioural Designer |
 | [[WIREFRAMES_FUNCTIONAL.md]] | Wireframes textuels des écrans principaux, desktop et mobile | Product Designer / Information Architect |
 
+### Phase 2 — Brand Bible (volume 1) : identité, positionnement, ADN de marque
+
+8 nouveaux documents. `MISSION.md` et `VALUES.md` demandés par ce cadrage n'ont pas été créés séparément — une seule marque, un seul produit : [[MISSION.md]] (Phase 1) et [[PRODUCT_VALUES.md]] §4 (Phase 1) restent les sources de vérité, décision confirmée avec l'utilisateur. [[PRODUCT_VALUES.md]] §1/§2/§5 ont été étendus pour renvoyer vers les nouveaux documents plus détaillés ci-dessous plutôt que dupliqués.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[BRAND_BIBLE.md]] | Synthèse capstone, renvoie explicitement vers MISSION.md/PRODUCT_VALUES.md pour mission/valeurs sans les redéfinir | Brand Strategist / Creative Director |
+| [[PERSONALITY.md]] | Archétype de marque, adjectifs à utiliser/éviter — approfondit [[PRODUCT_VALUES.md]] §1 | Brand Strategist / Creative Director |
+| [[POSITIONING.md]] | Positionnement face aux lecteurs musicaux et aux marques premium non musicales | Brand Strategist / Marketing Director |
+| [[VOICE_AND_TONE.md]] | Règles de rédaction par contexte avec exemples — approfondit [[PRODUCT_VALUES.md]] §2 | Copywriter / UX Writer |
+| [[VOCABULARY.md]] | Glossaire officiel complet — approfondit [[PRODUCT_VALUES.md]] §5 | Copywriter / UX Writer |
+| [[VISUAL_DIRECTION.md]] | Orientations visuelles directionnelles — aucune valeur finale (couleur/police/logo) | Art Director / Visual Identity Designer |
+| [[BRAND_PRINCIPLES.md]] | Constitution stratégique de marque, au-dessus du produit et de l'UX | Brand Strategist / Creative Director |
+| [[COMPETITIVE_BRAND_ANALYSIS.md]] | Analyse de 8 identités de marque (musicales et non musicales) | Art Director / Brand Designer |
+
+### Phase 2 — Visual Identity System (volume 2) : langage visuel et direction artistique
+
+11 nouveaux documents. **`COLOR_SYSTEM.md`, `TYPOGRAPHY_GUIDE.md` et `LOGO_GUIDE.md` contiennent des propositions v1 explicitement non finales** — jugements de goût nécessitant un retour humain direct avant implémentation, cohérent avec `CLAUDE.md`. `MOTION_BRANDING.md`, `ACCESSIBILITY_VISUAL_GUIDE.md` et `ART_DIRECTION.md` demandés par ce cadrage n'ont pas été créés séparément — [[MOTION_GUIDELINES.md]] §12bis, [[ACCESSIBILITY_GUIDE.md]] §3bis et [[VISUAL_DIRECTION.md]] §7bis les couvrent par extension.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[VISUAL_IDENTITY_SYSTEM.md]] | Synthèse capstone, distingue explicitement ce qui est établi de ce qui est proposition v1 | Creative Director / UI Art Director |
+| [[DESIGN_TOKENS.md]] | Architecture complète des tokens (12 catégories), échelle de z-index fermée | Senior Visual Designer / UI Art Director |
+| [[COLOR_SYSTEM.md]] | Palette, thèmes, contraste — **proposition v1** | Color Specialist / Senior Visual Designer |
+| [[TYPOGRAPHY_GUIDE.md]] | Familles, échelle, graisses — **proposition v1** | Typography Expert / Senior Visual Designer |
+| [[ICONOGRAPHY_GUIDE.md]] | Style et règles d'usage des icônes (Lucide déjà acté) | Icon Designer / Senior Visual Designer |
+| [[ILLUSTRATION_GUIDE.md]] | Style d'illustration par contexte | Illustration Designer / Senior Visual Designer |
+| [[LAYOUT_SYSTEM.md]] | Grilles desktop/tablette/mobile | UI Art Director / Senior Visual Designer |
+| [[SURFACE_SYSTEM.md]] | Élévation, ombres, flou, profondeur | UI Art Director / Senior Visual Designer |
+| [[THEMES_GUIDE.md]] | 8 expériences de thème, usages et contraintes | Senior Visual Designer / Creative Director |
+| [[LOGO_GUIDE.md]] | Brief conceptuel et règles d'usage — **pas un logo final** | Brand Designer / Creative Director |
+| [[SOUND_DESIGN_GUIDE.md]] | Identité sonore UI, volontairement minimale | Motion Art Director / Creative Director |
+
+### Phase 3 — Language System : voix, ton, microcopy, traduction
+
+9 nouveaux documents + extension de [[VOICE_AND_TONE.md]] (§3bis, §3ter). **`VOICE_AND_TONE_GUIDE.md`, `GLOSSARY.md`, `ERROR_COPY_GUIDE.md` et `EMPTY_STATE_COPY.md` demandés par ce cadrage n'ont pas été créés séparément** — [[VOICE_AND_TONE.md]] (déjà propriétaire du ton par situation), [[VOCABULARY.md]] (déjà propriétaire du glossaire de marque), et [[ERROR_STATES.md]]/[[ERROR_EXPERIENCE.md]] et [[EMPTY_STATES.md]]/[[EMPTY_STATES_GUIDE.md]] (déjà propriétaires du texte et du ton des erreurs/états vides) les couvrent. La section « NOMMAGE » du cadrage est repliée dans [[STYLE_GUIDE.md]] §6 plutôt que d'avoir un fichier dédié. Détail complet des consolidations : [[LANGUAGE_SYSTEM.md]] §2.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[LANGUAGE_SYSTEM.md]] | Synthèse capstone, carte du système de langage, cohérence cross-canal | UX Writer Senior / Content Design Lead |
+| [[UX_WRITING_GUIDE.md]] | Mécanique d'écriture (grammaire, structure, longueur), indépendante du ton | UX Writer Senior / Content Designer |
+| [[MICROCOPY_LIBRARY.md]] | Règles mécaniques du texte atomique (boutons, labels, inputs, badges) | Content Designer / UX Writer Senior |
+| [[DIALOG_LIBRARY.md]] | Texte complet des confirmations destructives | UX Writer Senior / Conversation Designer |
+| [[TOOLTIP_LIBRARY.md]] | Texte des tooltips, zone par zone | UX Writer Senior / Content Designer |
+| [[NOTIFICATION_LIBRARY.md]] | Texte des notifications et toasts | UX Writer Senior / Content Designer |
+| [[ONBOARDING_COPY.md]] | Texte verbatim de la première expérience | UX Writer Senior / Conversation Designer |
+| [[LOCALIZATION_GUIDE.md]] | Conventions rendant le texte source traduisible | UX Writer Senior / Localization Lead |
+| [[STYLE_GUIDE.md]] | Ponctuation, capitalisation, emoji, dates/nombres/unités, nommage des objets utilisateur | UX Writer Senior / Content Designer |
+
 Emplacement physique : tous les documents fondateurs vivent dans `docs/` à la racine du dépôt. Les ADR individuels vivent dans `docs/adr/`.
 
 ---
@@ -164,3 +213,6 @@ Le « propriétaire » d'un document (tableau §1) est responsable de sa cohére
 | 0.4.0 | 2026-08-03 | Ajout de la carte des 10 documents Phase 1 (Product Bible volume 1) ; clarification que ROADMAP.md porte la vue produit sans PRODUCT_ROADMAP.md séparé | Engineering Manager |
 | 0.5.0 | 2026-08-03 | Ajout de la carte des 14 documents Phase 1 volume 2 (Feature Bible) | Engineering Manager |
 | 0.6.0 | 2026-08-03 | Ajout de la carte des 11 documents Phase 1 volume 3 (UX Bible) ; INTERACTION_GUIDELINES.md étendu plutôt que dupliqué sous INTERACTION_GUIDE.md | Engineering Manager |
+| 0.7.0 | 2026-08-03 | Ajout de la carte des 8 documents Phase 2 volume 1 (Brand Bible) ; MISSION.md/VALUES.md non dupliqués, PRODUCT_VALUES.md §1/§2/§5 étendus | Engineering Manager |
+| 0.8.0 | 2026-08-03 | Ajout de la carte des 11 documents Phase 2 volume 2 (Visual Identity System) ; MOTION_BRANDING.md/ACCESSIBILITY_VISUAL_GUIDE.md/ART_DIRECTION.md non dupliqués | Engineering Manager |
+| 0.9.0 | 2026-08-03 | Ajout de la carte des 9 documents Phase 3 (Language System) ; VOICE_AND_TONE_GUIDE.md/GLOSSARY.md/ERROR_COPY_GUIDE.md/EMPTY_STATE_COPY.md non dupliqués, section NOMMAGE repliée dans STYLE_GUIDE.md §6 | Engineering Manager |

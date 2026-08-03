@@ -28,6 +28,14 @@
 
 Conforme au seuil déjà acté ([[PROJECT_CHARTER.md]] §3.6). Cas particulier : la palette dynamique extraite des pochettes ([[PLAYER_SPECIFICATION.md]] §4) est systématiquement vérifiée par un algorithme de contraste minimum avant application au texte — une pochette dont les couleurs ne passeraient pas le seuil ne bloque jamais la lisibilité, un texte de secours à contraste garanti prend le relais.
 
+## 3bis. Daltonisme (ajout Phase 2 volume 2)
+
+> Section ajoutée plutôt que de créer un `ACCESSIBILITY_VISUAL_GUIDE.md` séparé — cette contrainte s'ajoute directement aux règles de contraste déjà posées ci-dessus.
+
+- **Aucune information n'est portée par la couleur seule**, nulle part dans l'application : chaque couleur d'état de [[COLOR_SYSTEM.md]] §5 (succès/avertissement/erreur/information) est systématiquement accompagnée d'une icône ou d'un libellé distinct — un utilisateur daltonien doit pouvoir distinguer un succès d'une erreur sans percevoir la teinte.
+- Les couleurs d'accent (`accent-500` et `accent-warm-500`, [[COLOR_SYSTEM.md]] §3-4) sont choisies avec un écart de luminosité suffisant entre elles pour rester distinguables en simulation de daltonisme (protanopie, deutéranopie, tritanopie) — à vérifier explicitement au moment de valider les valeurs finales de [[COLOR_SYSTEM.md]] (encore en v1 à ce stade).
+- Le thème Minimal ([[THEMES_GUIDE.md]] §4) constitue un repli naturel pour un utilisateur daltonien qui préfère minimiser sa dépendance à la couleur — sans être présenté comme un « mode daltonien » séparé et stigmatisant, cohérent avec [[PRODUCT_VALUES.md]] §2 (jamais infantilisant).
+
 ## 4. Réduction des animations
 
 `prefers-reduced-motion` respecté par défaut ([[MOTION_GUIDELINES.md]] §12), réglage applicatif plus fin disponible en paramètres ([[SETTINGS_SPECIFICATION.md]] §4) — les deux mécanismes coexistent, le second n'annule jamais le premier par défaut.
@@ -67,6 +75,7 @@ Le layout reste fonctionnel jusqu'à 200 % de zoom texte sans perte de contenu n
 - [ ] Chaque pattern ARIA du §8 est appliqué de façon cohérente à travers toute l'application, pas une fois par composant réinventé.
 - [ ] Les commandes vocales restent explicitement non engagées, jamais implicitement promises.
 - [ ] Le niveau cible WCAG reste celui de [[PROJECT_CHARTER.md]] §3.6, non redéfini ici.
+- [ ] Aucune information n'est portée par la couleur seule (§3bis).
 
 ---
 
@@ -75,3 +84,4 @@ Le layout reste fonctionnel jusqu'à 200 % de zoom texte sans perte de contenu n
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 3) | Accessibility Specialist / Human Interface Designer |
+| 0.2.0 | 2026-08-03 | Phase 2 volume 2 : ajout §3bis (daltonisme) plutôt qu'ACCESSIBILITY_VISUAL_GUIDE.md en doublon | Accessibility Specialist |
