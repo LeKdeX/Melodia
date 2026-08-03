@@ -50,18 +50,27 @@ Tous les sons d'interface (y compris celui de l'erreur bloquante) sont désactiv
 
 Tout son d'interface joue à un volume nettement inférieur au volume de lecture musicale actif, jamais au même niveau — un son d'interface qui surprend par son volume serait un défaut, pas une identité sonore réussie.
 
+## 7. Redondance sonore et haptique (ajout Phase 4)
+
+> Section ajoutée plutôt que de créer un `SOUND_EXPERIENCE.md` séparé — le cadrage de la Premium Experience Bible redemande la même liste d'événements déjà tranchée au §4 (« volontairement minimal ») ; recréer un second document sur le même sujet aurait contredit la décision déjà prise sans la faire évoluer. Cette section ajoute les deux angles réellement nouveaux : l'accessibilité et le haptique.
+
+- **Redondance d'accessibilité** : le son de l'erreur bloquante (§4) n'est jamais le seul canal d'alerte — chaque événement qui produit un son a systématiquement un équivalent visuel et, si pertinent, une annonce `aria-live` ([[ACCESSIBILITY_GUIDE.md]] §2), pour qu'un utilisateur sourd ou malentendant ne perde jamais d'information. Le son est un renforcement, jamais un canal exclusif.
+- **Architecture future haptique** : sur une future application mobile (voir [[INTERACTION_LIBRARY.md]] §Future Haptics), les deux événements sonores définis ici (§4) sont les candidats naturels à un retour haptique équivalent — un son bref et un retour haptique bref partagent la même justification (alerter sans interrompre). Aucune décision d'implémentation haptique n'est prise ici, seule la cohérence de principe est notée pour éviter une divergence future entre les deux canaux.
+
 ---
 
-## 7. Checklist de validation
+## 8. Checklist de validation
 
 - [ ] Chaque catégorie d'événement demandée dans le cadrage a une décision explicite (son ou pas de son), pas une omission silencieuse.
 - [ ] Tous les sons sont désactivables sans exception.
 - [ ] Aucun son ne peut jamais couvrir la musique en cours de lecture.
+- [ ] Chaque son a un équivalent visuel/annoncé, jamais un canal exclusif.
 
 ---
 
-## 8. Historique des révisions
+## 9. Historique des révisions
 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 2, volume 2) | Motion Art Director / Creative Director |
+| 0.2.0 | 2026-08-03 | Phase 4 : ajout §7 (redondance sonore/haptique) plutôt que SOUND_EXPERIENCE.md en doublon | Sound Designer |

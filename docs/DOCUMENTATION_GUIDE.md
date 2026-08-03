@@ -172,6 +172,23 @@ Ces 14 documents définissent précisément *ce que le produit fait*, fonctionna
 | [[LOCALIZATION_GUIDE.md]] | Conventions rendant le texte source traduisible | UX Writer Senior / Localization Lead |
 | [[STYLE_GUIDE.md]] | Ponctuation, capitalisation, emoji, dates/nombres/unités, nommage des objets utilisateur | UX Writer Senior / Content Designer |
 
+### Phase 4 — Premium Experience Bible : motion, interaction, feedback sensoriel
+
+10 nouveaux documents + extension de [[MOTION_GUIDELINES.md]] (§12ter) et [[SOUND_DESIGN_GUIDE.md]] (§7). **`MOTION_SYSTEM.md` et `SOUND_EXPERIENCE.md` demandés par ce cadrage n'ont pas été créés séparément** — [[MOTION_GUIDELINES.md]] (déjà propriétaire des durées/courbes/catégories) et [[SOUND_DESIGN_GUIDE.md]] (déjà propriétaire de l'identité sonore, déjà volontairement minimale) les couvrent par extension plutôt que par duplication. Détail complet des consolidations : [[PREMIUM_EXPERIENCE_BIBLE.md]] §5.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[PREMIUM_EXPERIENCE_BIBLE.md]] | Synthèse capstone : philosophie, perception de performance, états d'attente, références, carte de la phase | Experience Design Director |
+| [[INTERACTION_LIBRARY.md]] | Catalogue exhaustif des micro-interactions non déjà couvertes par [[INTERACTION_GUIDELINES.md]], + Future Haptics | Interaction Designer / Principal Motion Designer |
+| [[PLAYER_EXPERIENCE.md]] | Chorégraphie sensorielle du lecteur | Human Interface Specialist / Principal Motion Designer |
+| [[ANIMATION_LIBRARY.md]] | Bibliothèque officielle des animations nommées (gabarit à 10 champs) | Principal Motion Designer / Performance UX Engineer |
+| [[TRANSITION_GUIDE.md]] | Les 9 transitions de page nommées du cadrage | Interaction Designer / Human Interface Specialist |
+| [[SKELETON_SYSTEM.md]] | Écrans de chargement par section | Performance UX Engineer / Product Designer |
+| [[VISUAL_FEEDBACK_GUIDE.md]] | Chorégraphie visuelle par type de résultat | Perception Psychologist / Interaction Designer |
+| [[DYNAMIC_THEME_GUIDE.md]] | Chorégraphie du thème dynamique (dégradé, lumière ambiante, profondeur) | Principal Motion Designer / Perception Psychologist |
+| [[IMMERSION_GUIDE.md]] | Objectifs d'immersion reliant plein écran/Focus/Nuit/visualiseur/paroles | Experience Design Director / Human Interface Specialist |
+| [[PREMIUM_DETAILS.md]] | 110 détails premium décrits et justifiés | Product Designer / Experience Design Director |
+
 Emplacement physique : tous les documents fondateurs vivent dans `docs/` à la racine du dépôt. Les ADR individuels vivent dans `docs/adr/`.
 
 ---
@@ -216,3 +233,4 @@ Le « propriétaire » d'un document (tableau §1) est responsable de sa cohére
 | 0.7.0 | 2026-08-03 | Ajout de la carte des 8 documents Phase 2 volume 1 (Brand Bible) ; MISSION.md/VALUES.md non dupliqués, PRODUCT_VALUES.md §1/§2/§5 étendus | Engineering Manager |
 | 0.8.0 | 2026-08-03 | Ajout de la carte des 11 documents Phase 2 volume 2 (Visual Identity System) ; MOTION_BRANDING.md/ACCESSIBILITY_VISUAL_GUIDE.md/ART_DIRECTION.md non dupliqués | Engineering Manager |
 | 0.9.0 | 2026-08-03 | Ajout de la carte des 9 documents Phase 3 (Language System) ; VOICE_AND_TONE_GUIDE.md/GLOSSARY.md/ERROR_COPY_GUIDE.md/EMPTY_STATE_COPY.md non dupliqués, section NOMMAGE repliée dans STYLE_GUIDE.md §6 | Engineering Manager |
+| 0.10.0 | 2026-08-03 | Ajout de la carte des 10 documents Phase 4 (Premium Experience Bible) ; MOTION_SYSTEM.md/SOUND_EXPERIENCE.md non dupliqués | Engineering Manager |

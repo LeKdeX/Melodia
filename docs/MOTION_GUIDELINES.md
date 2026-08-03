@@ -86,6 +86,28 @@ Le mouvement de Melodia est **posé et intentionnel**, jamais rapide au point de
 - **Ripple** : non retenu comme retour tactile générique — un ripple sur chaque pression ajouterait un mouvement sur des centaines d'interactions par session sans bénéfice fonctionnel, contraire à [[UX_PRINCIPLES.md]] §2. Le retour « pressed » reste la micro-interaction d'échelle déjà définie ([[INTERACTION_GUIDELINES.md]] §4).
 - **Skeleton (squelette de chargement)** : respecte la structure finale du composant (déjà spécifié en [[SCREEN_SPECIFICATIONS.md]] §7), pulsation douce et lente (catégorie Ambiance, §1) — jamais un shimmer rapide qui attirerait l'œil plus que le contenu réel une fois chargé.
 
+## 12ter. Rythme, rebond, élasticité, chorégraphie d'opacité et priorités (ajout Phase 4)
+
+> Section ajoutée plutôt que de créer un `MOTION_SYSTEM.md` séparé — le cadrage de la Premium Experience Bible demande un « langage de mouvement » complet (durées, courbes, rythme, rebond, élasticité, opacité, priorités), mais les durées et courbes existent déjà (§1-2) : dupliquer l'ensemble aurait recréé le même système sous un autre nom. Cette section ajoute uniquement les propriétés réellement absentes. Voir [[PREMIUM_EXPERIENCE_BIBLE.md]] pour la lecture organisée en catégories micro/standard/navigation/immersive de l'ensemble §1-12ter.
+
+### Rythme
+
+Le rythme n'est pas une propriété d'une seule animation mais la relation temporelle entre plusieurs animations déclenchées ensemble. Règle : un événement qui déclenche plusieurs changements visuels (ex. ouverture du Fullscreen Player : pochette + palette + contrôles + paroles) anime ses éléments avec un léger décalage progressif (`stagger`, 20-40 ms entre chaque élément) plutôt que tous simultanément — un mouvement parfaitement synchronisé sur plusieurs éléments est perçu comme mécanique, un léger décalage est perçu comme organique. Le décalage reste toujours inférieur à la durée totale de la catégorie concernée (§1), jamais assez long pour donner une impression de lenteur.
+
+### Rebond et élasticité
+
+Au-delà de la courbe `emphasis` déjà définie (§2, léger dépassement puis retour), deux usages précis et volontairement rares :
+- **Rebond (overshoot prononcé)** : réservé à une seule confirmation, l'ajout aux favoris (cohérent avec [[INTERACTION_GUIDELINES.md]] §4) — l'icône dépasse légèrement sa taille finale avant de s'y stabiliser. Jamais utilisé sur une action répétée à haute fréquence (lecture/pause), où l'effet deviendrait fatigant plutôt qu'agréable.
+- **Élasticité (résistance progressive)** : réservée aux gestes de glissement avec limite physique (ex. tirer l'Expanded Player au-delà de sa position de repos avant relâchement) — la résistance augmente à mesure que le geste s'éloigne de la position naturelle, puis l'élément revient avec la courbe `standard` (§2) au relâchement. Communique une limite physique sans message d'erreur explicite.
+
+### Chorégraphie d'opacité
+
+L'opacité ne varie jamais seule sur un élément qui change aussi de position ou de taille — elle est toujours couplée à une transformation géométrique (translation/échelle), jamais un simple fondu isolé sur un élément qui bouge, ce qui produirait une sensation de flottement plutôt que de déplacement. Exception unique : les éléments purement informatifs sans mouvement associé (toasts déjà en place, indicateurs de statut) où un fondu seul reste approprié.
+
+### Priorités et orchestration
+
+Quand plusieurs animations entrent en conflit pour les mêmes ressources (CPU/GPU) au même instant (ex. changement de piste pendant un défilement rapide de liste), l'ordre de priorité est : 1) réactivité de l'interaction en cours (défilement, glissement actif) — jamais interrompue ; 2) état du lecteur (barre de progression, transition de piste) ; 3) animations d'ambiance (palette dynamique, pulsation de synchronisation) — les premières à être simplifiées ou différées en cas de contention. Cohérent avec la règle de synthèse déjà posée (§13.4) : la performance prime toujours sur l'esthétique en cas de conflit.
+
 ---
 
 ## 13. Règles de synthèse
@@ -112,3 +134,4 @@ Le mouvement de Melodia est **posé et intentionnel**, jamais rapide au point de
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 3) | Motion Designer / Principal Interaction Designer |
 | 0.2.0 | 2026-08-03 | Phase 2 volume 2 : ajout §12bis (personnalité de mouvement, shared element/hero/ripple/skeleton) plutôt que MOTION_BRANDING.md en doublon | Motion Art Director |
+| 0.3.0 | 2026-08-03 | Phase 4 : ajout §12ter (rythme, rebond, élasticité, chorégraphie d'opacité, priorités) plutôt que MOTION_SYSTEM.md en doublon | Principal Motion Designer |
