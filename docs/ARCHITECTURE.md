@@ -79,6 +79,23 @@ Cette table est la version concrète, vérifiable par les outils, de la règle d
 - À l'intérieur d'un package, les alias définis dans [[CODING_STANDARDS.md]] §3 restent inchangés (`@features/*`, `@entities/*`, etc., résolus relativement à la racine de `packages/app` ou `packages/core` selon le package).
 - `packages/config` fournit un `tsconfig.base.json`, une configuration ESLint partagée et un preset Tailwind, étendus par chaque package — jamais dupliqués (cohérent avec [[ENGINEERING_GUIDE.md]] §1.3).
 
+## 3bis. Matrice de dépendance au niveau module (ajout Phase 12)
+
+> Le tableau §2 fixe les frontières entre **packages** (`@melodia/core`, `@melodia/ui`...). Cette section descend d'un niveau : quelles **features** (à l'intérieur de `packages/app/src/features/`, voir [[MODULES.md]] pour la liste complète) peuvent s'importer entre elles.
+
+| Feature | Peut importer | Ne doit jamais importer directement |
+|---|---|---|
+| `player` | `@melodia/core`, `queue` (surface publique uniquement) | `library`, `search`, `settings` — un changement de piste passe par un événement applicatif typé ([[CODING_STANDARDS.md]] §4.8), jamais un import direct de leur état interne |
+| `queue` | `@melodia/core` | Toute feature d'affichage (`library`, `search`) — la file ne connaît que des identifiants de domaine, jamais un composant de présentation d'une autre feature |
+| `library`, `albums`, `artists`, `tracks` | `@melodia/core`, `@melodia/ui` | `player`, `queue` (la bibliothèque n'a pas besoin de connaître l'état de lecture pour s'afficher — le statut « en cours de lecture » lui est fourni par un sélecteur dérivé, [[DATA_LAYER.md]] §1, jamais une dépendance directe) |
+| `downloads`, `cache`, `sync` | `@melodia/core`, `@melodia/platform` | Toute feature d'affichage — ce sont des modules de fond, jamais consommateurs directs de `library`/`player` |
+| `search` | `@melodia/core` (index FlexSearch) | `library` (les résultats de recherche réutilisent les mêmes composants de carte via `@melodia/ui`, jamais en importent la logique depuis `library` directement) |
+| `statistics` | `@melodia/core` (historique local) | `player`, `queue` en temps réel — les statistiques consomment un flux d'événements déjà enregistré, jamais l'état de lecture actif directement |
+| `settings`, `themes`, `notifications` | `@melodia/core`, `@melodia/platform` | Toute feature métier (`library`, `player`) — ce sont des modules transverses consommés, jamais consommateurs |
+| `diagnostics`, `developer`, `labs` | Toutes les autres features, en **lecture seule** (métriques exposées, jamais un import de leur logique interne) | — seules features autorisées à observer transversalement, jamais à agir directement sur l'état d'une autre feature |
+
+**Règle générale** : cohérente avec [[CODING_STANDARDS.md]] §1 déjà acté — une feature n'importe jamais l'intérieur d'une autre feature, uniquement sa surface publique (`index.ts`) ou un événement applicatif typé. Le tableau ci-dessus rend explicite, feature par feature, ce que cette règle générale signifie concrètement — détectable par le même linter d'architecture (`eslint-plugin-boundaries`) déjà configuré.
+
 ---
 
 ## 4. Ce que cette structure ne fait pas encore
@@ -100,3 +117,4 @@ Conformément à [[ARCHITECTURE_PRINCIPLES.md]] §8 (préparer sans sur-construi
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Principal Software Architect |
 | 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Principal Software Architect |
+| 0.3.0 | 2026-08-04 | Phase 12 : ajout §3bis (matrice de dépendance au niveau module/feature) — au lieu de créer DEPENDENCY_RULES.md en doublon | Principal Software Architect |

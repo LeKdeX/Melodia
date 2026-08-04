@@ -43,6 +43,21 @@ src/
 
 **Règle** : une `feature` ne peut jamais importer directement l'intérieur d'une autre `feature` — uniquement son `index.ts` (surface publique). Une violation est bloquée par le linter d'architecture (`eslint-plugin-boundaries` ou équivalent configuré en CI).
 
+### 1bis. Dossiers complémentaires (ajout Phase 12)
+
+Ces dossiers existent déjà implicitement (répartis dans `app/` et `shared/` ci-dessus) — nommés ici explicitement pour lever toute ambiguïté :
+
+| Dossier | Contenu | Localisation |
+|---|---|---|
+| `layouts/` | Compositions de mise en page réutilisables entre plusieurs routes (ex. layout avec Sidebar + zone de contenu) | `app/layouts/` — jamais dans une feature individuelle, un layout est par nature transverse |
+| `providers/` | Contextes React globaux (`AppProviders`, voir [[FRONTEND_ARCHITECTURE.md]] §6) | `app/providers/` |
+| `styles/` | Styles globaux non couverts par Tailwind utilitaire (reset, polices `@font-face`) | `shared/styles/` — jamais de styles de composant individuel ici, qui vivent avec leur composant |
+| `assets/` | Ressources statiques (illustrations d'état vide, icônes non couvertes par la bibliothèque d'icônes) | `shared/assets/` |
+| `workers/` | Web Workers (calcul d'agrégats statistiques, indexation FlexSearch en arrière-plan) | `shared/workers/`, un fichier par worker, jamais un worker unique fourre-tout |
+| `tests/` | Fixtures et utilitaires de test partagés (mocks MSW, données de test) — jamais les tests eux-mêmes, qui vivent au plus près du code testé (`Component.test.tsx` à côté de `Component.tsx`) | `shared/tests/` pour les fixtures uniquement |
+
+`config/` (variables d'environnement, configuration runtime) vit au niveau du package (`packages/config/`, déjà défini §3 de [[ARCHITECTURE.md]]) — voir [[CONFIGURATION_GUIDE.md]] pour le détail, non redécidé ici.
+
 **Pourquoi Feature-Driven plutôt que par type technique (`components/`, `hooks/`, `store/` à plat)** : à l'échelle visée (plusieurs contributeurs, plusieurs années), grouper par domaine produit rend la suppression ou l'extraction d'une fonctionnalité triviale (un dossier), et limite le couplage accidentel entre fonctionnalités non liées. C'est l'application directe du principe de frontières de module ([[ARCHITECTURE_PRINCIPLES.md]] §7) au niveau du système de fichiers.
 
 ---
@@ -61,6 +76,8 @@ src/
 | Fichiers utilitaires | `camelCase` | `formatDuration.ts` |
 | Événements applicatifs | `domaine.action` en `camelCase` | `player.trackChanged`, `library.syncCompleted` |
 | Tests | même nom que le fichier testé, suffixe `.test.ts(x)` | `usePlaybackQueue.test.ts` |
+| Dossiers (ajout Phase 12) | `kebab-case` si multi-mots, sinon minuscule simple — jamais `camelCase`/`PascalCase` pour un nom de dossier | `playback-queue/`, `library/` |
+| Assets (ajout Phase 12) | `kebab-case`, préfixe du type si ambigu | `empty-state-library.svg`, `icon-cast.svg` |
 
 **Règle générale** : le nom doit permettre de déduire le rôle sans ouvrir le fichier. Un nom qui nécessite un commentaire d'explication est un nom à revoir (voir [[ENGINEERING_GUIDE.md]] §1.6, explicite plutôt qu'astucieux).
 
@@ -133,3 +150,4 @@ Un dépassement n'est pas automatiquement bloquant mais doit être justifié exp
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Principal Frontend Engineer |
 | 0.1.1 | 2026-08-03 | Amendement Phase 0.5 : nichage de `src/` dans `packages/app` et `packages/core` suite à l'adoption du monorepo (voir [[ARCHITECTURE.md]]) | Principal Software Architect |
+| 0.2.0 | 2026-08-04 | Phase 12 : ajout §1bis (dossiers layouts/providers/styles/assets/workers/tests) et complément au tableau de nommage (dossiers, assets) — au lieu de créer PROJECT_STRUCTURE.md/NAMING_CONVENTIONS.md en doublon | Staff Frontend Engineer |

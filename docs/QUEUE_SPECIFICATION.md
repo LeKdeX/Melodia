@@ -43,6 +43,18 @@ Une file générée automatiquement (ex. depuis un album : ajout automatique de 
 - Sauvegarde automatique de l'état de la file dans `LocalStore` à chaque modification ([[DATA_LAYER.md]] §2.1, `playback_state`).
 - Synchronisation multi-appareils de la file : dépend de la stratégie de résolution de conflit non encore actée par ADR ([[ARCHITECTURE_PRINCIPLES.md]] §3.3) — statut ouvert, cohérent avec [[USER_JOURNEYS.md]] §13.
 
+## 6bis. Filtres et recherche dans la file (ajout Phase 9)
+
+Au-delà d'une trentaine de titres dans la file, un champ de filtrage local (jamais une nouvelle instance de `SearchField`, [[SEARCH_COMPONENTS.md]] — un filtre simple, sans indexation ni suggestions) permet de localiser une piste déjà en file par titre/artiste. **Règle** : filtre uniquement le sous-ensemble déjà en file, jamais une recherche qui ajouterait de nouveaux titres à la file depuis ce champ (une recherche qui ajoute utilise la recherche globale existante, [[COMMAND_PALETTE.md]] ou [[SEARCH_COMPONENTS.md]]).
+
+## 6ter. Sauvegarde et restauration explicites (ajout Phase 9)
+
+Distinct de la persistance automatique déjà actée (§6, sauvegarde continue dans `LocalStore`) : l'utilisateur peut explicitement **sauvegarder l'état actuel de la file comme playlist** (action ponctuelle, jamais un lien vivant qui se resynchroniserait avec la file) — cohérent avec la distinction déjà établie entre file (éphémère par nature) et playlist (collection durable, [[PLAYLIST_SPECIFICATION.md]]). Aucune fonctionnalité de « restauration d'une file précédente » au-delà de la persistance automatique déjà actée (§6) n'est engagée à ce jour.
+
+## 6quater. Synchronisation multi-appareils (statut clarifié, ajout Phase 9)
+
+Le statut reste ouvert (§6 le signale déjà) — cette section ajoute uniquement la contrainte de sécurité déjà déductible des principes du produit, pour éviter qu'une future implémentation la découvre tardivement : si la synchronisation est un jour activée, la résolution de conflit ne doit jamais interrompre une lecture déjà en cours sur l'appareil actif ([[PRODUCT_RULES.md]] §2) — un conflit se résout silencieusement en arrière-plan ou attend explicitement une confirmation, jamais un remplacement de la file en cours de lecture sans préavis.
+
 ## 7. États
 
 | État | Comportement |
@@ -71,3 +83,4 @@ Une file générée automatiquement (ex. depuis un album : ajout automatique de 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 2) | Interaction Designer / Senior Product Manager |
+| 0.2.0 | 2026-08-04 | Phase 9 : ajout §6bis (filtres/recherche dans la file), §6ter (sauvegarde explicite en playlist), §6quater (contrainte de sécurité pour une future synchronisation) — au lieu de créer QUEUE_SYSTEM.md en doublon | Senior Audio UX Engineer |

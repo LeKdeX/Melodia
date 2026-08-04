@@ -30,6 +30,8 @@ Une seule barre de recherche interroge simultanément : titres, albums, artistes
 | Compositeur / Label | Faible, pertinent surtout pour l'audiophile/collectionneur ([[PERSONAS.md]] §2-3) | |
 | Durée / Format / Qualité audio | Filtres dédiés, pas recherche textuelle | Ce sont des attributs, pas des chaînes de caractères à chercher |
 | Favoris / Téléchargés / Historique | Filtres de portée (« chercher uniquement dans mes favoris ») | Réduisent le périmètre de recherche plutôt que d'être des champs cherchés |
+| Paroles (ajout Phase 9) | Faible, activée par filtre explicite (« rechercher dans les paroles »), jamais mélangée par défaut aux autres champs | Le contenu d'une parole est long et à fort taux de faux positifs si pondéré comme le titre — une recherche par défaut « toutes correspondances » y noierait les résultats pertinents ; dépend de la disponibilité des paroles ([[PLAYER_SPECIFICATION.md]] §6, dépendance non résolue) — un résultat de recherche par paroles n'existe que pour les pistes qui en possèdent |
+| Nom de playlist | Élevée | Déjà inclus dans la recherche universelle (§2), rappelé ici explicitement car redemandé par un cadrage ultérieur — aucune redéfinition |
 
 ## 4. Tolérance et autocomplétion
 
@@ -70,3 +72,4 @@ Chaque résultat est actionnable immédiatement : lecture directe, ajout à la f
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 2) | UX Research Lead / Senior Product Manager |
+| 0.2.0 | 2026-08-04 | Phase 9 : ajout de la recherche par paroles (§3, réellement nouvelle) et rappel explicite de la recherche par playlist — au lieu de créer SEARCH_MUSIC.md en doublon | Principal Music Experience Designer |

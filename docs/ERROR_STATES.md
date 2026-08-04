@@ -61,7 +61,11 @@
 
 ## 9. Conflit de synchronisation (multi-appareils)
 
-- **Statut** : comportement non encore défini — dépend de l'ADR de résolution de conflit non rédigé ([[ARCHITECTURE_PRINCIPLES.md]] §3.3, [[EXTREME_SCENARIOS.md]] §5). Ce document ne invente pas un comportement pour combler ce vide ; il est signalé comme ouvert, cohérent avec la règle d'honnêteté.
+- **Statut** : mis à jour depuis la rédaction initiale de ce document — la stratégie technique précise reste dépendante d'un ADR non encore rédigé ([[ARCHITECTURE_PRINCIPLES.md]] §3.3, [[EXTREME_SCENARIOS.md]] §5), mais le comportement de surface est désormais défini dans [[OFFLINE_SYSTEM.md]] §5-6 (jamais de perte silencieuse, jamais de blocage bloquant) — non redécrit ici.
+
+## 9bis. Journal technique par erreur (ajout Phase 11)
+
+Chaque erreur de ce document génère une entrée dans [[LOGGING_SYSTEM.md]] (catégorie « logs réseau » ou « logs synchronisation » selon le cas) — jamais visible par défaut à l'utilisateur (§10.1, langage clair uniquement dans l'interface), mais consultable depuis Paramètres > Développeur ([[SETTINGS_SCREENS.md]]) pour le diagnostic. L'entrée technique conserve le code d'erreur brut, l'horodatage précis et la pile d'appel si disponible — exactement ce que le message utilisateur (§1-8) omet volontairement.
 
 ---
 
@@ -88,3 +92,4 @@
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 2) | UX Research Lead / Jellyfin Specialist |
+| 0.2.0 | 2026-08-04 | Phase 11 : mise à jour du statut §9 (comportement de surface désormais défini dans OFFLINE_SYSTEM.md), ajout §9bis (journal technique) — au lieu de créer ERROR_SYSTEM.md en doublon | Security Architect |

@@ -56,6 +56,18 @@ Aucune notification — événement interne sans intérêt direct pour l'utilisa
 
 Uniquement si l'artiste est épinglé/suivi ([[FEATURE_ROADMAP.md]] idée #27) — jamais pour un ajout non lié à un centre d'intérêt exprimé par l'utilisateur.
 
+## 8bis. Maintenance (ajout Phase 11)
+
+> Maintenance du serveur détectée — certaines fonctionnalités peuvent être limitées temporairement.
+
+Bannière persistante ([[ERROR_EXPERIENCE.md]] §2), pas une notification transitoire — la maintenance dure généralement plus longtemps qu'un événement ponctuel, cohérent avec le traitement déjà réservé aux états persistants (perte de connexion serveur, [[ERROR_STATES.md]] §1).
+
+## 8ter. Mise à jour disponible (ajout Phase 11)
+
+> Nouvelle version disponible — voir les notes de version.
+
+Snackbar non intrusif avec action « Voir » menant à [[UPDATE_SYSTEM.md]] — jamais une modale qui interromprait l'écoute, cohérent avec [[SYNC_SCREENS.md]] §5 (Updates déjà traité comme notification plutôt que comme écran dédié).
+
 ## 9. Variantes selon le contexte (application au premier plan vs arrière-plan)
 
 - **Application au premier plan** : toast/snackbar discret dans l'interface (voir [[ERROR_EXPERIENCE.md]] §2).
@@ -76,3 +88,4 @@ Uniquement si l'artiste est épinglé/suivi ([[FEATURE_ROADMAP.md]] idée #27) �
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 3) | UX Writer Senior / Content Designer |
+| 0.2.0 | 2026-08-04 | Phase 11 : ajout §8bis (Maintenance) et §8ter (Mise à jour disponible) — au lieu de créer NOTIFICATION_SYSTEM.md en doublon | System Experience Designer |

@@ -48,6 +48,14 @@ Contour de focus systématique et suffisamment contrasté sur tout élément int
 
 L'ordre de lecture d'un lecteur d'écran suit le même ordre que la navigation clavier (§1) — jamais deux ordres divergents qui donneraient une expérience incohérente selon la technologie d'assistance utilisée.
 
+## 6bis. Liens d'évitement et régions de repère (ajout Phase 8)
+
+> Section ajoutée pour la couche navigation ([[NAVIGATION_SYSTEM.md]]) — un besoin réel non couvert jusqu'ici, jamais redondant avec §1/§6 qui restent la référence de l'ordre de focus lui-même.
+
+- **Lien d'évitement (« skip to content »)** : premier élément focusable de l'application, invisible jusqu'au focus clavier — permet de sauter directement du début de la page au contenu principal sans traverser toute la Sidebar ([[LAYOUT_COMPONENTS.md]]) à chaque navigation. Un second lien d'évitement permet de sauter directement aux contrôles du lecteur ([[PLAYER_COMPONENTS.md]]), cohérent avec sa présence permanente ([[PRODUCT_RULES.md]] §1).
+- **Régions de repère (landmarks)** : chaque zone structurelle majeure porte un rôle ARIA de repère explicite — `role="navigation"` (Sidebar/TopBar/BottomBar, déjà acté [[LAYOUT_COMPONENTS.md]] §6), `role="main"` (contenu de la vue courante), `role="complementary"` (panneaux secondaires : file d'attente, paroles), `role="search"` (SearchField, [[SEARCH_COMPONENTS.md]]) — jamais deux régions du même rôle sans libellé `aria-label` qui les distingue (ex. TopBar et Sidebar portent toutes deux `role="navigation"`, chacune avec un libellé différent).
+- **Un seul `role="main"` actif à la fois** : le contenu de la vue courante, jamais le contenu d'un panneau secondaire ouvert en parallèle (file d'attente, paramètres en Sheet) — cohérent avec la hiérarchie de mise en page déjà actée, où le contenu en cours d'attention occupe toujours la plus grande surface sans jamais être partagé à égalité avec un élément secondaire ([[LAYOUT_SYSTEM.md]] §7).
+
 ## 7. Commandes vocales
 
 **Statut : non engagé pour cette phase**, cohérent avec [[INTERACTION_GUIDELINES.md]] §5 — dépend d'une intégration à un assistant vocal système non évaluée techniquement. Ce document ne spécifie pas de comportement de commande vocale pour éviter de promettre une fonctionnalité non conçue ; signalé explicitement plutôt que silencieusement omis.
@@ -67,6 +75,21 @@ L'ordre de lecture d'un lecteur d'écran suit le même ordre que la navigation c
 
 Le layout reste fonctionnel jusqu'à 200 % de zoom texte sans perte de contenu ni chevauchement — testé comme critère de non-régression, pas une aspiration ([[DEFINITION_OF_DONE.md]]).
 
+## 9bis. Accessibilité spécifique à l'expérience musicale (ajout Phase 9)
+
+> Section ajoutée pour couvrir ce qui est propre au domaine musical — les règles génériques (§1-9) s'appliquent déjà à ces composants sans exception, cette section ajoute uniquement ce qui leur est spécifique.
+
+- **Paroles** ([[LYRICS_SYSTEM.md]]) : la ligne active est annoncée aux changements par un lecteur d'écran uniquement si l'utilisateur a explicitement activé un mode de lecture assistée des paroles (jamais par défaut — une annonce automatique à chaque ligne toutes les quelques secondes serait un bruit constant et non désiré) ; navigable au clavier comme une liste standard (`role="list"`) indépendamment du défilement automatique.
+- **Visualiseur audio** ([[AUDIO_VISUALIZER.md]]) : purement décoratif au sens de l'accessibilité — `aria-hidden="true"` systématique, jamais annoncé ni navigable, cohérent avec la règle déjà actée qu'il n'est jamais la seule source d'information ([[PLAYER_SPECIFICATION.md]] §7).
+- **Lecteur** : chaque forme (Mini/Compact/Expanded/Fullscreen/Floating, [[PLAYER_COMPONENTS.md]]) conserve la même sémantique ARIA sous-jacente — un lecteur d'écran ne doit jamais percevoir un changement de forme comme un changement de contexte de lecture, uniquement comme un changement de présentation visuelle.
+- **Pochette dynamique** ([[DYNAMIC_THEME_GUIDE.md]]) : jamais annoncée aux changements de piste au-delà de ce que le changement de titre/artiste communique déjà — une variation de couleur seule n'a pas de représentation sonore pertinente pour un lecteur d'écran.
+
+## 9ter. Outillage de développement (ajout Phase 12)
+
+- **Linting statique** : `eslint-plugin-jsx-a11y` activé en erreur bloquante (pas avertissement) sur les règles couvrant les patterns ARIA déjà actés (§8) — ex. `alt-text`, `role-has-required-aria-props`, `no-noninteractive-element-interactions`. Cohérent avec le traitement déjà réservé aux autres règles ESLint critiques ([[ENGINEERING_MANIFESTO.md]] §2, `@typescript-eslint/no-explicit-any`).
+- **Tests automatisés** : `axe-core` déjà intégré aux tests de composants et à une passe E2E dédiée ([[TESTING_STRATEGY.md]] §6) — non redécidé ici, seul le lint statique (ligne précédente) est un ajout réellement nouveau de cette phase.
+- **Revue humaine** : test clavier/lecteur d'écran manuel sur tout nouveau parcours avant release, déjà acté ([[TESTING_STRATEGY.md]] §6) — le linting et les tests automatisés ne remplacent jamais cette étape, ils réduisent seulement le volume de défauts qui l'atteignent.
+
 ---
 
 ## 10. Checklist de validation
@@ -85,3 +108,6 @@ Le layout reste fonctionnel jusqu'à 200 % de zoom texte sans perte de contenu n
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 3) | Accessibility Specialist / Human Interface Designer |
 | 0.2.0 | 2026-08-03 | Phase 2 volume 2 : ajout §3bis (daltonisme) plutôt qu'ACCESSIBILITY_VISUAL_GUIDE.md en doublon | Accessibility Specialist |
+| 0.3.0 | 2026-08-04 | Phase 8 : ajout §6bis (liens d'évitement, régions de repère) — au lieu de créer NAVIGATION_ACCESSIBILITY.md en doublon | Accessibility Specialist |
+| 0.4.0 | 2026-08-04 | Phase 9 : ajout §9bis (paroles, visualiseur, formes du lecteur, pochette dynamique) — au lieu de créer MUSIC_ACCESSIBILITY.md en doublon | Accessibility Specialist |
+| 0.5.0 | 2026-08-04 | Phase 12 : ajout §9ter (outillage de développement : eslint-plugin-jsx-a11y) | Accessibility Specialist |

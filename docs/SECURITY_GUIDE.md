@@ -44,6 +44,23 @@ frame-ancestors 'none';
 - Secrets stockés exclusivement dans les secrets chiffrés de la plateforme CI (GitHub Actions Secrets), scoping au minimum de jobs qui en ont réellement besoin (ex. le secret de signature Desktop n'est exposé qu'au job de build Desktop, jamais à l'ensemble du pipeline).
 - Rotation des secrets de signature/publication documentée dans [[CHECKLISTS.md]] (checklist de release).
 
+## 3bis. Gestion du jeton d'authentification Jellyfin (ajout Phase 12)
+
+- **Stockage** : jeton de session Jellyfin persisté via le stockage sécurisé natif de la plateforme (Tauri Stronghold/Keychain système sur desktop, stockage chiffré équivalent sur mobile) — jamais en clair dans `LocalStore` (IndexedDB/SQLite, [[DATA_LAYER.md]] §2), qui reste conçu pour des données non sensibles (métadonnées musicales).
+- **Web (PWA)** : à défaut d'un stockage sécurisé natif équivalent, le jeton reste en mémoire (jamais persisté en `localStorage` en clair, vecteur XSS classique) — une reconnexion est requise après fermeture complète de l'onglet, compromis documenté explicitement plutôt que silencieusement affaibli (cohérent avec [[SECURITY_GUIDELINES.md]] §3).
+- **Transmission** : uniquement via l'en-tête d'autorisation HTTPS vers le serveur Jellyfin choisi par l'utilisateur ([[JELLYFIN_INTEGRATION.md]] §2), jamais journalisé en clair ([[LOGGING_SYSTEM.md]] §7, seuls les 4 derniers caractères peuvent apparaître pour corrélation de débogage).
+- **Expiration** : voir [[ERROR_STATES.md]] §6/§8 pour le comportement produit déjà acté (renouvellement silencieux ou reconnexion) — non redécidé ici.
+- **Export** : jamais inclus dans un export de données personnelles ([[IMPORT_EXPORT_SYSTEM.md]] §5, déjà acté).
+
+## 3ter. Protection des données locales au repos (ajout Phase 13)
+
+> **Gap identifié et comblé** : §3bis décide déjà du chiffrement du jeton d'authentification. Aucune décision n'existait jusqu'ici sur le reste de `LocalStore` ([[DATABASE_SCHEMA.md]]) — métadonnées de bibliothèque, historique d'écoute, favoris, playlists locales.
+
+- **Décision retenue : pas de chiffrement systématique de l'ensemble de `LocalStore`.** Justification : les métadonnées de bibliothèque (titres, pochettes, playlists) ne sont pas des données sensibles au sens de la menace considérée (le modèle de menace de [[SECURITY_GUIDELINES.md]] cible l'exfiltration réseau/XSS, pas l'accès physique à l'appareil de l'utilisateur — un appareil personnel auto-hébergé, cohérent avec [[PROJECT_CHARTER.md]] §1) ; chiffrer l'ensemble ajouterait un coût de performance mesurable (déchiffrement à chaque lecture sur une bibliothèque de 200 000 titres, [[PERFORMANCE_BUDGET.md]] §0) sans bénéfice de sécurité proportionné.
+- **Exception assumée — l'historique d'écoute** : bien que local par principe ([[PRODUCT_RULES.md]] §10), l'historique reste une donnée personnelle plus sensible qu'une métadonnée de catalogue (révèle des habitudes). Il ne reçoit **pas** de chiffrement dédié non plus, pour la même raison de coût/bénéfice, mais reste soumis à la suppression intégrale à la demande déjà actée ([[STATISTICS_SPECIFICATION.md]] §2) — la protection retenue est le contrôle utilisateur (accès, export, suppression), pas le chiffrement.
+- **Protection contre la corruption** (distincte du chiffrement) : voir [[DATA_LAYER.md]] §2.2 (sauvegarde avant migration destructive) et [[ERROR_HANDLING.md]] §1 (`StorageError`) — non redécidé ici, une corruption physique n'est pas une question de confidentialité mais d'intégrité, déjà traitée par ces deux documents.
+- **Réévaluation** : cette décision est réévaluable par ADR si Melodia introduit une fonctionnalité multi-utilisateurs sur un même appareil partagé (hors périmètre actuel, [[PROJECT_CHARTER.md]] §1) — un tel scénario changerait le modèle de menace et justifierait un chiffrement par profil.
+
 ## 4. Sécurité spécifique au packaging natif (Tauri)
 
 - Permissions Tauri déclarées explicitement et au minimum nécessaire dans la configuration de capacités (`tauri.conf.json` / fichiers de capacités Tauri 2), conformément au principe du moindre privilège déjà posé dans [[SECURITY_GUIDELINES.md]] §7.
@@ -68,3 +85,5 @@ Une revue de sécurité manuelle (checklist dédiée, voir [[CHECKLISTS.md]]) es
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | CTO |
 | 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | CTO |
+| 0.3.0 | 2026-08-04 | Phase 12 : ajout §3bis (gestion du jeton d'authentification Jellyfin) | Security Engineer |
+| 0.4.0 | 2026-08-04 | Phase 13 : ajout §3ter (décision réelle sur le chiffrement au repos des données locales, gap comblé) — au lieu de créer DATA_SECURITY.md en doublon | Security Engineer |

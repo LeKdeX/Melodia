@@ -65,6 +65,18 @@ Suite de tests dédiée exécutant `JellyfinSource` contre plusieurs versions de
 
 ---
 
+## 9bis. Tests spécifiques à la couche donnée (ajout Phase 13)
+
+| Scénario | Type de test | Obligatoire pour |
+|---|---|---|
+| Migration de schéma `LocalStore` (§4, déjà mentionné) | Intégration (Vitest), fixture de base pré-migration → post-migration | Toute nouvelle version de schéma ([[DATABASE_SCHEMA.md]] §5) |
+| Cycle de synchronisation (initial/incrémentale/reprise après interruption) | Intégration, MSW simulant les réponses Jellyfin ([[TECH_STACK.md]] §1) | Toute modification de [[SYNC_ENGINE_SPECIFICATION.md]] |
+| Comportement hors ligne (perte réseau en cours d'opération) | Intégration, réseau simulé coupé via MSW | Toute modification de [[OFFLINE_SYSTEM.md]] |
+| Corruption d'une entrée de cache/stockage | Unitaire, entrée délibérément malformée injectée | Toute logique de réparation ([[CACHE_SYSTEM.md]] §7, [[ERROR_HANDLING.md]] §1 `StorageError`) |
+| Charge (bibliothèque de référence 200 000 titres) | Performance, job CI séparé | Déjà couvert par [[PERFORMANCE_GUIDE.md]] §2/§4, non redécidé ici — ce tableau y renvoie plutôt que de dupliquer |
+
+**Principe** : ces scénarios s'ajoutent à la pyramide déjà actée (§1) au niveau qui leur correspond — aucun nouveau niveau de pyramide introduit spécifiquement pour la donnée, cohérent avec [[ENGINEERING_GUIDE.md]] §1.3 (non-duplication de mécanisme).
+
 ## 10. Quand chaque type de test est obligatoire (résumé)
 
 | Type de changement | Unitaire | Composant | Intégration | E2E | Visuel | Contrat Jellyfin |
@@ -89,3 +101,4 @@ Suite de tests dédiée exécutant `JellyfinSource` contre plusieurs versions de
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Engineering Manager / Lead Frontend Engineer |
 | 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Engineering Manager / Lead Frontend Engineer |
+| 0.3.0 | 2026-08-04 | Phase 13 : ajout §9bis (scénarios migration/synchronisation/hors ligne/corruption/charge propres à la couche donnée) — au lieu de créer DATA_TESTING_GUIDE.md en doublon | QA Architect |

@@ -32,6 +32,14 @@ Le dégradé et la lumière ambiante (§1-2) utilisent le token de flou `backgro
 
 Cohérent avec [[COLOR_SYSTEM.md]] §6 : la composition dégradé + lumière ambiante + flou ne s'applique jamais au-delà de la zone du lecteur (Dynamic Album) ou de la page artiste (Dynamic Artist) — jamais à la navigation principale, à la bibliothèque ou à tout écran où la lisibilité soutenue prime sur l'ambiance.
 
+## 5bis. Gouvernance des variations et préservation de l'identité (ajout Phase 9)
+
+> Section ajoutée pour répondre explicitement à l'exigence « limiter les variations, préserver l'identité visuelle » — jusqu'ici implicite dans les règles déjà posées (§1, dégradé à deux couleurs maximum ; §4, pas de mouvement perpétuel), rendue explicite ici comme principe de gouvernance à part entière.
+
+- **Le thème dynamique adapte l'ambiance, jamais l'identité de marque** : la teinte d'accent (`accent-500`, [[COLOR_SYSTEM.md]] §3) et la typographie ([[TYPOGRAPHY_GUIDE.md]]) restent strictement identiques quelle que soit la pochette affichée — le thème dynamique est une couche d'ambiance superposée, jamais une réinterprétation de l'identité visuelle du produit lui-même.
+- **Amplitude de variation bornée** : la luminosité et la saturation extraites d'une pochette sont toujours recalées dans une plage définie ([[COLOR_SYSTEM.md]] §6, garde-fou de contraste) avant application — une pochette extrêmement saturée ou extrêmement sombre ne produit jamais un arrière-plan aux extrêmes, toujours un résultat recalé dans une plage cohérente avec le reste de l'application.
+- **Test de reconnaissance** : après un changement de piste, l'interface doit rester reconnaissable comme Melodia sans les éléments de marque explicites (logo, nom) — si la variation de couleur seule suffirait à faire douter de l'application utilisée, l'amplitude de variation est trop large et doit être resserrée.
+
 ---
 
 ## 6. Checklist de validation
@@ -47,3 +55,4 @@ Cohérent avec [[COLOR_SYSTEM.md]] §6 : la composition dégradé + lumière amb
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 4) | Principal Motion Designer / Perception Psychologist |
+| 0.2.0 | 2026-08-04 | Phase 9 : ajout §5bis (gouvernance des variations, préservation de l'identité) — au lieu de créer DYNAMIC_THEME_ENGINE.md en doublon | Principal Music Experience Designer |

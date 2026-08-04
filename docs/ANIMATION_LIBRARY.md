@@ -168,6 +168,29 @@
 - **Alternative réduite** : identique (un tooltip n'a pas de transformation à réduire, uniquement le fondu déjà minimal).
 - **Impact performance** : négligeable.
 
+## 13bis. Menu/Popover Enter/Exit (ajout Phase 8)
+
+- **Objectif** : signaler l'apparition d'un contenu non modal ancré à un déclencheur, plus léger visuellement qu'une Modale.
+- **Déclencheur** : ouverture de Menu/Popover/Dropdown/ContextMenu ([[OVERLAY_COMPONENTS.md]]).
+- **Durée** : catégorie Micro (plus rapide qu'un Modal Enter/Exit, §7 — un menu contextuel est une action fréquente et légère, jamais aussi cérémonieuse qu'une modale).
+- **Courbe** : `entrance` / `exit`.
+- **Composants** : conteneur du menu (fondu + très légère translation depuis le point d'ancrage, jamais depuis le centre de l'écran).
+- **Conditions** : origine de la translation toujours le point d'ancrage réel (bouton cliqué, curseur pour un ContextMenu) — jamais une position fixe indépendante du déclencheur.
+- **Accessibilité** : focus déplacé au premier item du menu à l'ouverture pour Menu/ContextMenu (jamais pour Popover, qui peut être purement informatif).
+- **Alternative réduite** : fondu seul, sans translation.
+- **Impact performance** : GPU, négligeable.
+
+## 13ter. Command Palette Enter/Exit (ajout Phase 8)
+
+- **Objectif** : signaler l'ouverture d'une surface de commande globale, distincte visuellement d'un Menu (14bis) par son caractère plein-contexte.
+- **Déclencheur** : raccourci `Ctrl/Cmd + K` ou clic sur son point d'entrée ([[COMMAND_PALETTE.md]]).
+- **Durée** : catégorie Standard.
+- **Courbe** : `entrance` / `exit`.
+- **Composants** : scrim léger + conteneur de la palette (fondu + légère échelle depuis le centre supérieur de l'écran, jamais depuis un point d'ancrage local — cohérent avec son statut de commande globale plutôt que contextuelle).
+- **Accessibilité** : focus immédiat sur le champ de recherche interne, restitué au déclencheur à la fermeture.
+- **Alternative réduite** : fondu seul, sans échelle.
+- **Impact performance** : GPU, négligeable (résultats déjà indexés localement, [[COMMAND_PALETTE.md]]).
+
 ---
 
 ## 14. Checklist de validation
@@ -184,3 +207,4 @@
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 4) | Principal Motion Designer / Performance UX Engineer |
+| 0.2.0 | 2026-08-04 | Phase 8 : ajout §13bis (Menu/Popover Enter/Exit) et §13ter (Command Palette Enter/Exit) — comblent un vide, Popover/Dropdown/Menu/ContextMenu n'avaient aucune animation nommée jusqu'ici | Motion Designer |

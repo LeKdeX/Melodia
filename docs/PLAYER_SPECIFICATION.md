@@ -53,6 +53,14 @@ Lecture, pause, stop (équivalent pause + réinitialisation de la position), sui
 - Repeat One et lecture aléatoire sont mutuellement exclusifs avec une file à progression linéaire stricte, mais compatibles entre eux (Repeat All + aléatoire = ré-mélange à chaque boucle complète).
 - Le volume est un réglage d'application, indépendant du volume système, mais jamais supérieur à 100 % par défaut (pas d'amplification qui risquerait un écrêtage, sauf activation explicite d'une fonctionnalité de normalisation avancée en paramètres).
 
+## 5bis. Minuterie de sommeil / Sleep Timer (ajout Phase 9)
+
+Arrête la lecture après une durée choisie (15/30/45/60 minutes, ou fin de la piste/de l'album en cours) — jamais une coupure brutale : le volume diminue progressivement dans la dernière minute avant l'arrêt (fondu de sortie, catégorie Ambiance, [[MOTION_GUIDELINES.md]] §1), cohérent avec le principe qu'aucune interaction ne doit sembler abrupte. **Accessibilité** : le temps restant est consultable à tout moment (icône avec le temps restant affiché au survol/focus), jamais un minuteur silencieux dont l'utilisateur perdrait la trace. **Annulation** : une seule action pour désactiver, disponible directement depuis l'icône active, jamais enfouie dans un sous-menu. **Persistance** : ne survit pas à la fermeture de l'application (contrairement à la file, [[QUEUE_SPECIFICATION.md]] §4) — un minuteur de sommeil oublié actif ne doit jamais surprendre l'utilisateur au lancement suivant.
+
+## 5ter. Crossfade et lecture sans interruption (renvoi, ajout Phase 9)
+
+Le comportement technique (gapless, crossfade, ReplayGain) est déjà entièrement décidé dans [[AUDIO_ENGINE.md]] — ce document ne le redécide pas. Manifestation produit : un réglage de durée de crossfade (0-12 secondes, 0 = gapless strict) dans les Paramètres audio ([[SETTINGS_SPECIFICATION.md]]), désactivé par défaut (gapless strict, comportement le plus prévisible) — le crossfade reste une préférence explicite de l'utilisateur, jamais un défaut surprenant pour un auditeur attentif à la continuité exacte d'un album conçu comme un tout.
+
 ## 6. Paroles (architecture prête, intégration ultérieure)
 
 - Espace dédié dans l'Expanded/Fullscreen Player, avec état « non disponible » explicite si aucune parole n'est trouvée (jamais un espace vide non expliqué, voir [[EMPTY_STATES.md]]).
@@ -106,3 +114,4 @@ Un morceau déjà en cache/téléchargé se lit identiquement en ligne ou hors l
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 2) | Music Experience Designer / Interaction Designer |
+| 0.2.0 | 2026-08-04 | Phase 9 : ajout §5bis (Sleep Timer, réellement nouveau) et §5ter (Crossfade, renvoi vers AUDIO_ENGINE.md) — au lieu de créer PLAYBACK_CONTROLS.md en doublon | Senior Audio UX Engineer |

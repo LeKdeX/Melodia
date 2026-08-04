@@ -55,6 +55,62 @@ Titre de piste (poids le plus élevé), nom d'artiste, nom d'album, genre — re
 ### 3.3 Repli serveur
 Si l'index local n'existe pas encore (premier lancement, synchronisation initiale en cours) : la recherche interroge directement l'endpoint Jellyfin, avec un indicateur visuel explicite (« Indexation en cours ») plutôt qu'un résultat vide non expliqué.
 
+### 3.4 Tolérance aux fautes et normalisation (ajout Phase 13)
+
+- **Fuzzy Search** : FlexSearch configuré en tolérance partielle (distance d'édition limitée) sur le titre — une faute de frappe légère (une lettre manquante ou inversée) retourne toujours le résultat attendu en tête de liste, jamais un résultat vide.
+- **Préfixes** : recherche par préfixe activée par défaut (`"beat"` retrouve `"Beatles"`) — cohérent avec l'attente d'une recherche instantanée à la frappe ([[PERFORMANCE_BUDGET.md]] §2).
+- **Accents et normalisation** : les champs indexés sont normalisés (suppression des diacritiques, casse uniforme) à l'indexation **et** à la requête — une recherche `"deja vu"` retrouve `"Déjà Vu"` sans que l'utilisateur ait à taper l'accent exact.
+- **Synonymes** : un dictionnaire minimal de synonymes courants (ex. abréviations de featuring `"feat."`/`"ft."`/`"featuring"`) est appliqué à la requête avant recherche — pas un moteur de synonymes extensif, qui dépasserait le besoin réel actuel (YAGNI, [[ARCHITECTURE_PRINCIPLES.md]] §8bis).
+- **Classement** : pondération déjà actée (§3.2, titre exact > titre partiel > artiste > album > genre) — un score de pertinence FlexSearch natif ordonne au sein de chaque niveau de pondération, jamais un ordre alphabétique par défaut qui masquerait la pertinence réelle.
+
+## 3bis. Cette phase — synthèse, cycle de vie complet et auto-revue (ajout Phase 13)
+
+> Ce document reste le point d'entrée de la couche donnée ([[DOCUMENTATION_GUIDE.md]] §1) — cette section en fait explicitement le capstone de la Phase 13, sans redécider le contenu déjà détaillé dans les documents spécialisés qu'elle cartographie.
+
+### 3bis.1 Cycle de vie complet d'une donnée (bonus du cadrage)
+
+[[DATA_FLOW.md]] (Phase 12) décrit déjà le pipeline de lecture complet. Le cycle ci-dessous l'étend avec le **chemin d'écriture retour**, qui n'avait jamais été tracé de bout en bout :
+
+```
+Jellyfin (serveur)
+   ↓ (lecture, DATA_FLOW.md)
+API → DTO → Mapper → Domain → Repository → Cache → Store → UI
+   ↓
+Modification par l'utilisateur (ex. ajout à une playlist, favori, progression de lecture)
+   ↓
+Repository (écriture) — MAPPER_GUIDE.md §4, Domain → DTO uniquement si la modification doit remonter à Jellyfin
+   ↓
+LocalStore (écriture immédiate, INDEXEDDB_ARCHITECTURE.md §4, transaction atomique)
+   ↓
+Synchronisation (SYNC_ENGINE_SPECIFICATION.md) — différée si hors ligne (OFFLINE_SYSTEM.md §4)
+   ↓
+Jellyfin (serveur) — uniquement pour les trois cas restreints de MAPPER_GUIDE.md §4
+```
+
+**Règle centrale** : l'écriture locale (`LocalStore`) est toujours immédiate et jamais bloquée par la disponibilité du serveur — c'est la synchronisation vers Jellyfin qui est différée si nécessaire, jamais l'inverse (cohérent avec [[ARCHITECTURE_PRINCIPLES.md]] §3, priorité au local, déjà acté depuis la Phase 0).
+
+### 3bis.2 Carte des documents de la couche donnée (Phase 13)
+
+9 nouveaux documents + extension de [[JELLYFIN_INTEGRATION.md]] (§7bis), [[CACHE_SYSTEM.md]] (§1-2), [[SYNC_ENGINE_SPECIFICATION.md]] (§1, §7bis-ter), [[DATA_LAYER.md]] (ce document, §3.4 et cette section), [[DOWNLOAD_SYSTEM.md]] (§5quater), [[LOGGING_SYSTEM.md]] (§1), [[SECURITY_GUIDE.md]] (§3ter), [[PERFORMANCE_GUIDE.md]] (§6quater) et [[TESTING_STRATEGY.md]] (§9bis).
+
+**12 des 21 livrables demandés n'ont pas donné lieu à un fichier séparé** — `API_CLIENT.md`, `CACHE_ENGINE.md`, `SYNC_ENGINE.md`, `IMPORT_ENGINE.md`, `SEARCH_INDEX_ENGINE.md`, `OFFLINE_ENGINE.md`, `DOWNLOAD_ENGINE.md`, `LOGGING_GUIDE.md`, `DATA_SECURITY.md`, `DATA_PERFORMANCE.md`, `DATA_TESTING_GUIDE.md` recoupaient chacun un document déjà profond des Phases 0.5/9/11/12, étendus plutôt que dupliqués — et `DATA_LAYER.md` (ce document) existait déjà, complété en capstone plutôt que réécrit. Seuls [[DTO_SPECIFICATION.md]], [[DOMAIN_MODELS.md]], [[MAPPER_GUIDE.md]], [[REPOSITORY_PATTERN.md]], [[DATABASE_SCHEMA.md]], [[INDEXEDDB_ARCHITECTURE.md]], [[STATISTICS_ENGINE.md]], [[RECOMMENDATION_ENGINE.md]] et [[PLAYLIST_ENGINE.md]] étaient réellement nouveaux — parce qu'aucun document existant ne descendait au niveau d'implémentation concret qu'ils couvrent (DTO par entité, repository par domaine, schéma de table concret, moteurs de calcul distincts du comportement produit).
+
+### 3bis.3 Auto-revue comparative
+
+> **Avertissement d'honnêteté** : comme [[TECHNICAL_BLUEPRINT.md]] §5bis, cette comparaison s'appuie sur la connaissance générale du modèle, pas un audit de code source en direct — à revérifier avant toute décision qui s'appuierait fortement dessus.
+
+| Produit | Ce qu'il illustre | Rapprochement avec la couche donnée de Melodia |
+|---|---|---|
+| Spotify | Cache local agressif, lecture ininterrompue même en connectivité dégradée | Confirme la priorité au local déjà actée ([[ARCHITECTURE_PRINCIPLES.md]] §3) et la séparation cache technique/téléchargement explicite ([[CACHE_SYSTEM.md]] §1) |
+| Plexamp | Client pour serveur auto-hébergé, bibliothèque locale synchronisée en arrière-plan | Le rapprochement produit le plus direct — valide l'architecture `MusicSource`/`LocalStore` et la synchronisation *pull* différée ([[SYNC_ENGINE_SPECIFICATION.md]]) |
+| VS Code | État local-first avec synchronisation de configuration en arrière-plan, jamais bloquante | Valide la règle centrale de §3bis.1 (écriture locale immédiate, synchronisation différée) |
+| Obsidian | Stockage local en source de vérité, aucune dépendance à un serveur pour fonctionner | Rapprochement direct avec le choix de ne jamais bloquer une fonctionnalité locale sur la disponibilité réseau ([[OFFLINE_SYSTEM.md]] §1) |
+| Notion | Cache optimiste avec réconciliation silencieuse au retour en ligne | Valide le comportement déjà acté de synchronisation automatique silencieuse au retour en ligne ([[OFFLINE_SYSTEM.md]] §4) — Notion va plus loin sur la résolution de conflit collaborative temps réel, un écart assumé (playlists collaboratives, statut encore ouvert) |
+| Linear | Index de recherche local performant, jamais dépendant de la latence serveur | Valide FlexSearch comme index local plutôt qu'une recherche serveur systématique ([[DATA_LAYER.md]] §3) |
+| Nextcloud Desktop | Moteur de synchronisation isolé et dédié, journalisé indépendamment du reste de l'application | Valide `SYNC_ENGINE_SPECIFICATION.md` comme document isolé et la catégorie « logs synchronisation » dédiée ([[LOGGING_SYSTEM.md]] §1) |
+
+**Conclusion** : aucun écart de fond trouvé — cette phase valide et approfondit une architecture déjà cohérente avec ces sept références plutôt que d'en révéler une lacune structurelle. Le seul écart assumé (Notion, résolution de conflit collaborative temps réel) était déjà identifié et documenté avant cette auto-revue ([[OFFLINE_SYSTEM.md]] §6, [[PLAYLIST_ENGINE.md]] §5).
+
 ---
 
 ## 4. Checklist de validation
@@ -71,3 +127,5 @@ Si l'index local n'existe pas encore (premier lancement, synchronisation initial
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Principal Software Architect |
 | 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Principal Software Architect |
+| 0.3.0 | 2026-08-04 | Phase 13 : ajout §3.4 (fuzzy search, préfixes, accents, synonymes, classement) — au lieu de créer SEARCH_INDEX_ENGINE.md en doublon | Senior Data Architect |
+| 0.4.0 | 2026-08-04 | Phase 13 : ajout §3bis (capstone — cycle de vie complet avec chemin d'écriture retour, carte des documents de la phase, auto-revue comparative Spotify/Plexamp/VS Code/Obsidian/Notion/Linear/Nextcloud Desktop) | Principal Software Architect |

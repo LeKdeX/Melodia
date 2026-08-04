@@ -53,6 +53,16 @@ Toute erreur réseau ou serveur est mappée vers un type `MusicSourceError` ferm
 
 Le connecteur déclare une plage de versions d'API Jellyfin supportées. Une version serveur hors plage déclenche `ServerVersionUnsupported` avec un message explicite, plutôt qu'un comportement dégradé silencieux — cohérent avec le risque déjà identifié dans [[PROJECT_CHARTER.md]] §5 (changement de version Jellyfin cassant la compatibilité) et testé via des tests de contrat contre plusieurs versions de serveur en CI ([[TESTING_STRATEGY.md]]).
 
+## 7bis. API Client — résilience réseau (ajout Phase 13)
+
+- **Retry** : voir [[ERROR_HANDLING.md]] §4 — backoff exponentiel plafonné géré par TanStack Query, non redécidé ici. Réservé aux erreurs transitoires (`NetworkUnavailable`, `RateLimited`) — jamais un retry sur `Unauthorized`/`NotFound`, qui ne se résolvent pas en réessayant.
+- **Timeout** : un délai explicite par requête (valeur par défaut généreuse, ajustable dans [[SETTINGS_SYSTEM.md]] pour les connexions lentes) — au-delà, la requête est traitée comme `NetworkUnavailable` (§4), jamais une attente indéfinie qui bloquerait l'indicateur de chargement.
+- **Rate limiting** : le SDK respecte les en-têtes de limitation renvoyés par le serveur Jellyfin quand ils existent ; en leur absence, une limitation cliente conservatrice (nombre de requêtes concurrentes borné, [[STACK_DECISIONS.md]] cohérent avec le plafond de téléchargements simultanés déjà acté, [[DOWNLOAD_SYSTEM.md]] §3) évite de saturer un serveur auto-hébergé modeste.
+- **Pagination** : toute requête de collection (pistes d'un album volumineux, résultats de recherche serveur en repli) utilise la pagination native de l'API Jellyfin — jamais un seul appel non paginé sur une collection dont la taille n'est pas bornée à l'avance.
+- **Batch requests** : les requêtes de métadonnées pour plusieurs identifiants (ex. rafraîchir un lot de pochettes) sont groupées en un seul appel batch quand l'API Jellyfin l'expose, plutôt qu'une requête par élément — réduit le nombre d'aller-retours réseau, particulièrement sensible sur une connexion instable ([[ARCHITECTURE_PRINCIPLES.md]] §3, priorité au local).
+- **Compression** : négociation `gzip`/`br` standard via les en-têtes HTTP — aucune configuration propre à Melodia au-delà de ce que le SDK négocie déjà nativement avec le serveur.
+- **Cache HTTP** : les réponses de métadonnées respectent les en-têtes `ETag`/`Cache-Control` du serveur quand disponibles (requête conditionnelle `If-None-Match`) — complète, sans le remplacer, le cache applicatif de [[DATA_LAYER.md]]/[[CACHE_SYSTEM.md]] : ce cache HTTP réduit le volume transféré, le cache applicatif réduit le nombre de requêtes émises.
+
 ---
 
 ## 8. Checklist de validation
@@ -68,3 +78,4 @@ Le connecteur déclare une plage de versions d'API Jellyfin supportées. Une ver
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Principal Software Architect |
 | 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Principal Software Architect |
+| 0.3.0 | 2026-08-04 | Phase 13 : ajout §7bis (résilience réseau : retry/timeout/rate limiting/pagination/batch/compression/cache HTTP) — au lieu de créer API_CLIENT.md en doublon | Senior Data Architect |

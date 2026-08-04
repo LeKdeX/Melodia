@@ -18,7 +18,7 @@
 | Piste suivante / précédente | `Ctrl/Cmd + →` / `Ctrl/Cmd + ←` | Évite les collisions avec la navigation de texte native |
 | Recherche | `Ctrl/Cmd + K` | Convention établie des applications modernes, accessible depuis n'importe quel écran ([[PRODUCT_RULES.md]] §4) |
 | Volume + / − | `Ctrl/Cmd + ↑` / `Ctrl/Cmd + ↓` | |
-| Ajouter à la file | `Ctrl/Cmd + Q` | Cohérent avec l'accès universel à la file ([[PRODUCT_RULES.md]] §5) |
+| Ajouter à la file | `Ctrl/Cmd + Shift + Q` | Cohérent avec l'accès universel à la file ([[PRODUCT_RULES.md]] §5) — corrigé en Phase 8, voir [[KEYBOARD_SHORTCUTS.md]] §5 (`Ctrl/Cmd + Q` seul est réservé au système, Quitter l'application sur macOS) |
 | Ajouter aux favoris | `Ctrl/Cmd + D` (mnémonique proche de « favori ») | |
 | Navigation entre sections | `Ctrl/Cmd + 1..9` vers les sections principales de la bibliothèque | Efficacité pour l'utilisateur clavier ([[PERSONAS.md]] §8) |
 | Ouvrir/fermer le lecteur étendu | `Ctrl/Cmd + E` | |
@@ -93,3 +93,4 @@ Tous les raccourcis sont reconfigurables dans les paramètres — aucun n'est fi
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 2) | Interaction Designer / UX Research Lead |
 | 0.2.0 | 2026-08-03 | Phase 1 volume 3 : ajout des états disabled/success/warning/error au §4, note de justification cognitive — plutôt que créer INTERACTION_GUIDE.md en doublon | Interaction Designer / Cognitive Psychologist |
+| 0.3.0 | 2026-08-04 | Phase 8, auto-revue : correction d'un conflit réel — `Ctrl/Cmd + Q` était assigné à « Ajouter à la file » alors qu'il est réservé au système (Quitter l'application, macOS) ; changé en `Ctrl/Cmd + Shift + Q` | Navigation System Architect |

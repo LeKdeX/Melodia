@@ -189,6 +189,155 @@ Ces 14 documents définissent précisément *ce que le produit fait*, fonctionna
 | [[IMMERSION_GUIDE.md]] | Objectifs d'immersion reliant plein écran/Focus/Nuit/visualiseur/paroles | Experience Design Director / Human Interface Specialist |
 | [[PREMIUM_DETAILS.md]] | 110 détails premium décrits et justifiés | Product Designer / Experience Design Director |
 
+### Phase 5 — Design System : source de vérité de l'interface
+
+3 nouveaux documents + extension de [[DESIGN_TOKENS.md]] (§6bis, §6), [[LAYOUT_SYSTEM.md]] (§3bis/§3ter, §8), [[TYPOGRAPHY_GUIDE.md]] (§4bis), [[COLOR_SYSTEM.md]] (§6bis) et [[RESPONSIVE_GUIDE.md]] (§7bis). **`GRID_SYSTEM.md`, `TYPOGRAPHY_SYSTEM.md`, `RESPONSIVE_SYSTEM.md`, `ICON_SYSTEM.md`, `ACCESSIBILITY_SYSTEM.md`, `MOTION_TOKENS.md` et `ELEVATION_SYSTEM.md` demandés par ce cadrage n'ont pas été créés séparément** — [[LAYOUT_SYSTEM.md]], [[TYPOGRAPHY_GUIDE.md]], [[RESPONSIVE_GUIDE.md]] étendus, et [[ICONOGRAPHY_GUIDE.md]]/[[ACCESSIBILITY_GUIDE.md]]/[[MOTION_GUIDELINES.md]]/[[SURFACE_SYSTEM.md]] déjà entièrement complets sans extension nécessaire. Contradiction du cadrage résolue explicitement (nombre de niveaux d'élévation) : voir [[DESIGN_SYSTEM.md]] §2. Détail complet : [[DESIGN_SYSTEM.md]] §4-5.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[DESIGN_SYSTEM.md]] | Synthèse capstone : source de vérité, règles absolues, résolution de contradiction, carte complète | Principal Design System Architect |
+| [[FOUNDATIONS.md]] | Constitution — principes qui gouvernent toute décision future | Principal Design System Architect |
+| [[SPACING_SYSTEM.md]] | Règles d'usage de l'espacement par contexte (padding/gap/marge) | Design Token Specialist / UX Engineer |
+| [[COMPOSING_RULES.md]] | Patterns de composition de layout (Container à Master-Detail) | Senior Frontend Architect / Component Library Maintainer |
+
+### Phase 6 — Component Library : 135 composants documentés
+
+15 nouveaux documents couvrant 135 composants nommés, avec une **stratégie de profondeur à deux niveaux** ([[COMPONENT_LIBRARY.md]] §2) : spécification complète (13 sections) pour les composants fondamentaux à plus fort réemploi, spécification compacte avec renvoi systématique pour le reste — pour éviter un volume ingérable. `Date Picker`, `Color Picker`, `Equalizer Panel` traités en architecture seulement, cohérent avec leur statut non engagé dans [[FEATURE_ROADMAP.md]]. Cette phase documente la couche composant réutilisable au-dessus des spécifications produit déjà écrites ([[PLAYER_SPECIFICATION.md]], [[SEARCH_SPECIFICATION.md]], [[LIBRARY_SPECIFICATION.md]], [[SETTINGS_SPECIFICATION.md]], [[ERROR_EXPERIENCE.md]], [[EMPTY_STATES_GUIDE.md]]) et du Design System (Phase 5) — aucune n'est redécidée, uniquement référencée.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[COMPONENT_LIBRARY.md]] | Synthèse capstone : gabarit à 13 sections, stratégie de profondeur, index complet des 135 composants | Principal Design System Architect |
+| [[ACCESSIBILITY_COMPONENTS.md]] | Contrat d'accessibilité transverse référencé par tous les composants | Accessibility Specialist |
+| [[BUTTON_SPECIFICATION.md]] | Button (complète) + IconButton/ToggleButton/SegmentedButton/FAB/Link (compactes) | React Component Architect / Senior UI Engineer |
+| [[CARD_SPECIFICATION.md]] | Card générique, base de toutes les cartes du domaine | React Component Architect / Product Designer |
+| [[FORM_COMPONENTS.md]] | TextField (complète) + champs de saisie (compactes) + Date/Color Picker (architecture) | UX Engineer / Senior UI Engineer |
+| [[OVERLAY_COMPONENTS.md]] | Dialog (complète) + composants superposés (compactes) | Senior UI Engineer / Accessibility Specialist |
+| [[FEEDBACK_COMPONENTS.md]] | Toast (complète) + composants de retour et de statut (compactes) | Product Designer / QA Engineer |
+| [[NAVIGATION_COMPONENTS.md]] | Tabs (complète) + navigation au sein d'un écran (compactes) | UX Engineer / React Component Architect |
+| [[LAYOUT_COMPONENTS.md]] | Sidebar et Grid (complètes) + implémentation des patterns de [[COMPOSING_RULES.md]] | Senior Frontend Architect / React Component Architect |
+| [[PLAYER_COMPONENTS.md]] | Formes du lecteur et Queue Item (complètes) + composants du lecteur (compactes) + Equalizer Panel (architecture) | React Component Architect / Motion Designer |
+| [[SEARCH_COMPONENTS.md]] | Search Results (complète) + composants de recherche (compactes) | UX Engineer / Frontend Performance Engineer |
+| [[LIBRARY_COMPONENTS.md]] | Album Grid et Track Card (complètes) + cartes et vues de bibliothèque/statistiques (compactes) | Product Designer / React Component Architect |
+| [[SETTINGS_COMPONENTS.md]] | Preference Row (complète) + composants de paramètres (compactes) | UX Engineer / Product Designer |
+| [[STATE_COMPONENTS.md]] | Empty State (complète) + huit états d'écran (compactes, renvoi systématique) | QA Engineer / Product Designer |
+| [[COMPONENT_CHECKLIST.md]] | Definition of Done par composant + matrice de composition + tableau de dépendances (bonus du cadrage) | QA Engineer / Principal Design System Architect |
+
+### Phase 7 — Foundation Components : approfondissement de la couche fondamentale
+
+5 nouveaux documents + extension de [[BUTTON_SPECIFICATION.md]], [[FORM_COMPONENTS.md]], [[FEEDBACK_COMPONENTS.md]], [[NAVIGATION_COMPONENTS.md]] et [[COMPONENT_CHECKLIST.md]] (déjà créés en Phase 6, ce cadrage les redemandait sous les mêmes noms — étendus plutôt que réécrits). Sept collisions de nom résolues par fusion explicite plutôt que doublon (voir [[FOUNDATION_COMPONENTS.md]] §1) : Search Bar=SearchField, Autocomplete=Combobox, Confirmation Dialog=Dialog, Empty Placeholder=Empty State, Segmented Control=SegmentedButton, Navigation Rail=Sidebar réduite, Command Menu=Command Palette.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[FOUNDATION_COMPONENTS.md]] | Synthèse capstone de la couche fondamentale, comparaison approfondie par famille avec 7 systèmes de référence | Principal Design System Architect |
+| [[DISPLAY_COMPONENTS.md]] | Atomes d'affichage réellement nouveaux (User Avatar, Artwork, Album Cover, Thumbnail, Label, Caption, Code Block) | Product Designer / UI Engineer |
+| [[COMPONENT_HIERARCHY.md]] | Hiérarchie officielle par nature (fondamental/dérivé/composé/domaine), arbre complet | Principal Design System Architect |
+| [[COMPONENT_DEPENDENCY_GRAPH.md]] | Graphe de dépendances fin par arêtes nommées, composants à plus fort impact | Senior Frontend Engineer / Performance Engineer |
+| [[FOUNDATION_TESTING_GUIDE.md]] | Application de [[TESTING_STRATEGY.md]] §3/§7 à la couche fondamentale, gabarit de test minimal | QA Engineer / Performance Engineer |
+
+### Phase 8 — Navigation System : constitution et approfondissement de la navigation
+
+9 nouveaux documents + extension de [[LAYOUT_COMPONENTS.md]], [[RESPONSIVE_GUIDE.md]], [[ACCESSIBILITY_GUIDE.md]], [[ANIMATION_LIBRARY.md]], [[INTERACTION_GUIDELINES.md]], [[OVERLAY_COMPONENTS.md]] et [[NAVIGATION_COMPONENTS.md]]. **`SIDEBAR_SPECIFICATION.md`, `RESPONSIVE_NAVIGATION.md`, `NAVIGATION_ACCESSIBILITY.md` et `NAVIGATION_ANIMATIONS.md` demandés par ce cadrage n'ont pas été créés séparément** — chacun recoupait un document déjà complet, étendu plutôt que dupliqué (détail : [[NAVIGATION_SYSTEM.md]] §3). Auto-revue de cette phase a aussi corrigé un conflit réel hérité de la Phase 1 : `Ctrl/Cmd + Q` était assigné à « Ajouter à la file » dans [[INTERACTION_GUIDELINES.md]] alors qu'il est réservé au système (Quitter l'application, macOS) — corrigé en `Ctrl/Cmd + Shift + Q`.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[NAVIGATION_SYSTEM.md]] | Synthèse capstone : constitution, carte complète, auto-revue comparative (9 références) | Principal UX Architect |
+| [[TOPBAR_SPECIFICATION.md]] | Spécification complète de la TopBar (n'avait qu'une ligne auparavant) | Navigation System Architect / React UI Architect |
+| [[COMMAND_PALETTE.md]] | Approfondissement (priorité des catégories, favoris, historique, découverte de raccourcis) | Navigation System Architect / React UI Architect |
+| [[SEARCH_NAVIGATION.md]] | Navigation clavier/souris/tactile à travers la recherche | Navigation System Architect / Accessibility Specialist |
+| [[NAVIGATION_HISTORY.md]] | Trois historiques distincts, pile de navigation, mémoire, restauration | Navigation System Architect / Information Architect |
+| [[KEYBOARD_SHORTCUTS.md]] | Bibliothèque exhaustive de raccourcis + combinaisons réservées | Navigation System Architect / Accessibility Specialist |
+| [[MOBILE_NAVIGATION.md]] | Architecture mobile (Drawer, Pull to Refresh, Swipe Actions) | Navigation System Architect / Human Interface Specialist |
+| [[NAVIGATION_PATTERNS.md]] | Matrice de compatibilité + diagramme des parcours de navigation | Navigation System Architect / Information Architect |
+| [[NAVIGATION_CHECKLIST.md]] | Critères de validation du système de navigation dans son ensemble | QA Engineer / Navigation System Architect |
+
+### Phase 9 — Music Component Library : constitution de l'expérience musicale
+
+12 nouveaux documents + extension de [[PLAYER_COMPONENTS.md]], [[PLAYER_SPECIFICATION.md]], [[QUEUE_SPECIFICATION.md]], [[DYNAMIC_THEME_GUIDE.md]], [[LIBRARY_COMPONENTS.md]], [[SEARCH_SPECIFICATION.md]], [[ACCESSIBILITY_GUIDE.md]], [[FOUNDATION_TESTING_GUIDE.md]] et [[PERFORMANCE_GUIDE.md]]. **9 des 22 livrables demandés (`PLAYER_SYSTEM.md`, `PLAYBACK_CONTROLS.md`, `QUEUE_SYSTEM.md`, `DYNAMIC_THEME_ENGINE.md`, `STATISTICS_COMPONENTS.md`, `WRAPPED_COMPONENTS.md`, `SEARCH_MUSIC.md`, `MUSIC_ACCESSIBILITY.md`, `MUSIC_TESTING_GUIDE.md`, `MUSIC_PERFORMANCE_GUIDE.md`) n'ont pas été créés séparément** — chacun recoupait un document déjà profond des Phases 1, 4, 6, 7 ou 8, étendu plutôt que dupliqué (détail complet : [[MUSIC_COMPONENT_LIBRARY.md]] §3).
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[MUSIC_COMPONENT_LIBRARY.md]] | Synthèse capstone : constitution, carte complète, matrice bonus, diagramme, auto-revue comparative (8 références) | Principal Music Experience Designer |
+| [[ALBUM_COMPONENTS.md]] | Variantes de carte, Hero, Header, Information, Actions, Statistics, Footer | Product Designer / Principal Music Experience Designer |
+| [[ARTIST_COMPONENTS.md]] | Hero, biographie, discographie organisée, top morceaux, collaborations | Product Designer / Principal Music Experience Designer |
+| [[TRACK_COMPONENTS.md]] | Track Row (nouveau composant), métadonnées, qualité audio, badges, statut | Product Designer / Senior Audio UX Engineer |
+| [[PLAYLIST_COMPONENTS.md]] | Hero, header, actions, statistiques, propriétaire, description, filtres | Product Designer / Principal Music Experience Designer |
+| [[COLLECTION_COMPONENTS.md]] | Smart Collections, épinglage, favoris (source unique), vues dérivées | Product Designer / Information Architect |
+| [[LYRICS_SYSTEM.md]] | Synchronisées/non-synchronisées, karaoké, traduction, recherche, typographie | Senior Audio UX Engineer / Principal Music Experience Designer |
+| [[AUDIO_VISUALIZER.md]] | Waveform, Spectrum, Ambient, Minimal, Full Screen, Performance Mode | Motion Designer / Audio Software Engineer |
+| [[ARTWORK_SYSTEM.md]] | Repli, chargement, flou, couleur dominante, ombre, glow | Product Designer / Frontend Architect |
+| [[PLAYBACK_DEVICES.md]] | Device/Cast Selector, préparation AirPlay/Chromecast/Multiroom | Audio Software Engineer / Senior Audio UX Engineer |
+| [[DOWNLOAD_SYSTEM.md]] | File, priorités, pause/reprise, échec, gestion du stockage | Audio Software Engineer / Performance Engineer |
+| [[OFFLINE_SYSTEM.md]] | Détection, bibliothèque locale, synchronisation, résolution de conflits | Audio Software Engineer / Frontend Architect |
+
+### Phase 10 — Screen System : assemblage de tous les écrans
+
+16 nouveaux documents + extension de [[TRANSITION_GUIDE.md]] et [[PERFORMANCE_GUIDE.md]]. **Les composants sont traités comme figés (consigne explicite du cadrage)** — chaque document de cette phase explique uniquement comment ils s'assemblent, jamais leur comportement propre. `SCREEN_TRANSITIONS.md` et `SCREEN_PERFORMANCE_GUIDE.md` demandés par ce cadrage n'ont pas été créés séparément — recoupaient [[TRANSITION_GUIDE.md]] (Phase 4) et [[PERFORMANCE_GUIDE.md]], étendus plutôt que dupliqués.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[SCREEN_SYSTEM.md]] | Synthèse capstone : constitution, gabarit d'écran officiel, carte complète, auto-revue comparative (8 références) | Principal Product Designer / UX Architect |
+| [[HOME_SCREEN.md]] | Accueil composite (Quick Resume, Daily Mix, Recommendations, Statistics/Wrapped Highlights) | Product Designer / UX Architect |
+| [[LIBRARY_SCREENS.md]] | Library Home, Albums, Artists, Tracks, Genres, Collections, Folders, Favorites, Offline, History, Pinned | Product Designer / Information Architect |
+| [[ALBUM_SCREEN.md]] | Composition complète + Related Albums, Versions, Disc Selector, Credits | Product Designer / Principal Music Experience Designer |
+| [[ARTIST_SCREEN.md]] | Composition complète + Related Artists | Product Designer / Principal Music Experience Designer |
+| [[PLAYLIST_SCREEN.md]] | Composition complète + Collaborators (préparation) | Product Designer / Principal Music Experience Designer |
+| [[PLAYER_SCREENS.md]] | Assemblage des formes du lecteur + Lyrics View/Visualizer/Queue View/Device Selector/Audio Settings | Product Designer / Senior Audio UX Engineer |
+| [[SEARCH_SCREENS.md]] | Séquence Search Home → Results → Advanced Search, Search History | Product Designer / UX Architect |
+| [[DOWNLOAD_SCREENS.md]] | Écran unique à onglets (En cours/Terminés) | Product Designer / Audio Software Engineer |
+| [[STATISTICS_SCREENS.md]] | Tableau de bord modulaire + Achievements (= Badges) + accès Wrapped | Product Designer / Senior Product Manager |
+| [[SETTINGS_SCREENS.md]] | Les 12 catégories en un seul écran à navigation interne | Product Designer / UX Architect |
+| [[SYNC_SCREENS.md]] | Distinction import/synchronisation continue + Logs (nouveau) | Product Designer / Audio Software Engineer |
+| [[ERROR_SCREENS.md]] | Seuls 2 des 7 cas nommés justifient un écran plein, les 5 autres restent des patterns déjà définis | Product Designer / Accessibility Specialist |
+| [[ONBOARDING_SCREENS.md]] | Séquence de 7 noms fusionnée en 5 écrans réels | Product Designer / UX Architect |
+| [[RESPONSIVE_LAYOUTS.md]] | Synthèse cross-écran par région (Header/Sidebar/Hero/Main/Right Panel) | Layout System Designer / UX Architect |
+| [[SCREEN_COMPONENT_MATRIX.md]] | Composants par écran, partagés/exclusifs, écrans coûteux (renvoi), diagramme complet de navigation | Information Architect / Senior UI Engineer |
+
+### Phase 11 — System Experience Framework : systèmes autour de l'expérience musicale
+
+12 nouveaux documents + extension de [[DOWNLOAD_SYSTEM.md]], [[OFFLINE_SYSTEM.md]] (Phase 9), [[NOTIFICATION_LIBRARY.md]], [[ERROR_STATES.md]] et [[FOUNDATION_TESTING_GUIDE.md]]. **`DOWNLOAD_SYSTEM.md` et `OFFLINE_SYSTEM.md` demandés par ce cadrage existaient déjà sous ce nom exact depuis la Phase 9** — étendus plutôt que réécrits. `NOTIFICATION_SYSTEM.md`, `ERROR_SYSTEM.md` et `SYSTEM_TESTING_GUIDE.md` recoupaient [[NOTIFICATION_LIBRARY.md]], [[ERROR_STATES.md]] et [[FOUNDATION_TESTING_GUIDE.md]] — également étendus plutôt que dupliqués.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[SYSTEM_EXPERIENCE.md]] | Synthèse capstone : constitution, carte complète, auto-revue comparative (9 références) | Principal Platform Architect |
+| [[SETTINGS_SYSTEM.md]] | Référentiel exhaustif option par option des 10 catégories de paramètres | System Experience Designer / Senior Product Designer |
+| [[SYNC_ENGINE_SPECIFICATION.md]] | Import initial/incrémentale/complète, détection de modification | Synchronization Engineer / Principal Platform Architect |
+| [[CACHE_SYSTEM.md]] | Architecture, priorités, expiration, compression, réparation, reconstruction | Principal Platform Architect / Frontend Architect |
+| [[DIAGNOSTICS_SYSTEM.md]] | Santé serveur, réseau, occupation cache/disque/mémoire, performances | Performance Engineer / Principal Platform Architect |
+| [[MAINTENANCE_SYSTEM.md]] | Outils : reconstruire, réparer, réindexer, nettoyer, supprimer, exporter | Principal Platform Architect / Synchronization Engineer |
+| [[UPDATE_SYSTEM.md]] | Vérification, notes de version, migration, rollback (préparation) | Principal Platform Architect / Frontend Architect |
+| [[IMPORT_EXPORT_SYSTEM.md]] | Préférences, playlists locales, historique, favoris | Security Architect / Synchronization Engineer |
+| [[LOGGING_SYSTEM.md]] | Catégories de logs, rétention, export, suppression | Security Architect / Performance Engineer |
+| [[FEATURE_FLAGS.md]] | Cycle de vie d'un flag, activation/désactivation, canal bêta (préparation) | Principal Platform Architect / Senior Product Designer |
+| [[SYSTEM_COMPONENT_MATRIX.md]] | Dépendances entre systèmes, diagramme d'interactions | Principal Platform Architect / Information Architect |
+| [[SYSTEM_CHECKLIST.md]] | Critères de mise en production spécifiques aux systèmes | Principal Platform Architect / Security Architect |
+
+### Phase 12 — Software Architecture : architecture logicielle frontend
+
+4 nouveaux documents + extension de [[ARCHITECTURE.md]] (§3bis), [[CODING_STANDARDS.md]] (§1bis + nommage), [[ARCHITECTURE_PRINCIPLES.md]] (§8bis), [[PERFORMANCE_GUIDE.md]] (§5bis), [[SECURITY_GUIDE.md]] (§3bis), [[ACCESSIBILITY_GUIDE.md]] (§9ter) et [[TECHNICAL_BLUEPRINT.md]] (§5bis). **9 des 13 livrables demandés (`ARCHITECTURE.md`, `DEPENDENCY_RULES.md`, `NAMING_CONVENTIONS.md`, `PERFORMANCE_GUIDE.md`, `SECURITY_GUIDE.md`, `ACCESSIBILITY_GUIDE.md`, `ENGINEERING_STANDARDS.md`, `SOFTWARE_PRINCIPLES.md` + le sujet transverse de comparaison) n'ont pas donné lieu à un fichier séparé** — ce cadrage redemandait en profondeur ce que les Phases 0 et 0.5 avaient déjà construit (couches, `MusicSource`/`LocalStore`, monorepo, budgets de performance, sécurité, accessibilité) ; chaque redite a été vérifiée puis étendue au bon endroit plutôt que dupliquée ou réécrite. `ENGINEERING_STANDARDS.md` en particulier n'a reçu aucun contenu propre — entièrement redirigé vers [[ENGINEERING_GUIDE.md]]/[[CODING_STANDARDS.md]] déjà exhaustifs sur ce sujet, cohérent avec la règle de consolidation déjà appliquée dans toutes les phases précédentes.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[MODULES.md]] | Registre des 18 modules de fonctionnalité : responsabilité et surface publique de chacun | Principal React Architect |
+| [[DATA_FLOW.md]] | Pipeline complet Jellyfin → DTO → Mapper → Entité de domaine → Repository → Cache → Store → ViewModel → UI | Senior TypeScript Engineer |
+| [[ERROR_HANDLING.md]] | Gestion des erreurs au niveau code : `Result<T,E>`, Error Boundaries, retry, journalisation — distinct des messages/patterns déjà actés dans [[ERROR_STATES.md]]/[[ERROR_EXPERIENCE.md]] | Staff Frontend Engineer |
+| [[CONFIGURATION_GUIDE.md]] | Variables d'environnement, configuration runtime vs build, configuration par cible (Web/Desktop/Mobile) | Infrastructure Architect |
+
+### Phase 13 — Data Layer : architecture de la couche de données Offline-First
+
+9 nouveaux documents + extension de [[JELLYFIN_INTEGRATION.md]] (§7bis), [[CACHE_SYSTEM.md]] (§1-2), [[SYNC_ENGINE_SPECIFICATION.md]] (§1, §7bis-ter), [[DATA_LAYER.md]] (§3.4 + §3bis capstone), [[DOWNLOAD_SYSTEM.md]] (§5quater), [[LOGGING_SYSTEM.md]] (§1), [[SECURITY_GUIDE.md]] (§3ter), [[PERFORMANCE_GUIDE.md]] (§6quater) et [[TESTING_STRATEGY.md]] (§9bis). **12 des 21 livrables demandés (`API_CLIENT.md`, `CACHE_ENGINE.md`, `SYNC_ENGINE.md`, `IMPORT_ENGINE.md`, `SEARCH_INDEX_ENGINE.md`, `OFFLINE_ENGINE.md`, `DOWNLOAD_ENGINE.md`, `LOGGING_GUIDE.md`, `DATA_SECURITY.md`, `DATA_PERFORMANCE.md`, `DATA_TESTING_GUIDE.md` + `DATA_LAYER.md` lui-même, déjà existant) n'ont pas donné lieu à un nouveau fichier séparé** — chacun recoupait un document déjà profond des Phases 0.5/9/11/12, étendu plutôt que dupliqué. Détail complet des consolidations : [[DATA_LAYER.md]] §3bis.2.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[DTO_SPECIFICATION.md]] | DTO Jellyfin par entité, convention commune, cas non applicables clos explicitement | Senior Data Architect |
+| [[DOMAIN_MODELS.md]] | Entités de domaine officielles (dérivées de Jellyfin, strictement locales, calculées) | Senior Data Architect |
+| [[MAPPER_GUIDE.md]] | Quatre directions de mapping (DTO↔Domain, Storage→Domain, Domain→ViewModel), règles communes | Senior TypeScript Engineer |
+| [[REPOSITORY_PATTERN.md]] | Un repository par domaine, interfaces, matrice de dépendance repositories/services | Database Architect |
+| [[DATABASE_SCHEMA.md]] | Schéma logique complet (17 tables), relations, index, contraintes, versions | Database Architect |
+| [[INDEXEDDB_ARCHITECTURE.md]] | Implémentation concrète Dexie de `IndexedDbStore` : tables, transactions, migrations, limites | Offline-First Specialist |
+| [[STATISTICS_ENGINE.md]] | Architecture de calcul des statistiques (Web Worker, cache de résultat, invalidation) | Senior Performance Engineer |
+| [[RECOMMENDATION_ENGINE.md]] | Architecture du moteur de scoring de recommandation | Senior Data Architect |
+| [[PLAYLIST_ENGINE.md]] | Moteur de règles unique pour les neuf types de playlist, import/export/fusion/conflits | Staff React Engineer |
+
 Emplacement physique : tous les documents fondateurs vivent dans `docs/` à la racine du dépôt. Les ADR individuels vivent dans `docs/adr/`.
 
 ---
@@ -234,3 +383,12 @@ Le « propriétaire » d'un document (tableau §1) est responsable de sa cohére
 | 0.8.0 | 2026-08-03 | Ajout de la carte des 11 documents Phase 2 volume 2 (Visual Identity System) ; MOTION_BRANDING.md/ACCESSIBILITY_VISUAL_GUIDE.md/ART_DIRECTION.md non dupliqués | Engineering Manager |
 | 0.9.0 | 2026-08-03 | Ajout de la carte des 9 documents Phase 3 (Language System) ; VOICE_AND_TONE_GUIDE.md/GLOSSARY.md/ERROR_COPY_GUIDE.md/EMPTY_STATE_COPY.md non dupliqués, section NOMMAGE repliée dans STYLE_GUIDE.md §6 | Engineering Manager |
 | 0.10.0 | 2026-08-03 | Ajout de la carte des 10 documents Phase 4 (Premium Experience Bible) ; MOTION_SYSTEM.md/SOUND_EXPERIENCE.md non dupliqués | Engineering Manager |
+| 0.11.0 | 2026-08-03 | Ajout de la carte des 4 documents Phase 5 (Design System) ; GRID_SYSTEM.md/TYPOGRAPHY_SYSTEM.md/RESPONSIVE_SYSTEM.md/ICON_SYSTEM.md/ACCESSIBILITY_SYSTEM.md/MOTION_TOKENS.md/ELEVATION_SYSTEM.md non dupliqués, contradiction du cadrage sur les niveaux d'élévation résolue | Engineering Manager |
+| 0.12.0 | 2026-08-04 | Ajout de la carte des 15 documents Phase 6 (Component Library, 135 composants) ; stratégie de profondeur à deux niveaux documentée | Engineering Manager |
+| 0.13.0 | 2026-08-04 | Ajout de la carte des 5 documents Phase 7 (Foundation Components) ; 5 fichiers Phase 6 étendus plutôt que réécrits, 7 collisions de nom résolues par fusion explicite | Engineering Manager |
+| 0.14.0 | 2026-08-04 | Ajout de la carte des 9 documents Phase 8 (Navigation System) ; 4 livrables non dupliqués, correction d'un conflit réel de raccourci clavier hérité de la Phase 1 | Engineering Manager |
+| 0.15.0 | 2026-08-04 | Ajout de la carte des 12 documents Phase 9 (Music Component Library) ; 9 livrables sur 22 non dupliqués, étendus dans des documents déjà profonds des Phases 1/4/6/7/8 | Engineering Manager |
+| 0.16.0 | 2026-08-04 | Ajout de la carte des 16 documents Phase 10 (Screen System) ; 2 livrables non dupliqués (TRANSITION_GUIDE.md/PERFORMANCE_GUIDE.md étendus) ; principe explicite « composants figés, assemblage documenté » appliqué à toute la phase | Engineering Manager |
+| 0.17.0 | 2026-08-04 | Ajout de la carte des 12 documents Phase 11 (System Experience Framework) ; DOWNLOAD_SYSTEM.md/OFFLINE_SYSTEM.md (Phase 9) étendus plutôt que réécrits sous le même nom, 3 autres livrables non dupliqués | Engineering Manager |
+| 0.18.0 | 2026-08-04 | Ajout de la carte des 4 documents Phase 12 (Software Architecture) ; 9 livrables sur 13 non dupliqués (ENGINEERING_STANDARDS.md entièrement redirigé, sans contenu propre) | Engineering Manager |
+| 0.19.0 | 2026-08-04 | Ajout de la carte des 9 documents Phase 13 (Data Layer) ; 12 livrables sur 21 non dupliqués, étendus dans des documents déjà profonds des Phases 0.5/9/11/12 | Engineering Manager |

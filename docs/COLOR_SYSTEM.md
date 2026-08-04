@@ -74,6 +74,32 @@ Chaque couleur d'état est vérifiée au contraste minimum WCAG AA (4.5:1 texte 
 
 **Règle non négociable pour les thèmes dynamiques** : la palette extraite alimente uniquement l'arrière-plan/l'ambiance — jamais le texte ni les contrôles, qui restent sur les couleurs neutres/accent fixes avec contraste garanti (cohérent avec [[ACCESSIBILITY_GUIDE.md]] §3).
 
+## 6bis. Rôles de fond et tokens d'état d'interaction (ajout Phase 5)
+
+> Section ajoutée pour que tout composant du Design System résolve ses couleurs de fond et d'état à partir des mêmes rôles nommés, jamais réinventés localement — cohérent avec [[DESIGN_SYSTEM_ARCHITECTURE.md]] §1 (couleur sémantique, jamais une teinte brute référencée directement dans un composant).
+
+| Rôle | Token | Résolution |
+|---|---|---|
+| Fond de page | `background` | `neutral-0` (clair) / `neutral-950` (sombre) |
+| Surface élevée | `surface` | `neutral-50` (clair) / `neutral-800` (sombre) — voir [[SURFACE_SYSTEM.md]] pour les niveaux |
+| Conteneur (zone délimitée non élevée) | `container` | `surface` avec une bordure `border-hairline` plutôt qu'une ombre — utilisé quand une délimitation est nécessaire sans suggérer de flottement |
+| Accent principal | `primary` | `accent-500` (§3) |
+| Accent secondaire | `secondary` | `accent-warm-500` (§4), usage rare uniquement |
+| Texte atténué / élément non prioritaire | `muted` | `neutral-500`, jamais utilisé pour un texte porteur d'information critique |
+| Texte | `text-primary` / `text-secondary` | `neutral-800`/`neutral-500` (clair), inversés en sombre |
+| Bordure | `border` | `neutral-200` (clair) / équivalent sombre à faible contraste, jamais une couleur d'accent utilisée comme bordure décorative |
+
+### Tokens d'état d'interaction
+
+| État | Règle de résolution | Contrainte |
+|---|---|---|
+| `hover` | Couleur de base assombrie de 8% (fond clair) ou éclaircie de 8% (fond sombre) | Jamais un changement de teinte, uniquement de luminosité — pour rester reconnaissable comme la même couleur |
+| `pressed` | Identique à `hover`, intensité doublée (16%) | Toujours plus prononcé que `hover`, jamais l'inverse |
+| `disabled` | Opacité `opacity-disabled` (0.4, [[DESIGN_TOKENS.md]] §2) appliquée à la couleur de base, jamais une couleur grise de substitution | Préserve la reconnaissance de la couleur d'origine tout en signalant clairement l'indisponibilité |
+| `focus` | Contour `accent-500` constant quel que soit le composant | Jamais résolu différemment d'un composant à l'autre ([[ACCESSIBILITY_GUIDE.md]] §5) |
+
+**Règle absolue** : ces quatre états se dérivent toujours de la couleur de base par une transformation systématique (luminosité/opacité), jamais par une couleur codée en dur propre à un composant — un bouton et une carte utilisent la même règle de dérivation pour leur état `hover`.
+
 ## 7. Règles d'utilisation
 
 - Un seul accent principal visible par écran — l'accent secondaire (§4) ne se combine jamais avec l'accent principal dans un même composant.
@@ -87,6 +113,7 @@ Chaque couleur d'état est vérifiée au contraste minimum WCAG AA (4.5:1 texte 
 - [ ] Toutes les couleurs proposées sont explicitement marquées comme v1, pas comme finales.
 - [ ] Chaque couleur d'état est vérifiée au contraste WCAG AA minimum dans chaque thème avant implémentation réelle.
 - [ ] Aucune teinte ne coïncide avec la couleur de marque dominante d'un concurrent direct (§1).
+- [ ] Chaque état d'interaction (§6bis) se dérive systématiquement, jamais par une valeur codée en dur locale à un composant.
 
 ---
 
@@ -95,3 +122,4 @@ Chaque couleur d'état est vérifiée au contraste minimum WCAG AA (4.5:1 texte 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 2, volume 2) — proposition v1 | Color Specialist / Senior Visual Designer |
+| 0.2.0 | 2026-08-03 | Phase 5 : ajout §6bis (rôles de fond et tokens d'état hover/pressed/disabled/focus) | Design Token Specialist |

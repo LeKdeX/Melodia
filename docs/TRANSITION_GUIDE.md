@@ -46,6 +46,22 @@ Changement de section depuis la barre de navigation latérale/inférieure (ex. B
 
 Accès à un élément depuis l'historique (piste récemment jouée, page récemment visitée). Traitée comme une navigation directe standard vers la destination (§1-3 selon la nature de l'élément) — l'historique lui-même n'introduit aucune animation propre, il n'est qu'un point d'entrée parmi d'autres vers une destination déjà chorégraphiée ailleurs dans ce document.
 
+## 9bis. Table des parcours nommés — Phase 10 (renvoi, aucune nouvelle animation)
+
+> Ajoutée pour répondre explicitement aux « Screen Flows » du cadrage Phase 10 (Screen System) — chaque parcours nommé est déjà une instance des catégories §1-9, listé ici comme index plutôt que redécrit.
+
+| Parcours | Catégorie déjà définie |
+|---|---|
+| Accueil → Album | §1 (Accueil → Album) |
+| Album → Lecture | §5 (Bibliothèque → Lecteur, le clic sur un titre agrandit le Mini Player existant) |
+| Lecture → Paroles | Ouverture du Lyrics Panel, [[PLAYER_EXPERIENCE.md]] §10 — panneau local au lecteur, pas une navigation de page |
+| Paroles → Artiste | Clic sur le nom d'artiste depuis le Lyrics Panel : §2 (Album → Artiste), le point de départ change mais la chorégraphie est identique |
+| Recherche → Album | §4 (Recherche → Résultat), destination Album traitée ensuite comme §1 |
+| Playlist → Lecture | Identique à §5, Playlist jouant le rôle de la Bibliothèque comme point de départ |
+| Paramètres → Retour | §7 (Retour), sans particularité propre aux Paramètres |
+
+**Aucune animation nouvelle n'est introduite par ce tableau** — il ne fait qu'indexer des parcours concrets vers les catégories déjà chorégraphiées, cohérent avec le principe que les composants (et leurs transitions) sont désormais figés ([[SCREEN_SYSTEM.md]] §1).
+
 ---
 
 ## 10. Règle transverse
@@ -67,3 +83,4 @@ Aucune transition de page ci-dessus ne bloque l'interaction avec le lecteur pend
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 4) | Interaction Designer / Human Interface Specialist |
+| 0.2.0 | 2026-08-04 | Phase 10 : ajout §9bis (table des 7 parcours nommés du Screen System) — au lieu de créer SCREEN_TRANSITIONS.md en doublon | UX Architect |

@@ -143,6 +143,24 @@ En cohérence avec [[ENGINEERING_GUIDE.md]] §1.9, les interfaces suivantes sont
 
 Ces trois axes sont des critères de conception (« est-ce que cette interface bloquerait cet usage futur ? »), pas des tickets de développement actuels.
 
+## 8bis. Glossaire des principes classiques appliqués (ajout Phase 12)
+
+> Chaque principe ci-dessous est déjà appliqué concrètement ailleurs dans ce document ou dans [[ENGINEERING_GUIDE.md]]/[[ENGINEERING_MANIFESTO.md]] — cette table les nomme explicitement par leur terme classique, pour qu'un contributeur qui les connaît sous ce nom retrouve immédiatement leur application dans Melodia, sans qu'aucun ne soit redécidé ici.
+
+| Principe | Application concrète dans Melodia |
+|---|---|
+| **S**ingle Responsibility | Un store Zustand par domaine ([[CODING_STANDARDS.md]] §4.3), un hook = un comportement testable ([[CODING_STANDARDS.md]] §4.2) |
+| **O**pen/Closed | `MusicSource`/`LocalStore` sont des interfaces ouvertes à l'extension (nouveau connecteur, §2-3) sans modifier le code consommateur existant |
+| **L**iskov Substitution | Toute implémentation de `MusicSource` (`JellyfinSource`, un futur connecteur) est interchangeable sans changer le comportement attendu par `@melodia/app` |
+| **I**nterface Segregation | `MusicSource` et `LocalStore` restent deux interfaces distinctes plutôt qu'une interface unique fourre-tout (§2-3) — un consommateur qui n'a besoin que de l'une n'est jamais couplé à l'autre |
+| **D**ependency Inversion | `@melodia/app` dépend de l'interface `MusicSource`, jamais de `JellyfinSource` directement (§2) — l'implémentation concrète s'injecte au point de composition racine |
+| KISS | Pas d'event sourcing pour l'état de lecture, un état mutable simple suffit ([[ENGINEERING_MANIFESTO.md]] §1) |
+| YAGNI | `@melodia/core` non scindé en deux packages tant qu'aucun consommateur externe ne l'exige ([[ARCHITECTURE.md]] §2) |
+| Clean Architecture (couches) | UI → Domain → Data, dépendance strictement dirigée vers l'intérieur (§1) — Domain ignore tout de l'UI, cohérent avec la direction de dépendance déjà actée |
+| Ports & Adapters (Hexagonal) | `MusicSource`/`LocalStore` sont les ports, `JellyfinSource`/`SqliteStore`/`IndexedDbStore` les adaptateurs (§2-3) — terminologie différente, mécanisme identique déjà en place depuis la Phase 0 |
+| Dependency Injection | Composition explicite à la racine (`AppProviders`, [[FRONTEND_ARCHITECTURE.md]] §6) — pas de conteneur DI dédié (jugé disproportionné à cette échelle, cohérent avec KISS ci-dessus), l'injection reste manuelle et explicite au point d'entrée |
+| Repository Pattern | `LocalStore` est le repository du cache local (§3) — accès aux données local toujours via cette interface, jamais une requête directe à IndexedDB/SQLite depuis un composant ou un hook |
+
 ---
 
 ## 9. Historique des révisions
@@ -150,3 +168,4 @@ Ces trois axes sont des critères de conception (« est-ce que cette interface b
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Lead Software Architect |
+| 0.2.0 | 2026-08-04 | Phase 12 : ajout §8bis (glossaire SOLID/KISS/YAGNI/Clean Architecture/Ports & Adapters/DI/Repository Pattern) — au lieu de créer SOFTWARE_PRINCIPLES.md en doublon | Principal Software Architect |

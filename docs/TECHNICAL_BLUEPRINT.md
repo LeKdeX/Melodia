@@ -54,6 +54,23 @@ Quatre documents apportent une analyse qui traverse l'ensemble des décisions ci
 - [[EXTREME_SCENARIOS.md]] — validation honnête (pas seulement affirmée) de l'architecture contre l'échelle (jusqu'à 300 000 titres), la connectivité, le multi-serveurs/multi-utilisateurs et les formats d'écran. Deux gaps réels y sont signalés plutôt que masqués : la tenue au-delà de 200 000 titres n'est pas mesurée, et la synchronisation multi-appareils attend encore son ADR formel.
 - [[EVOLVABILITY.md]] — évolutivité vers Android TV, Apple TV, CarPlay, Android Auto, montres connectées, API publique, SDK, plugins, marketplace et synchronisation cloud. Un seul point y est signalé comme tension réelle avec la charte plutôt que simple question technique : une synchronisation cloud centralisée opérée par le projet contredirait [[PROJECT_CHARTER.md]] §4 — voir [[EVOLVABILITY.md]] §12 pour les deux formes qui resteraient acceptables.
 
+## 5bis. Analyse comparative de l'architecture logicielle (ajout Phase 12)
+
+> **Avertissement d'honnêteté** : comme [[COMPETITIVE_ANALYSIS.md]] et [[COMPETITIVE_BRAND_ANALYSIS.md]], cette comparaison s'appuie sur la connaissance générale du modèle (coupure janvier 2026), pas un audit de code source en direct des projets cités — à revérifier avant toute décision d'architecture qui s'appuierait fortement dessus.
+
+L'architecture logicielle de Melodia actée dans [[ARCHITECTURE.md]], [[ARCHITECTURE_PRINCIPLES.md]] et [[MODULES.md]] (Feature-First, monorepo à frontières de packages réelles, Ports & Adapters) est comparée à six produits desktop/hybrides reconnus pour la qualité de leur architecture frontend, afin de vérifier que les choix de Melodia ne sont pas des idiosyncrasies isolées.
+
+| Produit | Ce qu'il illustre | Rapprochement avec Melodia |
+|---|---|---|
+| VS Code | Architecture en couches stricte (workbench/services/contrib), extensibilité par contribution plutôt que par modification directe | Confirme la valeur d'une frontière Domain/Data imposée par la résolution de module plutôt que par convention seule ([[ARCHITECTURE.md]] §2) — VS Code l'impose via un système d'extension, Melodia via les frontières de packages npm |
+| Spotify (client desktop) | Séparation stricte entre le moteur de lecture (natif, C++) et l'UI (web-based) | Rejoint la dégradation progressive du moteur audio de Melodia ([[ARCHITECTURE_PRINCIPLES.md]] §5) — la lecture ne dépend jamais d'une couche qui pourrait échouer indépendamment |
+| Raycast | Architecture par extensions strictement isolées, chacune avec sa propre surface d'API | Le plus proche analogue du principe « une feature n'importe jamais l'intérieur d'une autre » ([[ARCHITECTURE.md]] §3bis) — Raycast l'impose à l'échelle plugin, Melodia à l'échelle module interne |
+| Linear | State management local-first avec synchronisation optimiste en arrière-plan | Valide la séparation état serveur/état client de Melodia ([[ARCHITECTURE_PRINCIPLES.md]] §4) et la stratégie de cache local-first ([[DATA_LAYER.md]] §2) — Linear va plus loin (sync temps réel bidirectionnelle) que la stratégie *pull* déclenchée actuelle de Melodia ([[ARCHITECTURE_PRINCIPLES.md]] §3.3), un écart assumé et non une lacune (voir [[ROADMAP.md]] pour une éventuelle évolution future) |
+| Nextcloud Desktop | Client auto-hébergé multi-plateforme avec moteur de synchronisation dédié, découplé de l'UI | Le rapprochement le plus direct avec la nature auto-hébergée de Melodia ([[PROJECT_CHARTER.md]] §1) — confirme la pertinence d'un module `sync` dédié et isolé plutôt qu'une synchronisation diffuse dans plusieurs features ([[ARCHITECTURE.md]] §3bis, §4 de [[MODULES.md]]) |
+| Plexamp | Client musical pour serveur auto-hébergé (Plex), abstraction du serveur derrière une couche cliente propre | Le rapprochement produit le plus direct (même catégorie que Melodia) — confirme la nécessité d'une abstraction `MusicSource` qui isole le vocabulaire du serveur (Plex/Jellyfin) de la couche Domain ([[ARCHITECTURE_PRINCIPLES.md]] §2), déjà actée depuis la Phase 0 |
+
+**Conclusion de la comparaison** : aucun des six produits ne contredit un choix déjà acté de l'architecture Melodia — la comparaison sert de validation plutôt que de découverte, à une exception notable near-miss : Linear pousse la synchronisation local-first plus loin (bidirectionnelle temps réel) que la stratégie *pull* actuelle de Melodia, différence déjà assumée explicitement dans [[ARCHITECTURE_PRINCIPLES.md]] §3.3 (ADR de synchronisation encore ouvert, voir [[EXTREME_SCENARIOS.md]] §5) plutôt que découverte ici pour la première fois.
+
 ## 6. État du dépôt à la fin de la Phase 0.5 (complément inclus)
 
 - Aucun code applicatif écrit — voulu, cette phase reste documentaire (rappel des règles absolues de cadrage de cette phase).
@@ -81,3 +98,4 @@ Il ne contient aucun chiffre, aucune convention et aucune décision qui ne soit 
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | CTO |
 | 0.2.0 | 2026-08-03 | Ajout de la section d'analyse transverse (complément Phase 0.5), mise à jour du compte de documents (28→32) et des gaps identifiés, ajout de la checklist de validation | CTO |
+| 0.3.0 | 2026-08-04 | Phase 12 : ajout §5bis (analyse comparative de l'architecture logicielle contre VS Code/Spotify/Raycast/Linear/Nextcloud Desktop/Plexamp) | Principal Software Architect |
