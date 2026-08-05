@@ -338,6 +338,128 @@ Ces 14 documents définissent précisément *ce que le produit fait*, fonctionna
 | [[RECOMMENDATION_ENGINE.md]] | Architecture du moteur de scoring de recommandation | Senior Data Architect |
 | [[PLAYLIST_ENGINE.md]] | Moteur de règles unique pour les neuf types de playlist, import/export/fusion/conflits | Staff React Engineer |
 
+### Revue de consolidation documentaire (2026-08-04)
+
+Avant d'entrer en Phase 1 d'ingénierie (MVP), une revue complète des 191 documents existants a été menée — audit, pas nouvelle fonctionnalité. 6 documents méta créés, **aucune fusion/suppression/renommage exécuté** (l'audit a trouvé très peu de doublons réels, la discipline de consolidation ayant déjà été appliquée en continu depuis la Phase 6). Rapport complet : [[ARCHITECTURE_REVIEW.md]].
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[TABLE_OF_CONTENTS.md]] | Table des matières par domaine (16 domaines) — complète cette carte, organisée chronologiquement | Documentation Architect |
+| [[DOCUMENT_HIERARCHY.md]] | Hiérarchie architecturale à 11 niveaux (Vision→...→Couche donnée), honnêteté explicite sur les niveaux non encore construits | Solution Architect |
+| [[DOCUMENT_DEPENDENCY_GRAPH.md]] | Documents à plus fort impact en cascade + matrice de dépendance par domaine | Documentation Architect |
+| [[GLOSSARY.md]] | Glossaire technique/architectural — distinct de [[VOCABULARY.md]] (copy utilisateur) | Documentation Architect |
+| [[DOCUMENTATION_CHECKLIST.md]] | RÈGLE ABSOLUE formalisée (vérifier avant de créer un document) + checklist qualité | Documentation Architect |
+| [[ARCHITECTURE_REVIEW.md]] | Rapport complet de l'audit — constats, décisions, chiffres | Principal Software Architect |
+
+**Où chercher quoi désormais** : [[TABLE_OF_CONTENTS.md]] pour une recherche par sujet, ce document (§1) pour une recherche chronologique par phase — les deux se complètent, aucun ne remplace l'autre.
+
+### Architecture d'état (2026-08-04)
+
+10 nouveaux documents + extension de [[TECHNOLOGY_COMPARISONS.md]] (§3bis-3ter), [[PERFORMANCE_GUIDE.md]] (§5ter-5quater), [[TESTING_STRATEGY.md]] (§9ter), [[SECURITY_GUIDE.md]] (§3quater) et [[REPOSITORY_PATTERN.md]] (§2, deux repositories manquants trouvés et ajoutés). **5 des 15 livrables demandés (`ZUSTAND_ARCHITECTURE.md`, `MEMOIZATION_GUIDE.md`, `STATE_PERFORMANCE.md`, `STATE_TESTING_GUIDE.md`, `STATE_SECURITY.md`) n'ont pas donné lieu à un fichier séparé** — chacun recoupait un document déjà profond ; étendus plutôt que dupliqués. Détail complet des consolidations et de l'audit de cohérence contre la couche donnée : [[STATE_MANAGEMENT.md]] §3 et §7.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[STATE_MANAGEMENT.md]] | Capstone : constitution à 8 principes, carte complète, cycle de vie, auto-revue comparative (7 références) | Principal Frontend Architect |
+| [[STORE_SPECIFICATIONS.md]] | Les 13 stores Zustand réels (17 noms candidats audités, 4 rejetés comme état serveur/dérivé déguisé) | Principal State Management Architect |
+| [[STORE_DEPENDENCY_GRAPH.md]] | Matrice bonus : données/repository/événements/consommateurs par store | Staff React Engineer |
+| [[SERVER_STATE.md]] | Classification de l'état serveur, gap de repositories manquants trouvé et comblé | Senior TypeScript Engineer |
+| [[LOCAL_STATE.md]] | Classification de l'état local par mécanisme réel (store persisté vs Repository vs Worker) | Senior TypeScript Engineer |
+| [[UI_STATE.md]] | Classification de l'état d'UI pur, règle de décision `useState` vs store | Staff React Engineer |
+| [[DERIVED_STATE.md]] | État calculé : sélecteurs légers vs moteurs avec cache | Senior Performance Engineer |
+| [[TANSTACK_QUERY_GUIDE.md]] | Query keys, cache/stale time, mutations, optimistic updates, prefetch, hydration | Senior TypeScript Engineer |
+| [[EVENT_SYSTEM.md]] | Quand utiliser un événement, catégories, catégorie Navigation Events explicitement fermée | Principal State Management Architect |
+| [[SELECTOR_GUIDE.md]] | Organisation, égalité/re-render, réutilisation des sélecteurs | Senior Performance Engineer |
+
+### Moteur Audio (2026-08-04)
+
+6 nouveaux documents + extension de [[AUDIO_ENGINE.md]] (promu capstone : §0, §0bis, §1bis, §5bis, §8bis, §9-13), [[PLAYBACK_DEVICES.md]] (§7bis), [[EVENT_SYSTEM.md]] (§3bis), [[PERFORMANCE_GUIDE.md]] (§5quinquies), [[TESTING_STRATEGY.md]] (§9quater), [[SECURITY_GUIDE.md]] (§3quinquies) et [[REPOSITORY_PATTERN.md]] (§2, `TrackRepository.getPlaybackSource`). **9 des 15 livrables demandés n'ont pas donné lieu à un fichier séparé** — `AUDIO_ENGINE.md` lui-même existait déjà (Phase 0.5), `QUEUE_ENGINE.md`/`MEDIA_SESSION.md`/`PLAYBACK_HISTORY.md` s'y sont intégrés, `DEVICE_MANAGEMENT.md`/`PLAYBACK_EVENTS.md`/`AUDIO_PERFORMANCE.md`/`AUDIO_TESTING_GUIDE.md`/`AUDIO_SECURITY.md` ont chacun étendu un document déjà profond. Détail complet : [[AUDIO_ENGINE.md]] §0bis.2 et son historique de révisions.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[PLAYBACK_ENGINE.md]] | Cycle de vie du moteur (init/destruction/reset/recovery), prévention des fuites mémoire | Audio Engine Architect |
+| [[PLAYBACK_STATE_MACHINE.md]] | Machine à états officielle à 12 états, taxonomie d'erreurs | Playback Systems Engineer |
+| [[PLAYBACK_CONTROLLER.md]] | Traduction commande→moteur, résolution de source locale/cache/streaming transparente | Frontend Architect |
+| [[COMMAND_API.md]] | Contrat formel des 16 commandes de lecture | TypeScript Architect |
+| [[STREAMING_ENGINE.md]] | Streaming Jellyfin, adaptation réseau, reconnexion | Senior Media Platform Engineer |
+| [[BUFFER_MANAGEMENT.md]] | Stratégie de buffer par nature de source (local/cache/streaming) | Performance Engineer |
+
+**Décision structurante actée** : la priorité locale/cache/streaming (contrainte spécifique au projet) est assurée exclusivement par `TrackRepository.getPlaybackSource()` — le moteur audio ne reçoit jamais l'origine de la donnée, uniquement une URI opaque ([[AUDIO_ENGINE.md]] §0bis.2).
+
+### Moteur de Recherche (2026-08-04)
+
+7 nouveaux documents + extension de [[DATA_LAYER.md]] (§3.5), [[RECOMMENDATION_ENGINE.md]] (§5bis), [[PERFORMANCE_GUIDE.md]] (§5sexies), [[TESTING_STRATEGY.md]] (§9quinquies), [[EVENT_SYSTEM.md]] (§3ter) et [[PERFORMANCE_BUDGET.md]] (§2, amendement). **5 des 12 livrables demandés n'ont pas donné lieu à un fichier séparé** — `SEARCH_ALGORITHMS.md`/`DISCOVERY_ENGINE.md`/`SEARCH_PERFORMANCE.md`/`SEARCH_TESTING_GUIDE.md`/`SEARCH_EVENTS.md` recoupaient chacun un document déjà profond, étendus plutôt que dupliqués. Détail complet : [[SEARCH_ENGINE.md]] §2.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[SEARCH_ENGINE.md]] | Capstone : constitution à 6 principes, architecture en couches, budget imbriqué 50/100 ms, auto-revue comparative (10 références) | Principal Search Architect |
+| [[INDEX_ENGINE.md]] | Cycle de vie complet de l'index (création/mise à jour/réindexation/reconstruction) | Search Engine Engineer |
+| [[SEARCH_INDEX_SPECIFICATION.md]] | Un index FlexSearch par type d'entité, dénormalisation, isolation | Information Retrieval Specialist |
+| [[RANKING_ENGINE.md]] | Classement à deux niveaux (pertinence textuelle + score composite borné) | Information Retrieval Specialist |
+| [[SUGGESTION_ENGINE.md]] | Suggestions avant/pendant la saisie | UX Architect |
+| [[FILTER_ENGINE.md]] | Combinaison de filtres, moteur partagé avec les playlists intelligentes | Data Engineer |
+| [[SORT_ENGINE.md]] | Stratégies de tri explicite, distinct du classement par pertinence | Data Engineer |
+
+**Amendement de budget** : [[PERFORMANCE_BUDGET.md]] §2 distingue désormais le budget perçu de bout en bout (< 100 ms, inchangé) du budget de calcul moteur seul (< 50 ms, nouveau) — tension du cadrage avec le budget existant résolue explicitement.
+
+### Plateforme Offline (2026-08-04)
+
+4 nouveaux documents + extension de [[OFFLINE_SYSTEM.md]] (promu capstone : §0, §0bis, §0ter, §1ter), [[SYNC_ENGINE_SPECIFICATION.md]] (§2bis, §4bis), [[CACHE_SYSTEM.md]] (§8bis), [[DOWNLOAD_SYSTEM.md]] (§5quinquies), [[PERFORMANCE_GUIDE.md]] (§5septies), [[SECURITY_GUIDE.md]] (§3sexies), [[DIAGNOSTICS_SYSTEM.md]] (§6bis) et [[TESTING_STRATEGY.md]] (§9sexies). **11 des 15 livrables demandés n'ont pas donné lieu à un fichier séparé** — recoupaient chacun un document déjà profond des phases précédentes (Phase 9/11/12/13, Architecture d'état, Moteur Audio, Moteur de Recherche), étendus plutôt que dupliqués. Détail complet : [[OFFLINE_SYSTEM.md]] §0bis.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[CONFLICT_RESOLUTION.md]] | Matrice de résolution entité par entité (favoris/historique/playlists/téléchargements/paramètres/statistiques) | Distributed Systems Architect |
+| [[STORAGE_MANAGER.md]] | Politique de quota/nettoyage/compression globale à travers cache+téléchargements+DB | Storage Engineer |
+| [[RESILIENCE_GUIDE.md]] | Taxonomie de 8 scénarios de défaillance + recovery à 3 paliers généralisé | Resilience Engineer |
+| [[BACKGROUND_TASKS.md]] | Registre de toutes les tâches de fond et règles d'ordonnancement | Performance Engineer |
+
+### Engineering Handbook (2026-08-04)
+
+5 nouveaux documents + extension de [[FRONTEND_ARCHITECTURE.md]] (§8bis-8ter), [[GIT_WORKFLOW.md]] (§2, §3.0bis, §4bis-4ter), [[TESTING_STRATEGY.md]] (§9septies-9octies), [[FEATURE_FLAGS.md]] (§6bis), [[CHECKLISTS.md]] (§4) et [[DEVELOPMENT_GUIDELINES.md]] (étape 9). **14 des 19 livrables demandés n'ont pas donné lieu à un fichier séparé** — 6 existaient déjà sous le nom exact demandé ([[CODING_STANDARDS.md]], [[GIT_WORKFLOW.md]], [[QUALITY_GATES.md]], [[CI_CD_GUIDE.md]], [[PERFORMANCE_BUDGET.md]], [[DEFINITION_OF_DONE.md]]), 8 ont été étendus, dont [[ACCESSIBILITY_GUIDE.md]] sans aucune modification (AA/AAA déjà explicite depuis [[PROJECT_CHARTER.md]] §3.6). Détail complet : [[ENGINEERING_HANDBOOK.md]] §3.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[ENGINEERING_HANDBOOK.md]] | Capstone : constitution à 9 principes, workflow bonus, matrice des standards, auto-revue comparative (8 références) | Principal Engineering Manager |
+| [[TYPESCRIPT_GUIDE.md]] | Interfaces/types, enums, const assertions, generics, utility types, type guards, politique `any` | Staff Frontend Engineer |
+| [[CODE_REVIEW_GUIDE.md]] | Checklist du relecteur, distincte de la Definition of Done (auteur) | Principal Engineering Manager |
+| [[DEFINITION_OF_READY.md]] | Critères d'entrée en développement, miroir de la Definition of Done | Principal Engineering Manager |
+| [[ENGINEERING_METRICS.md]] | Tableau de bord d'ingénierie, statut honnête sur le temps de build (non mesuré) | Principal Engineering Manager |
+
+### Implementation Plan (2026-08-05)
+
+13 nouveaux documents, tous réellement nouveaux — première phase à ne produire aucune documentation fonctionnelle/technique, uniquement un plan d'exécution du backlog déjà entièrement documenté par les phases précédentes. Aucune extension de document existant : le domaine (planification de projet) n'existait sous aucune forme dans le corpus, contrairement à toutes les phases précédentes.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[IMPLEMENTATION_ROADMAP.md]] | Capstone : méthodologie rolling wave assumée, carte complète, Burnup/Vision Roadmap, auto-revue de cohérence | Principal Software Architect |
+| [[EPICS.md]] | 15 Epics, un par jalon | Principal Software Architect |
+| [[FEATURES.md]] | 82 Features réparties sur les 15 Epics | Senior Product Manager |
+| [[TASK_BREAKDOWN.md]] | Méthodologie + 45 Tasks décomposées (M0-M3) + gabarit complet à 14 champs | Staff Technical Lead |
+| [[DEPENDENCY_GRAPH.md]] | Graphe Epic/Task, chemin critique, Gantt logique | Staff Technical Lead |
+| [[MILESTONES.md]] | M0-M14, critères factuels, opérationnalise ROADMAP.md Phase 1 | Staff Technical Lead |
+| [[MVP_ROADMAP.md]] | Portée MVP (obligatoire/peut attendre/reporté) | Senior Product Manager |
+| [[RELEASE_PLAN.md]] | Alpha/Beta/RC/Stable, critères de passage | Principal DevOps Engineer |
+| [[PROJECT_BOARD_GUIDE.md]] | Structure GitHub Projects/Issues/Milestones | Scrum Master |
+| [[GITHUB_LABELS.md]] | Labels/couleurs/priorités P0-P3 | Principal DevOps Engineer |
+| [[IMPLEMENTATION_CHECKLISTS.md]] | Gabarit de checklist compact par Task | Staff QA Engineer |
+| [[TECHNICAL_RISKS.md]] | Risques de séquencement, distinct de RISK_REGISTER_TECHNICAL.md (risques par décision) | Principal Software Architect |
+
+### Developer Playbook (2026-08-05)
+
+1 nouveau document, aucune extension — le domaine (parcours narratif unique du choix d'une tâche jusqu'au merge) n'existait sous aucune forme séquentielle dans le corpus, bien que chacune de ses étapes renvoie vers un document de gouvernance déjà écrit ([[DEVELOPMENT_GUIDELINES.md]], [[ENGINEERING_BACKLOG.md]], [[TASK_BREAKDOWN.md]], [[ADR_TEMPLATE.md]], [[TESTING_STRATEGY.md]], [[CODE_REVIEW_GUIDE.md]], [[DEFINITION_OF_DONE.md]]) sans en redéfinir aucun. Demandé explicitement concis (10-20 pages max) — aucune décomposition en plusieurs fichiers, aucune mise à jour de contenu fonctionnel/technique, cohérent avec l'instruction explicite de ne pas commencer le développement après ce document.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[DEVELOPER_PLAYBOOK.md]] | Workflow officiel : sélection de tâche → lecture des documents de référence → ADR → implémentation → tests → documentation → auto-review → PR → definition of done | Staff Technical Lead |
+| [[ENGINEERING_BACKLOG.md]] | Vue de statut consolidée, point d'entrée par rôle | Principal Engineering Manager |
+
+### TASK-003 — Rapport pré-implémentation (2026-08-05)
+
+1 nouveau document, aucune extension — consolide les résultats déjà produits par TASK-001 (vérification automatisée) et TASK-002 (revue croisée manuelle des 10 documents à plus forte cascade) en un rapport unique, sans redécider ni recorriger aucun des éléments déjà traités. Ne vérifie pas l'application de [[DOCUMENTATION_CHECKLIST.md]] §1 à ce backlog (TASK-004) et ne déclare pas M0 sorti (TASK-005) — les deux explicitement hors périmètre de cette tâche.
+
+| Document | Rôle | Propriétaire |
+|---|---|---|
+| [[PRE_IMPLEMENTATION_REPORT.md]] | Rapport ponctuel consolidant TASK-001/TASK-002 : 0 lien cassé, 6 citations non résolues restantes, 54 documents avec version d'en-tête désynchronisée restants | Staff Technical Lead |
+
 Emplacement physique : tous les documents fondateurs vivent dans `docs/` à la racine du dépôt. Les ADR individuels vivent dans `docs/adr/`.
 
 ---
@@ -392,3 +514,12 @@ Le « propriétaire » d'un document (tableau §1) est responsable de sa cohére
 | 0.17.0 | 2026-08-04 | Ajout de la carte des 12 documents Phase 11 (System Experience Framework) ; DOWNLOAD_SYSTEM.md/OFFLINE_SYSTEM.md (Phase 9) étendus plutôt que réécrits sous le même nom, 3 autres livrables non dupliqués | Engineering Manager |
 | 0.18.0 | 2026-08-04 | Ajout de la carte des 4 documents Phase 12 (Software Architecture) ; 9 livrables sur 13 non dupliqués (ENGINEERING_STANDARDS.md entièrement redirigé, sans contenu propre) | Engineering Manager |
 | 0.19.0 | 2026-08-04 | Ajout de la carte des 9 documents Phase 13 (Data Layer) ; 12 livrables sur 21 non dupliqués, étendus dans des documents déjà profonds des Phases 0.5/9/11/12 | Engineering Manager |
+| 0.20.0 | 2026-08-04 | Ajout de la carte des 6 documents de la Revue de consolidation documentaire — 0 fusion/suppression/renommage exécuté, voir [[ARCHITECTURE_REVIEW.md]] | Documentation Architect |
+| 0.21.0 | 2026-08-04 | Ajout de la carte des 10 documents Architecture d'état ; 5 livrables sur 15 non dupliqués ; 2 repositories manquants trouvés et ajoutés à REPOSITORY_PATTERN.md | Engineering Manager |
+| 0.22.0 | 2026-08-04 | Ajout de la carte des 6 documents Moteur Audio ; 9 livrables sur 15 non dupliqués ; AUDIO_ENGINE.md promu capstone ; TrackRepository.getPlaybackSource() ajouté à REPOSITORY_PATTERN.md | Engineering Manager |
+| 0.23.0 | 2026-08-04 | Ajout de la carte des 7 documents Moteur de Recherche ; 5 livrables sur 12 non dupliqués ; amendement de PERFORMANCE_BUDGET.md §2 (budget imbriqué 50/100 ms) | Engineering Manager |
+| 0.24.0 | 2026-08-04 | Ajout de la carte des 4 documents Plateforme Offline ; 11 livrables sur 15 non dupliqués ; OFFLINE_SYSTEM.md promu capstone | Engineering Manager |
+| 0.25.0 | 2026-08-04 | Ajout de la carte des 5 documents Engineering Handbook ; 14 livrables sur 19 non dupliqués (record de consolidation) | Engineering Manager |
+| 0.26.0 | 2026-08-05 | Ajout de la carte des 13 documents Implementation Plan ; 13 livrables sur 13 réellement nouveaux (aucune extension — domaine inédit) | Engineering Manager |
+| 0.27.0 | 2026-08-05 | Ajout de la carte du document Developer Playbook (1 document, réellement nouveau, aucune extension) | Engineering Manager |
+| 0.28.0 | 2026-08-05 | TASK-003 : ajout de la carte de PRE_IMPLEMENTATION_REPORT.md (1 document, consolidation de TASK-001/TASK-002, aucune extension) | Staff Technical Lead |

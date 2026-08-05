@@ -58,6 +58,21 @@ Détection d'une entrée corrompue (échec de lecture/décodage) au moment de la
 
 Action explicite depuis [[MAINTENANCE_SYSTEM.md]] — purge complète d'une catégorie puis reconstruction progressive à l'usage (jamais un blocage pendant la reconstruction, le contenu redevient disponible au fil des besoins réels).
 
+## 8bis. Cycle de vie complet — table récapitulative (ajout Plateforme Offline)
+
+> Chaque étape ci-dessous est déjà spécifiée dans une section propre (§1-8) — cette table les nomme dans l'ordre du cycle de vie complet d'une entrée de cache, sans en redéfinir aucune.
+
+| Étape | Déclencheur | Section |
+|---|---|---|
+| Création | Premier accès à une donnée non encore en cache | §1 |
+| Mise à jour | Synchronisation incrémentale détecte une modification ([[SYNC_ENGINE_SPECIFICATION.md]] §4bis) | §3 (Metadata Cache invalidée par la sync) |
+| Préchargement | Anticipation d'un besoin probable (pochettes de la file suivante) | §5 |
+| Réindexation | Catégorie Search Index Cache uniquement — voir [[INDEX_ENGINE.md]], jamais redécidé ici | §1 (renvoi) |
+| Nettoyage | Limite de taille atteinte ou action manuelle | §2, §6 |
+| Expiration | Politique propre à chaque catégorie | §3 |
+| Réparation | Entrée corrompue détectée à la consultation | §7 |
+| Reconstruction | Action explicite après purge complète | §8 |
+
 ---
 
 ## 9. Checklist de validation
@@ -74,3 +89,4 @@ Action explicite depuis [[MAINTENANCE_SYSTEM.md]] — purge complète d'une cat�
 |---|---|---|---|
 | 0.1.0 | 2026-08-04 | Création initiale du document (Phase 11) | Principal Platform Architect / Frontend Architect |
 | 0.2.0 | 2026-08-04 | Phase 13 : ajout des catégories Statistics/Recommendation/Search Index Cache (§1) et mise à jour de l'ordre de purge (§2) — au lieu de créer CACHE_ENGINE.md en doublon | Performance Engineer |
+| 0.3.0 | 2026-08-04 | Plateforme Offline : ajout §8bis (table récapitulative du cycle de vie complet, sans redéfinition) — au lieu de créer CACHE_LIFECYCLE.md en doublon quasi total | Storage Engineer |

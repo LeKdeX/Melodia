@@ -1,7 +1,7 @@
 # AUDIO_VISUALIZER.md — Expériences de visualisation audio (Phase 9)
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.2.0
 > **Date de création** : 2026-08-04
 > **Propriétaire** : Motion Designer / Audio Software Engineer
 > **Documents liés** : [[PLAYER_SPECIFICATION.md]] §7, [[AUDIO_ENGINE.md]] §7, [[ACCESSIBILITY_GUIDE.md]] §9bis
@@ -36,7 +36,7 @@ Le Visualiseur occupe l'intégralité du Fullscreen Player, pochette réduite à
 
 ## 7. Performance Mode (repli automatique)
 
-Bascule automatique vers le style Minimal (§5) ou désactivation complète si le budget de performance est sous tension (défilement rapide d'une liste dense en parallèle, [[FOUNDATION_TESTING_GUIDE.md]] §5bis pour le test de charge correspondant) — jamais un choix manuel supplémentaire proposé à l'utilisateur, la dégradation reste automatique et invisible, cohérent avec la règle déjà actée que la performance prime sur l'esthétique en cas de conflit ([[MOTION_GUIDELINES.md]] §13.4).
+Bascule automatique vers le style Minimal (§5) ou désactivation complète si le budget de performance est sous tension (défilement rapide d'une liste dense en parallèle, [[FOUNDATION_TESTING_GUIDE.md]] §5bis pour le test de charge correspondant) — jamais un choix manuel supplémentaire proposé à l'utilisateur, la dégradation reste automatique et invisible, cohérent avec la règle déjà actée que la performance prime sur l'esthétique en cas de conflit ([[MOTION_GUIDELINES.md]] §13).
 
 ## 8. Sélection du style
 
@@ -57,3 +57,4 @@ Réglage unique dans les Paramètres audio/interface ([[SETTINGS_COMPONENTS.md]]
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-04 | Création initiale du document (Phase 9) | Motion Designer / Audio Software Engineer |
+| 0.2.0 | 2026-08-05 | TASK-002 : correction de la citation de dégradation automatique vers MOTION_GUIDELINES.md (section 13.4, inexistante comme en-tête → section 13) | Staff Technical Lead |

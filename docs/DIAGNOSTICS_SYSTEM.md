@@ -34,6 +34,13 @@ Empreinte mémoire du processus applicatif — utile principalement en contexte 
 
 Fréquence d'images réelle mesurée (comparée au budget 60 FPS, [[PERFORMANCE_BUDGET.md]] §3), temps de démarrage mesuré (comparé au budget <2s) — affichage en Statistiques techniques réservées au panneau développeur, jamais mélangées aux Statistiques d'écoute ([[STATISTICS_SCREENS.md]], registre totalement différent : technique vs personnel).
 
+## 6bis. État de synchronisation et des téléchargements (ajout Plateforme Offline)
+
+> §1 couvre déjà la santé du serveur (connexion, latence, version). §4 couvre déjà l'occupation disque distincte téléchargements/cache. Cette section ajoute les deux cartes qui manquaient explicitement : l'état du moteur de synchronisation et celui de la file de téléchargement, jamais confondus l'un avec l'autre ni avec §1/§4.
+
+- **État de synchronisation** : mode actif ([[SYNC_ENGINE_SPECIFICATION.md]] §2bis, Manual/Scheduled/Background), horodatage du dernier cycle réussi, nombre d'éléments en attente dans le journal de changements locaux ([[SYNC_ENGINE_SPECIFICATION.md]] §4bis) — action directe vers Synchronisation manuelle si un retard anormal est détecté.
+- **État des téléchargements** : nombre d'éléments actifs/en attente/échoués, débit agrégé de la file — renvoi direct vers l'écran Téléchargements ([[DOWNLOAD_SCREENS.md]]) pour le détail par élément, jamais dupliqué ici.
+
 ## 7. Composition de l'écran Diagnostics
 
 ```
@@ -42,6 +49,7 @@ Fréquence d'images réelle mesurée (comparée au budget 60 FPS, [[PERFORMANCE_
 ├─ Santé du serveur (§1) — Statistics Card
 ├─ Qualité réseau (§2) — Statistics Card
 ├─ Occupation cache/disque (§3-4) — Charts (barres empilées par catégorie)
+├─ État de synchronisation et des téléchargements (§6bis) — Statistics Cards
 └─ Performances (§5-6) — visible uniquement si Debug Mode actif ([[SETTINGS_SYSTEM.md]] §9)
 [Mini Player — persistant]
 ```
@@ -69,3 +77,4 @@ Cette page reste accessible au clavier/lecteur d'écran comme tout écran de con
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-04 | Création initiale du document (Phase 11) | Performance Engineer / Principal Platform Architect |
+| 0.2.0 | 2026-08-04 | Plateforme Offline : ajout §6bis (cartes dédiées état de synchronisation et des téléchargements) — au lieu de créer OBSERVABILITY.md en doublon | Resilience Engineer |

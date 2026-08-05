@@ -47,6 +47,7 @@ Checklists **opérationnelles**, ponctuelles et non liées à une fonctionnalit�
 - [ ] Toute nouvelle commande Tauri (`invoke`) validée côté Rust, pas seulement côté frontend ([[SECURITY_GUIDE.md]] §4).
 - [ ] Permissions Tauri ajoutées justifiées explicitement dans la description de PR.
 - [ ] CSP non affaiblie sans justification documentée ([[SECURITY_GUIDE.md]] §1).
+- [ ] Scan de dépendances vert, aucune CVE critique/haute non dérogée explicitement ([[SECURITY_GUIDE.md]] §2, automatisé — vérifié manuellement ici uniquement si une dérogation a été prise, ajout Engineering Handbook).
 
 ## 5. Checklist de fin de phase (voir [[ROADMAP.md]])
 
@@ -68,3 +69,4 @@ Checklists **opérationnelles**, ponctuelles et non liées à une fonctionnalit�
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Engineering Manager |
 | 0.2.0 | 2026-08-03 | Ajout des renvois vers les documents du complément Phase 0.5 dans la checklist de release | Engineering Manager |
+| 0.3.0 | 2026-08-04 | Engineering Handbook : ajout d'un item de vérification du scan de dépendances à §4 — au lieu de créer SECURITY_CHECKLIST.md en doublon (cette checklist et SECURITY_GUIDE.md couvraient déjà l'essentiel) | Security Engineer |

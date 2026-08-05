@@ -56,6 +56,17 @@ Un `ErrorBoundary` par route (pas un unique boundary global) : une erreur sur la
 
 - Toute mutation utilisateur à latence perceptible (ajout à une playlist, renommage) applique une mise à jour optimiste via TanStack Query, avec retour arrière automatique et notification claire en cas d'échec serveur — jamais un état d'interface figé en attente de confirmation réseau pour une action qui devrait sembler instantanée (cohérent avec l'objectif UX « zéro action critique à plus d'une interaction », [[PROJECT_CHARTER.md]] §3.3).
 
+## 8bis. Props — conventions explicites (ajout Engineering Handbook)
+
+- Une interface `ComponentNameProps` dédiée par composant ([[CODING_STANDARDS.md]] §4.1, déjà acté) — jamais des props inline non nommées au-delà d'un composant trivial à une seule prop.
+- Props booléennes : jamais plus de deux sur un même composant sans les regrouper en un objet de configuration ou une prop de variante unique ([[ENGINEERING_GUIDE.md]] §1.8, déjà acté) — un composant avec cinq props booléennes indépendantes a 32 états combinatoires possibles, dont la plupart n'ont jamais de sens produit.
+- `children` réservé à une composition de contenu réelle — jamais utilisé comme échappatoire pour éviter de nommer une prop de configuration explicite.
+- Props par défaut définies au niveau de la déstructuration des paramètres, jamais via `defaultProps` (API historique, dépréciée pour les composants fonction).
+
+## 8ter. Context — au-delà des providers globaux (ajout Engineering Handbook)
+
+§6 couvre déjà le provider global unique (player). Un Context **local à une feature** (ex. partager un état de configuration entre plusieurs composants d'un même formulaire complexe sans le remonter à un store Zustand) est acceptable seulement si : l'état ne survit pas au démontage de la feature (sinon, c'est un store, [[DATA_LAYER.md]] §1) et le nombre de consommateurs reste restreint à cette feature (sinon, le coût de re-render non scoping de Context, [[TECHNOLOGY_COMPARISONS.md]] §3ter, devient un problème réel). Un Context de feature vit dans le dossier de la feature elle-même, jamais promu au niveau `AppProviders` sans besoin transverse réel.
+
 ## 9. Accessibilité du routing
 
 Changement de route annoncé aux technologies d'assistance (gestion du focus sur le titre de page après navigation, région `aria-live` pour les changements d'état de lecture) — vérifié en revue selon [[DEFINITION_OF_DONE.md]], section Accessibilité.
@@ -75,3 +86,4 @@ Changement de route annoncé aux technologies d'assistance (gestion du focus sur
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Lead Frontend Engineer |
 | 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Lead Frontend Engineer |
+| 0.3.0 | 2026-08-04 | Engineering Handbook : ajout §8bis (conventions de props) et §8ter (Context local à une feature) — au lieu de créer REACT_GUIDE.md en doublon (ce document couvrait déjà routing/Suspense/Error Boundaries/composition/hooks) | Staff Frontend Engineer |

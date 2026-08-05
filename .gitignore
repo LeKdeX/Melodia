@@ -1,2 +1,4 @@
 graphify-out/
 .venv/
+node_modules/
+.turbo/

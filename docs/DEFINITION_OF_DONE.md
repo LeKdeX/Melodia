@@ -1,12 +1,28 @@
 # DEFINITION_OF_DONE.md — Définition de "terminé"
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.2.0
 > **Date de création** : 2026-08-03
 > **Propriétaire** : Engineering Manager
 > **Documents liés** : [[DEVELOPMENT_GUIDELINES.md]], [[CODING_STANDARDS.md]], [[PERFORMANCE_BUDGET.md]], [[SECURITY_GUIDELINES.md]]
 
 Une fonctionnalité n'est **jamais** considérée comme terminée sur la seule base de « ça fonctionne chez moi ». Cette checklist est vérifiée en revue de PR avant merge (voir [[GIT_WORKFLOW.md]] §3) et cochée explicitement dans le template de Pull Request.
+
+---
+
+## Definition of Done — Epic
+
+> Règle permanente du projet, ajoutée suite à ADR-0002 (`docs/adr/0002-application-bootstrap-gap.md`) — un gap de planification réel (aucune Task ne créait le point d'entrée de l'application) aurait été détecté plus tôt si cette checklist avait existé au moment de la décomposition d'EPIC-003. **Distincte de [[MILESTONES.md]]**, qui définit les critères de sortie des *jalons* — cette section s'applique à toute Epic, avant même que ses Tasks ne soient implémentées, et est utilisée systématiquement lors des revues d'architecture, pas seulement à la clôture d'une Epic.
+
+Une Epic ne peut être considérée comme prête à être implémentée que si elle possède obligatoirement :
+
+- [ ] Un point d'entrée clairement identifié.
+- [ ] Un point de sortie clairement identifié.
+- [ ] Au moins un artefact observable produit par cette Epic.
+- [ ] Au moins un critère de validation objectif.
+- [ ] Une démonstration reproductible permettant de vérifier que l'Epic apporte une valeur observable.
+
+**Si l'un de ces éléments est absent : STOP.** Ne pas implémenter l'Epic. Créer un ADR si nécessaire afin de corriger le backlog ou l'architecture avant toute implémentation.
 
 ---
 
@@ -74,3 +90,4 @@ Une fonctionnalité n'est **jamais** considérée comme terminée sur la seule b
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Engineering Manager |
+| 0.2.0 | 2026-08-05 | Ajout de la section « Definition of Done — Epic » (règle permanente, ADR-0002) — 5 critères obligatoires avant implémentation d'une Epic, distincte des critères de sortie de jalon de MILESTONES.md | Staff Software Engineer |

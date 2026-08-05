@@ -1,0 +1,17 @@
+/*
+ * Preset Tailwind partagé — mécanisme natif CSS-first de Tailwind CSS v4
+ * (ADR-0001, docs/adr/0001-tailwind-v4-theme-mechanism.md, Accepté).
+ *
+ * Consommé par chaque package via, dans son propre point d'entrée CSS :
+ *   @import "tailwindcss";
+ *   @import "@melodia/config/tailwind-theme.css";
+ *
+ * Volontairement vide de valeurs de token à ce stade — DESIGN_TOKENS.md et
+ * COLOR_SYSTEM.md restent en v1 non finale, non implémentables ici sans
+ * anticiper TASK-019/020 (Design Tokens). Ce fichier est le point d'entrée
+ * structurel que ces Tasks rempliront, pas une redécision anticipée de leur
+ * contenu.
+ */
+
+@theme {
+}

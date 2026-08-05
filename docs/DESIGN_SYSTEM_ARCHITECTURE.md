@@ -1,7 +1,7 @@
 # DESIGN_SYSTEM_ARCHITECTURE.md — Architecture du design system (Phase 0.5)
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.3.0
 > **Date de création** : 2026-08-03
 > **Propriétaire** : Lead Product Designer / Lead Frontend Engineer
 > **Documents liés** : [[TECH_STACK.md]] §1, [[PROJECT_CHARTER.md]] §3.4, [[ARCHITECTURE.md]] §2
@@ -12,7 +12,9 @@ Ce document est l'architecture technique concrète du package `@melodia/ui` ([[A
 
 ## 1. Design tokens
 
-- **Format** : tokens définis comme extension du thème Tailwind (`tailwind.config`) pour les valeurs statiques (échelle d'espacement, rayons, typographie), et comme variables CSS personnalisées (`--color-accent`, `--color-surface`) pour tout ce qui doit changer à l'exécution (thème clair/sombre, accent utilisateur).
+> **ADR-0001** (`docs/adr/0001-tailwind-v4-theme-mechanism.md`, Accepté 2026-08-05) a précisé le mécanisme technique ci-dessous — Tailwind CSS v4 CSS-first, aucune couche de compatibilité v3. Ne redécide rien d'autre dans ce document.
+
+- **Format** : tokens définis comme extension native du thème Tailwind (blocs `@theme` CSS, Tailwind CSS v4) pour les valeurs statiques (échelle d'espacement, rayons, typographie), et comme variables CSS personnalisées (`--color-accent`, `--color-surface`) pour tout ce qui doit changer à l'exécution (thème clair/sombre, accent utilisateur).
 - **Catégories** : couleur (sémantique — `surface`, `border`, `accent`, `danger` — jamais de nom lié à une teinte brute comme `blue-500` utilisé directement dans un composant), espacement, typographie (échelle modulaire), rayon de bordure, ombre, durée/courbe d'animation (cohérent avec les primitives Motion de [[TECH_STACK.md]] §1).
 - **Source unique** : les tokens vivent dans `packages/ui/src/tokens/`, jamais dupliqués ou redéfinis localement dans une feature de `@melodia/app` (cohérent avec [[ENGINEERING_GUIDE.md]] §1.3).
 
@@ -58,3 +60,4 @@ Chaque composant du design system est documenté et testé visuellement dans Sto
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | Lead Product Designer / Lead Frontend Engineer |
 | 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Lead Product Designer / Lead Frontend Engineer |
+| 0.3.0 | 2026-08-05 | ADR-0001 (Accepté) : §1 mis à jour — mécanisme des tokens statiques passé de `tailwind.config` (v3) au natif `@theme` CSS (Tailwind v4) | Staff Software Engineer |

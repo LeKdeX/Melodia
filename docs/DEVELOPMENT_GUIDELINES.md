@@ -38,6 +38,9 @@ Idée / besoin
      │
      ▼
 8. Release
+     │
+     ▼
+9. Monitoring
 ```
 
 ### Étape 1 — Cadrage produit
@@ -75,6 +78,9 @@ Squash and merge vers `main` une fois la CI verte et la revue approuvée (voir [
 ### Étape 8 — Release
 Selon le rythme de release défini dans [[ROADMAP.md]]. Une fonctionnalité mergée sur `main` n'est pas nécessairement immédiatement publiée si un feature flag de sortie progressive est utilisé (voir §2).
 
+### Étape 9 — Monitoring (ajout Engineering Handbook)
+Après publication, la fonctionnalité est suivie via les diagnostics déjà actés ([[DIAGNOSTICS_SYSTEM.md]]) et les journaux applicatifs ([[LOGGING_SYSTEM.md]]) — jamais considérée définitivement terminée à la seule publication. Une régression détectée en monitoring rouvre le cycle à l'étape 3 (implémentation) via un nouveau ticket, jamais un correctif appliqué directement sur l'artefact publié sans repasser par le workflow complet.
+
 ---
 
 ## 2. Sortie progressive (feature flags)
@@ -94,3 +100,4 @@ Toute fonctionnalité avec surface d'interface nouvelle passe par une revue de d
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Engineering Manager |
+| 0.2.0 | 2026-08-04 | Engineering Handbook : ajout de l'étape 9 (Monitoring) au workflow, cohérent avec le workflow bonus du cadrage | Engineering Manager |

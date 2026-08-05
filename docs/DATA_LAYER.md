@@ -1,7 +1,7 @@
 # DATA_LAYER.md — Couche de données concrète (Phase 0.5)
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.5.1
 > **Date de création** : 2026-08-03
 > **Propriétaire** : Principal Software Architect
 > **Documents liés** : [[ARCHITECTURE_PRINCIPLES.md]] §2-4, [[STACK_DECISIONS.md]] §2, [[JELLYFIN_INTEGRATION.md]]
@@ -61,7 +61,13 @@ Si l'index local n'existe pas encore (premier lancement, synchronisation initial
 - **Préfixes** : recherche par préfixe activée par défaut (`"beat"` retrouve `"Beatles"`) — cohérent avec l'attente d'une recherche instantanée à la frappe ([[PERFORMANCE_BUDGET.md]] §2).
 - **Accents et normalisation** : les champs indexés sont normalisés (suppression des diacritiques, casse uniforme) à l'indexation **et** à la requête — une recherche `"deja vu"` retrouve `"Déjà Vu"` sans que l'utilisateur ait à taper l'accent exact.
 - **Synonymes** : un dictionnaire minimal de synonymes courants (ex. abréviations de featuring `"feat."`/`"ft."`/`"featuring"`) est appliqué à la requête avant recherche — pas un moteur de synonymes extensif, qui dépasserait le besoin réel actuel (YAGNI, [[ARCHITECTURE_PRINCIPLES.md]] §8bis).
-- **Classement** : pondération déjà actée (§3.2, titre exact > titre partiel > artiste > album > genre) — un score de pertinence FlexSearch natif ordonne au sein de chaque niveau de pondération, jamais un ordre alphabétique par défaut qui masquerait la pertinence réelle.
+- **Classement** : pondération déjà actée (§3.2, titre exact > titre partiel > artiste > album > genre) — un score de pertinence FlexSearch natif ordonne au sein de chaque niveau de pondération, jamais un ordre alphabétique par défaut qui masquerait la pertinence réelle. Voir [[RANKING_ENGINE.md]] pour le second niveau de classement (popularité/historique/favoris), qui compose avec ce niveau sans le redécider.
+
+### 3.5 Recherche multi-mots, partielle et intelligente (ajout Moteur de Recherche)
+
+- **Multi-mots** : chaque mot de la requête est recherché indépendamment puis les résultats intersectés (tous les mots doivent apparaître, ordre libre) — cohérent avec la tolérance à l'ordre des mots déjà actée (§3.2, « recherche floue tolérante... à l'ordre des mots »), cette section précise le mécanisme exact (intersection, jamais une simple concaténation de la requête complète comme un seul terme).
+- **Recherche partielle** : un terme de requête correspond à une sous-chaîne de n'importe quelle longueur au sein d'un champ indexé (pas seulement un préfixe, voir ci-dessus qui couvre spécifiquement le préfixe) — ex. `"eatles"` retrouve `"Beatles"`. Activée par défaut pour le titre (champ le plus consulté), plus restrictive sur les champs à pondération faible ([[SEARCH_SPECIFICATION.md]] §3, compositeur/label) pour limiter le bruit de faux positifs sur du texte long.
+- **Recherche intelligente** : terme du cadrage désignant la combinaison des mécanismes déjà actés ci-dessus (fuzzy, préfixe, multi-mots, partielle, synonymes) appliqués ensemble à chaque requête par défaut — jamais un mode à activer séparément, cohérent avec l'objectif d'une recherche qui « fonctionne » sans configuration ([[SEARCH_SPECIFICATION.md]] §1).
 
 ## 3bis. Cette phase — synthèse, cycle de vie complet et auto-revue (ajout Phase 13)
 
@@ -129,3 +135,5 @@ Jellyfin (serveur) — uniquement pour les trois cas restreints de MAPPER_GUIDE.
 | 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Principal Software Architect |
 | 0.3.0 | 2026-08-04 | Phase 13 : ajout §3.4 (fuzzy search, préfixes, accents, synonymes, classement) — au lieu de créer SEARCH_INDEX_ENGINE.md en doublon | Senior Data Architect |
 | 0.4.0 | 2026-08-04 | Phase 13 : ajout §3bis (capstone — cycle de vie complet avec chemin d'écriture retour, carte des documents de la phase, auto-revue comparative Spotify/Plexamp/VS Code/Obsidian/Notion/Linear/Nextcloud Desktop) | Principal Software Architect |
+| 0.5.0 | 2026-08-04 | Moteur de Recherche : ajout §3.5 (recherche multi-mots, partielle, intelligente) — au lieu de créer SEARCH_ALGORITHMS.md en doublon de §3.4 | Information Retrieval Specialist |
+| 0.5.1 | 2026-08-05 | TASK-002 : correction du numéro de version en en-tête, resté désynchronisé (« 0.1.0 ») du tableau ci-dessus depuis l'amendement 0.2.0 — trouvé lors de la revue croisée manuelle des 10 documents à plus forte cascade | Staff Technical Lead |

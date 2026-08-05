@@ -1,7 +1,7 @@
 # PRODUCT_RULES.md — Règles produit non négociables (Phase 1)
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.2.1
 > **Date de création** : 2026-08-03
 > **Propriétaire** : Product Manager Senior / CPO
 > **Documents liés** : [[UX_PRINCIPLES.md]], [[ENGINEERING_MANIFESTO.md]], [[DEFINITION_OF_DONE.md]]
@@ -76,3 +76,4 @@ Chaque règle listée ici doit avoir une entrée correspondante et vérifiable d
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1) | Product Manager Senior / CPO |
 | 0.2.0 | 2026-08-03 | Clarification §10 (Phase 1 volume 2) : distinction entre télémétrie envoyée à un serveur (strictement opt-in) et historique d'écoute local activé par défaut pour les fonctionnalités de statistiques/découverte | Product Manager Senior / CPO |
+| 0.2.1 | 2026-08-05 | TASK-002 : correction du numéro de version en en-tête, resté désynchronisé (« 0.1.0 ») du tableau ci-dessus depuis l'amendement 0.2.0 — trouvé lors de la revue croisée manuelle des 10 documents à plus forte cascade | Staff Technical Lead |

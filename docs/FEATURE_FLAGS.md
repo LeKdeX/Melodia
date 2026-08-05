@@ -38,6 +38,10 @@ Les flags activés sont propres à l'appareil (préférence locale, [[DATA_LAYER
 
 Un flag retiré (fonctionnalité passée en Stable ou abandonnée) disparaît de Labs à la mise à jour suivante — si abandonnée, toute donnée produite exclusivement par cette fonctionnalité est signalée à l'utilisateur avant suppression (jamais silencieusement effacée), cohérent avec [[SYSTEM_CHECKLIST.md]] pour la validation de ce cas avant tout retrait en production.
 
+## 6bis. Migration de schéma à la stabilisation (ajout Engineering Handbook)
+
+Distinct du retrait de flag lui-même (§6, déjà acté) : si une fonctionnalité expérimentale a introduit une forme de données propre pendant sa phase Labs (ex. un champ `experimental_*` dans `LocalStore`), son passage en Stable suit une migration de schéma standard ([[DATABASE_SCHEMA.md]] §5) — jamais un champ `experimental_*` qui perdure indéfiniment en production après stabilisation. La migration est écrite avant le retrait du flag, jamais après, pour qu'aucune fenêtre de données incohérentes n'existe entre les deux versions.
+
 ## 7. Accessibilité
 
 Chaque Toggle Row de Labs suit exactement le contrat d'accessibilité déjà défini pour ce composant ([[SETTINGS_COMPONENTS.md]]) — aucune exception pour les fonctionnalités expérimentales, l'accessibilité n'est jamais elle-même optionnelle ([[FOUNDATIONS.md]] §7).
@@ -57,3 +61,4 @@ Chaque Toggle Row de Labs suit exactement le contrat d'accessibilité déjà dé
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-04 | Création initiale du document (Phase 11) | Principal Platform Architect / Senior Product Designer |
+| 0.2.0 | 2026-08-04 | Engineering Handbook : ajout §6bis (migration de schéma à la stabilisation) — au lieu de créer FEATURE_FLAGS_GUIDE.md en doublon (migration et suppression déjà couvertes §1 et §6) | Principal Platform Architect |

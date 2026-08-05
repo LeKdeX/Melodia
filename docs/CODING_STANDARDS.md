@@ -1,7 +1,7 @@
 # CODING_STANDARDS.md — Standards de code
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.2.1
 > **Date de création** : 2026-08-03
 > **Propriétaire** : Principal Frontend Engineer
 > **Documents liés** : [[ARCHITECTURE_PRINCIPLES.md]], [[ENGINEERING_GUIDE.md]], [[DEFINITION_OF_DONE.md]]
@@ -151,3 +151,4 @@ Un dépassement n'est pas automatiquement bloquant mais doit être justifié exp
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Principal Frontend Engineer |
 | 0.1.1 | 2026-08-03 | Amendement Phase 0.5 : nichage de `src/` dans `packages/app` et `packages/core` suite à l'adoption du monorepo (voir [[ARCHITECTURE.md]]) | Principal Software Architect |
 | 0.2.0 | 2026-08-04 | Phase 12 : ajout §1bis (dossiers layouts/providers/styles/assets/workers/tests) et complément au tableau de nommage (dossiers, assets) — au lieu de créer PROJECT_STRUCTURE.md/NAMING_CONVENTIONS.md en doublon | Staff Frontend Engineer |
+| 0.2.1 | 2026-08-05 | TASK-002 : correction du numéro de version en en-tête, resté désynchronisé (« 0.1.0 ») du tableau ci-dessus depuis l'amendement 0.1.1 — trouvé lors de la revue croisée manuelle des 10 documents à plus forte cascade | Staff Technical Lead |

@@ -1,7 +1,7 @@
 # PREMIUM_EXPERIENCE_BIBLE.md — Synthèse de l'expérience sensorielle (Phase 4)
 
 > **Statut** : document fondateur, vivant — capstone de Phase 4
-> **Version** : 0.1.0
+> **Version** : 0.2.0
 > **Date de création** : 2026-08-03
 > **Propriétaire** : Experience Design Director
 > **Documents liés** : tous les documents listés en §5
@@ -16,7 +16,7 @@
 2. **Chaque action doit avoir une conséquence visible.** Une action sans retour crée un doute qui pousse à répéter le geste — cohérent avec [[UX_PRINCIPLES.md]] §1.
 3. **Le mouvement explique l'interface.** La continuité spatiale (un élément anime depuis/vers sa position logique) enseigne la structure de l'application sans qu'aucun texte n'ait à l'expliquer ([[MOTION_GUIDELINES.md]] §4).
 4. **La musique reste toujours au centre.** Aucun effet sensoriel — visuel, sonore ou futur haptique — ne rivalise jamais avec la musique elle-même ([[SOUND_DESIGN_GUIDE.md]] §1, [[PRODUCT_RULES.md]] §1-2).
-5. **Les animations ne doivent jamais ralentir le produit.** La performance réelle et perçue prime toujours sur l'esthétique en cas de conflit ([[MOTION_GUIDELINES.md]] §13.4).
+5. **Les animations ne doivent jamais ralentir le produit.** La performance réelle et perçue prime toujours sur l'esthétique en cas de conflit ([[MOTION_GUIDELINES.md]] §13).
 6. **La fluidité est plus importante que la complexité.** Un système de mouvement volontairement restreint (quatre catégories de durée, quatre courbes) surpasse un système riche mais incohérent — cohérent avec [[ENGINEERING_MANIFESTO.md]] §2 appliqué au motion design.
 7. **Les effets visuels doivent renforcer la compréhension.** Un effet qui ne sert ni la compréhension, ni la fluidité, ni le plaisir d'utilisation n'a pas sa place — c'est le filtre appliqué en auto-revue de cette phase (§6).
 
@@ -104,3 +104,4 @@ Toute animation, transition ou effet de cette bibliothèque a été vérifié co
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document, capstone de la Phase 4 | Experience Design Director |
+| 0.2.0 | 2026-08-05 | TASK-002 : correction de la règle de synthèse §5 vers MOTION_GUIDELINES.md (section 13.4, inexistante comme en-tête → section 13) | Staff Technical Lead |

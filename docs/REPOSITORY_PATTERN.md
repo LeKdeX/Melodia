@@ -20,7 +20,7 @@
 |---|---|---|---|
 | `AlbumRepository` | `Album` | `LocalStore`, `MusicSource` (via cache invalidé par sync) | `albums`, `library` |
 | `ArtistRepository` | `Artist` | `LocalStore`, `MusicSource` | `artists`, `library` |
-| `TrackRepository` | `Track` | `LocalStore`, `MusicSource` | `tracks`, `library`, `player`, `queue` (lecture seule) |
+| `TrackRepository` | `Track` — expose aussi `getPlaybackSource(trackId)` (ajout Moteur Audio, résout local/cache/streaming en un `PlaybackSource` opaque, voir [[AUDIO_ENGINE.md]] §0bis.2) | `LocalStore`, `MusicSource`, `DownloadRepository` (consultation du statut téléchargé) | `tracks`, `library`, `player`, `queue` (lecture seule) |
 | `PlaylistRepository` | `Playlist` | `LocalStore` (+ `MusicSource` pour les playlists Jellyfin natives) | `library` (section playlists) |
 | `HistoryRepository` | `History` | `LocalStore` uniquement — jamais `MusicSource` (donnée strictement locale, [[STATISTICS_SPECIFICATION.md]] §2) | `statistics` |
 | `FavoriteRepository` | `Favorite` | `LocalStore` (+ `MusicSource` en écriture optionnelle, [[MAPPER_GUIDE.md]] §4) | Toute feature d'affichage, en lecture (via sélecteur, jamais un import direct) |
@@ -28,6 +28,8 @@
 | `StatisticsRepository` | `Statistics` (agrégat calculé) | `HistoryRepository` (jamais `LocalStore` directement — un agrégat se recalcule, ne se lit jamais comme une table brute) | `statistics` |
 | `RecommendationRepository` | `Recommendation` | `HistoryRepository`, `FavoriteRepository` | `search` (Daily Mix), `library` (Découverte) |
 | `SettingsRepository` | Préférences utilisateur | `LocalStore` uniquement | `settings`, `themes`, `notifications` |
+| `CollectionRepository` (ajout Architecture d'état) | `Collection` | `LocalStore`, `MusicSource` | `library` (gap trouvé lors de la rédaction de [[SERVER_STATE.md]] §5 — `Collection` avait une entité de domaine mais aucun repository dédié) |
+| `ArtworkRepository` (ajout Architecture d'état) | `Artwork` (descripteur uniquement, jamais le binaire) | `LocalStore`, `MusicSource` | `library`, `player` (idem, gap trouvé lors de la rédaction de [[SERVER_STATE.md]] §5) |
 
 ## 3. Interface type (illustrative, pas une spécification finale d'implémentation)
 
@@ -79,3 +81,5 @@ interface AlbumRepository {
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 1.0.0 | 2026-08-04 | Création initiale du document (Phase 13) | Database Architect |
+| 1.1.0 | 2026-08-04 | Architecture d'état : ajout de `CollectionRepository` et `ArtworkRepository` (§2), gaps trouvés lors de la rédaction de [[SERVER_STATE.md]] | Database Architect |
+| 1.2.0 | 2026-08-04 | Moteur Audio : ajout de `TrackRepository.getPlaybackSource(trackId)` (§2), résolution locale/cache/streaming requise par [[AUDIO_ENGINE.md]] §0bis.2 | Database Architect |

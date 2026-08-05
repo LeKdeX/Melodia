@@ -38,6 +38,13 @@ Couvert par §1 (le Bluetooth apparaît comme une sortie locale standard une foi
 
 **Objectif anticipé** : lecture synchronisée sur plusieurs appareils simultanément (au-delà d'un simple changement de sortie, §1-2) — fonctionnalité la plus complexe de ce document, dépend d'une architecture de synchronisation temporelle non conçue. **Contrat d'interface attendu** : extension du Cast Selector (§3) permettant une sélection multiple d'appareils plutôt qu'un seul — anatomie de base identique (liste + coches), passage de sélection unique à sélection multiple si cette fonctionnalité est un jour engagée. Voir [[EVOLVABILITY.md]] pour le statut d'évolutivité long terme déjà évalué pour des sujets connexes (TV, synchronisation cloud) — cohérent en esprit, non redécidé ici.
 
+## 7bis. Scénarios de changement et de déconnexion (ajout Moteur Audio)
+
+- **Casque/Bluetooth déconnecté pendant la lecture** : l'OS notifie la déconnexion, le navigateur/runtime bascule automatiquement vers la sortie par défaut suivante (généralement les haut-parleurs) — Melodia consomme ce changement déjà opéré par l'OS, ne décide jamais lui-même de la sortie de repli. Transition `Playing → Paused` uniquement si aucune sortie de repli n'est disponible (cas rare), jamais un arrêt silencieux ([[PLAYBACK_STATE_MACHINE.md]] §4, « Sortie audio indisponible »).
+- **USB/HDMI (interfaces audio externes, Desktop)** : traité comme une sortie standard au même titre que Bluetooth/casque (§1) — apparaît dans le Device Picker dès que le système d'exploitation l'expose, aucune logique propriétaire par type de connexion physique.
+- **Changement de périphérique par défaut au niveau OS** (ex. l'utilisateur change la sortie par défaut dans les réglages système pendant que Melodia joue) : Melodia suit ce changement si aucune sortie explicite n'a été sélectionnée manuellement dans le Device Picker (§1) ; si une sortie a été explicitement choisie, ce choix reste prioritaire jusqu'à sa déconnexion — jamais écrasé silencieusement par un changement de défaut système.
+- **Reconnexion d'un périphérique précédemment sélectionné** : aucune bascule automatique vers lui — l'utilisateur reste sur la sortie de repli actuelle jusqu'à sélection explicite, pour éviter une bascule audio surprenante à la reconnexion d'un appareil Bluetooth à portée.
+
 ## 8. Accessibilité
 
 Chaque entrée du Device/Cast Selector a un nom accessible complet (type + nom, jamais une icône seule) et un état de connexion annoncé (`aria-current` sur l'appareil actif) — cohérent avec [[PLAYER_COMPONENTS.md]] (icône + libellé, jamais couleur seule).
@@ -57,3 +64,4 @@ Chaque entrée du Device/Cast Selector a un nom accessible complet (type + nom, 
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-04 | Création initiale du document (Phase 9) | Audio Software Engineer / Senior Audio UX Engineer |
+| 0.2.0 | 2026-08-04 | Moteur Audio : ajout §7bis (scénarios de changement/déconnexion : casque/Bluetooth/USB/HDMI/défaut système) — au lieu de créer DEVICE_MANAGEMENT.md en doublon | Playback Systems Engineer |

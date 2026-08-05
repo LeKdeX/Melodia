@@ -41,6 +41,20 @@ Le score intègre une décroissance temporelle sur le signal d'historique (écou
 
 Bibliothèque/historique trop récent pour un scoring pertinent ([[DISCOVERY_SPECIFICATION.md]] §5-6) : le moteur retourne un ensemble de candidats vide plutôt qu'un score de faible confiance présenté comme fiable — c'est à la couche produit ([[DISCOVERY_SPECIFICATION.md]] §5) de traduire un résultat vide en état explicite, jamais au moteur de masquer cette limite.
 
+## 5bis. Sélection de candidats par type de mix (ajout Moteur de Recherche)
+
+> [[DISCOVERY_SPECIFICATION.md]] §3 nomme déjà les six mixes et leur critère de génération produit. §2 de ce document ne détaillait l'étape 1 (sélection de candidats) que pour Mix Découverte. Cette section couvre les cinq autres, sans redécider leur critère produit.
+
+| Mix | Requête de sélection de candidats (étape 1 de §2) |
+|---|---|
+| Mix matin / Mix soirée | `HistoryRepository`, filtré sur la tranche horaire correspondante des événements passés — candidats = pistes déjà associées à cette tranche |
+| Mix nouveautés | `TrackRepository`, filtré sur `addedAt` récent ([[SORT_ENGINE.md]] §1, même champ que le tri « date d'ajout ») ET `historyCount = 0` |
+| Mix nostalgie (reprises d'écoute, albums oubliés) | `HistoryRepository`, agrégat par piste : forte écoute cumulée sur une fenêtre ancienne ET faible/nulle écoute sur une fenêtre récente — les deux fenêtres calculées via [[STATISTICS_ENGINE.md]] §1, jamais un second mécanisme d'agrégation |
+| Mix travail / Mix détente | `TrackRepository`, filtré par genre en repli faute de métadonnée de tempo/énergie fiable ([[DISCOVERY_SPECIFICATION.md]] §3, dépendance déjà signalée — non résolue par cette section) |
+| Mix sport | Même dépendance et même repli que Mix travail/détente |
+
+**Genres/artistes similaires** (nommés par le cadrage, statut déjà clarifié) : les artistes similaires sont déjà un signal existant de §2 de [[DISCOVERY_SPECIFICATION.md]] (« déduits des métadonnées de genre/label ») — les genres similaires réutilisent le même mécanisme de déduction par métadonnées partagées, jamais un second algorithme de similarité. Aucun des deux n'est un mix nommé séparément ([[DISCOVERY_SPECIFICATION.md]] §3 reste la liste fermée) — ce sont des signaux d'entrée pour `UserSignals` (§1), pas des mixes supplémentaires.
+
 ---
 
 ## 6. Ce que ce document ne fait pas
@@ -60,3 +74,4 @@ Bibliothèque/historique trop récent pour un scoring pertinent ([[DISCOVERY_SPE
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 1.0.0 | 2026-08-04 | Création initiale du document (Phase 13) | Senior Data Architect |
+| 1.1.0 | 2026-08-04 | Moteur de Recherche : ajout §5bis (sélection de candidats pour les 5 mixes restants, clarification artistes/genres similaires) — au lieu de créer DISCOVERY_ENGINE.md en doublon | Recommendation System Architect |

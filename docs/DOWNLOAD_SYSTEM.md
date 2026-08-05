@@ -46,6 +46,16 @@ Suggestion (jamais automatique) de télécharger un contenu selon des signaux d'
 - **Vérification périodique** : à l'ouverture de la vue Téléchargements, un sondage léger (existence du fichier référencé par `localFileRef`) détecte un fichier disparu/corrompu hors du contrôle de l'application (suppression manuelle sur le disque, corruption du support de stockage) — l'entrée passe alors à un statut « à retélécharger », jamais silencieusement retirée de la liste sans explication.
 - **Suppression** : une suppression explicite d'un téléchargement retire à la fois l'entrée `Download` et le fichier référencé de façon atomique — jamais l'un sans l'autre (fichier orphelin ou entrée pointant vers rien).
 
+## 5quinquies. Conditions de déclenchement automatique (ajout Plateforme Offline)
+
+> Distinct du téléchargement intelligent déjà acté (§5ter, suggestion jamais automatique) : ces trois réglages contrôlent **quand** un téléchargement déjà en file (manuel ou suggéré-accepté) est autorisé à s'exécuter, jamais s'il doit exister.
+
+- **Wi-Fi uniquement** : réglage activé par défaut sur mobile ([[SETTINGS_SYSTEM.md]]) — un téléchargement en file reste en attente (statut `queued`, [[DOMAIN_MODELS.md]] §3) tant qu'une connexion Wi-Fi n'est pas détectée ([[OFFLINE_SYSTEM.md]] §1ter), jamais annulé, simplement différé.
+- **Téléchargement sur batterie** : réglage désactivé par défaut sur mobile (déclenche uniquement sur charge) — cohérent avec la stratégie générale de réduction batterie ([[PERFORMANCE_GUIDE.md]] §5septies). Un téléchargement déjà en cours au moment où l'appareil quitte la charge n'est jamais interrompu brutalement, seule la mise en file de nouveaux éléments est différée.
+- **Téléchargement nocturne** : plage horaire configurable pendant laquelle les téléchargements en attente sont priorisés automatiquement (utile combiné à Wi-Fi uniquement/sur charge, qui rendent la journée moins propice) — jamais une obligation, un téléchargement explicite (§1, action directe de l'utilisateur) s'exécute immédiatement indépendamment de cette plage.
+
+**Combinaison** : les trois réglages sont indépendants et cumulables (ET logique, cohérent avec la combinaison de filtres déjà actée pour la recherche, [[FILTER_ENGINE.md]] §2) — un téléchargement attend que **toutes** les conditions activées soient réunies, jamais une seule suffisante parmi plusieurs activées.
+
 ## 6. Gestion du stockage
 
 Voir Storage Indicator et Cache Manager ([[SETTINGS_COMPONENTS.md]]) pour l'anatomie déjà spécifiée — ce document précise la règle produit : l'utilisateur voit toujours l'espace utilisé par les téléchargements distinctement du cache technique (pochettes, waveform, [[PERFORMANCE_GUIDE.md]] §6bis) — supprimer le cache technique ne supprime jamais un téléchargement explicite de l'utilisateur, les deux suivent des cycles de vie et des actions de suppression séparés ([[DIALOG_LIBRARY.md]] §2 pour la suppression d'un téléchargement, §5 pour la réinitialisation du cache).
@@ -75,3 +85,4 @@ Chaque élément en téléchargement reste navigable/annoncé comme les autres T
 | 0.1.0 | 2026-08-04 | Création initiale du document (Phase 9) | Audio Software Engineer / Performance Engineer |
 | 0.2.0 | 2026-08-04 | Phase 11 : ajout §5bis (reprise après redémarrage) et §5ter (téléchargement intelligent, suggestion jamais automatique) — au lieu de créer un second DOWNLOAD_SYSTEM.md | Audio Platform Engineer |
 | 0.3.0 | 2026-08-04 | Phase 13 : ajout §5quater (validation/vérification d'intégrité post-téléchargement) — au lieu de créer DOWNLOAD_ENGINE.md en doublon | Database Architect |
+| 0.4.0 | 2026-08-04 | Plateforme Offline : ajout §5quinquies (Wi-Fi uniquement/sur batterie/nocturne, combinables) — au lieu de créer DOWNLOAD_PLATFORM.md en doublon | Resilience Engineer |

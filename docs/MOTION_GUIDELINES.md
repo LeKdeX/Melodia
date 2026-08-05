@@ -1,7 +1,7 @@
 # MOTION_GUIDELINES.md — Philosophie d'animation (Phase 1, volume 3)
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.4.0
 > **Date de création** : 2026-08-03
 > **Propriétaire** : Motion Designer / Principal Interaction Designer
 > **Documents liés** : [[UX_PRINCIPLES.md]] §2, [[DESIGN_SYSTEM_ARCHITECTURE.md]] §1, [[TECH_STACK.md]] §1
@@ -106,7 +106,7 @@ L'opacité ne varie jamais seule sur un élément qui change aussi de position o
 
 ### Priorités et orchestration
 
-Quand plusieurs animations entrent en conflit pour les mêmes ressources (CPU/GPU) au même instant (ex. changement de piste pendant un défilement rapide de liste), l'ordre de priorité est : 1) réactivité de l'interaction en cours (défilement, glissement actif) — jamais interrompue ; 2) état du lecteur (barre de progression, transition de piste) ; 3) animations d'ambiance (palette dynamique, pulsation de synchronisation) — les premières à être simplifiées ou différées en cas de contention. Cohérent avec la règle de synthèse déjà posée (§13.4) : la performance prime toujours sur l'esthétique en cas de conflit.
+Quand plusieurs animations entrent en conflit pour les mêmes ressources (CPU/GPU) au même instant (ex. changement de piste pendant un défilement rapide de liste), l'ordre de priorité est : 1) réactivité de l'interaction en cours (défilement, glissement actif) — jamais interrompue ; 2) état du lecteur (barre de progression, transition de piste) ; 3) animations d'ambiance (palette dynamique, pulsation de synchronisation) — les premières à être simplifiées ou différées en cas de contention. Cohérent avec la règle de synthèse déjà posée (§13, règle 4) : la performance prime toujours sur l'esthétique en cas de conflit.
 
 ---
 
@@ -135,3 +135,4 @@ Quand plusieurs animations entrent en conflit pour les mêmes ressources (CPU/GP
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 3) | Motion Designer / Principal Interaction Designer |
 | 0.2.0 | 2026-08-03 | Phase 2 volume 2 : ajout §12bis (personnalité de mouvement, shared element/hero/ripple/skeleton) plutôt que MOTION_BRANDING.md en doublon | Motion Art Director |
 | 0.3.0 | 2026-08-03 | Phase 4 : ajout §12ter (rythme, rebond, élasticité, chorégraphie d'opacité, priorités) plutôt que MOTION_SYSTEM.md en doublon | Principal Motion Designer |
+| 0.4.0 | 2026-08-05 | TASK-002 : correction du numéro de version en en-tête, resté désynchronisé (« 0.1.0 ») depuis l'amendement 0.2.0 ; correction de la citation interne §12ter (« §13.4 ») en « §13, règle 4 » — §13 est une liste à 5 règles non numérotées en sous-titres, jamais une section §13.4 réelle, incohérence trouvée lors de TASK-001 (citations externes) puis TASK-002 (revue manuelle, citation interne) | Staff Technical Lead |

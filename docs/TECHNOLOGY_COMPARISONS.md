@@ -58,6 +58,34 @@ Barème de notation : ●●● fort, ●●○ moyen, ●○○ faible. Une not
 
 **Recommandation (déjà actée, [[TECH_STACK.md]] §1)** : Zustand. Redux Toolkit gagnerait sur un projet à logique d'état très complexe et fortement testée via middleware (ex. undo/redo profond, synchronisation multi-store) — ce n'est pas le profil de l'état client de Melodia (file de lecture, préférences, volume), qui reste un état plat et local à peu de domaines. Le rapport cérémonie/valeur penche nettement pour Zustand ici.
 
+## 3bis. Zustand vs MobX (ajout Architecture d'état)
+
+| Axe | Zustand | MobX |
+|---|---|---|
+| Facilité d'utilisation | ●●● — état immuable explicite, un store = une fonction | ●●○ — modèle réactif basé sur des proxies/observables, puissant mais moins prévisible à la lecture (mutation directe de l'état observable) |
+| Performances | ●●● — sélecteurs fins explicites ([[SELECTOR_GUIDE.md]]) | ●●● — réactivité fine automatique via le graphe de dépendance des observables, souvent moins de code de sélection à écrire |
+| Évolutivité | ●●○ — suffisant pour l'état client visé | ●●● — excelle sur des graphes d'état fortement interconnectés |
+| Communauté | ●●○ | ●●○ — mature mais en déclin relatif face à Zustand/Jotai dans l'écosystème React récent |
+| Maintenance | ●●● — pas de décorateurs, pas de configuration de compilateur supplémentaire | ●●○ — nécessite historiquement des décorateurs ou une configuration Babel/TS spécifique, une source de friction de build supplémentaire |
+| Maturité | ●●○ | ●●● — l'un des plus anciens gestionnaires d'état réactif pour React |
+| Compatibilité Melodia | ●●● — le modèle immuable explicite s'aligne avec le style déjà acté du reste du code (`Result<T,E>`, entités immuables, [[DOMAIN_MODELS.md]] §1) | ●●○ — la mutation directe d'observables introduirait un style de programmation différent de celui déjà acté partout ailleurs dans le projet (fonctions pures, immutabilité, [[CODING_STANDARDS.md]] §4.5) |
+
+**Recommandation** : Zustand. La mutation directe caractéristique de MobX contredirait la discipline d'immutabilité déjà appliquée dans toute la couche donnée (Mappers, Repositories, [[MAPPER_GUIDE.md]] §2) — introduire un modèle réactif à mutation directe pour le seul état client créerait une incohérence stylistique dans le code, un coût supérieur au gain de concision.
+
+## 3ter. Zustand vs Context API (ajout Architecture d'état)
+
+| Axe | Zustand | Context API (React natif) |
+|---|---|---|
+| Facilité d'utilisation | ●●● | ●●● — natif, aucune dépendance |
+| Performances | ●●● — un composant qui consomme un sélecteur ne re-render que si la valeur sélectionnée change | ●●○ — tout consommateur d'un Context re-render à chaque changement de valeur du Provider, sauf découpage manuel minutieux en plusieurs Contexts (charge de maintenance supplémentaire) |
+| Évolutivité | ●●○ | ●●○ — la multiplication de Providers pour éviter le problème de performance ci-dessus devient vite ingérable au-delà de quelques domaines d'état |
+| Communauté | ●●○ | ●●● — natif React, aucune communauté tierce nécessaire |
+| Maintenance | ●●● | ●●○ — le découpage manuel en Contexts multiples pour la performance ajoute de la cérémonie équivalente à ce que Zustand résout nativement |
+| Maturité | ●●○ | ●●● — partie du cœur de React |
+| Compatibilité Melodia | ●●● — 13 stores ([[STORE_SPECIFICATIONS.md]]) avec re-render scoping fin requis (liste virtualisée de 200 000 titres, [[PERFORMANCE_BUDGET.md]] §3) | ●●○ — le problème de re-render du Context sur une liste de cette échelle serait un défaut de performance mesurable, pas seulement théorique |
+
+**Recommandation** : Zustand. Context API reste pertinent dans Melodia pour des données rarement mises à jour et sans besoin de sélection fine (voir `AppProviders`, [[FRONTEND_ARCHITECTURE.md]] §6 — thème CSS statique, configuration d'injection) mais jamais comme remplacement des 13 stores d'état applicatif : le coût de re-render non scoping serait directement contraire au budget de performance déjà acté sur les listes virtualisées ([[PERFORMANCE_BUDGET.md]] §3).
+
 ---
 
 ## 4. Dexie (IndexedDB) vs SQLite
@@ -132,6 +160,8 @@ Une clarification s'impose avant la comparaison : **« Framer Motion » et « Mo
 | Dexie vs SQLite | Pas un choix — complémentarité imposée par la plateforme d'exécution |
 | React vs Vue | Arbitrage réel — écosystème/compatibilité l'emporte sur un avantage de performance brute de Vue |
 | Zustand vs Redux Toolkit | Arbitrage réel — simplicité proportionnée au besoin réel plutôt que capacité maximale non utilisée |
+| Zustand vs MobX | Arbitrage de cohérence stylistique — l'immutabilité déjà actée partout ailleurs l'emporte sur la concision de MobX |
+| Zustand vs Context API | Unilatéral à l'échelle visée — le re-render non scoping de Context contredirait le budget de performance sur liste virtualisée |
 | TanStack Query vs SWR | Arbitrage réel mais resserré — cohérence d'écosystème déjà engagé fait pencher la balance |
 | Motion (unifié) | Non-dilemme — les deux lignées ont fusionné |
 
@@ -153,3 +183,4 @@ Une clarification s'impose avant la comparaison : **« Framer Motion » et « Mo
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5, complément) | Staff Frontend Engineer / Principal Software Architect |
+| 0.2.0 | 2026-08-04 | Architecture d'état : ajout §3bis (Zustand vs MobX) et §3ter (Zustand vs Context API) — au lieu de créer ZUSTAND_ARCHITECTURE.md en doublon de §3 déjà existant | Principal State Management Architect |

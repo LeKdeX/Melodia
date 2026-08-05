@@ -1,0 +1,13 @@
+{
+  "name": "@melodia/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@melodia/config": "workspace:*",
+    "eslint": "9.39.5"
+  }
+}

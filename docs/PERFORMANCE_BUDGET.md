@@ -1,7 +1,7 @@
 # PERFORMANCE_BUDGET.md — Budgets de performance
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.3.1
 > **Date de création** : 2026-08-03
 > **Propriétaire** : Principal Frontend Engineer
 > **Documents liés** : [[PROJECT_CHARTER.md]] §3.5, [[TECH_STACK.md]], [[ARCHITECTURE_PRINCIPLES.md]]
@@ -23,8 +23,11 @@ Mesuré sur : machine de référence Desktop (matériel milieu de gamme, 3 ans d
 ## 2. Temps de recherche
 | Scénario | Cible | Seuil d'alerte |
 |---|---|---|
-| Recherche locale (bibliothèque en cache) | < 100 ms perçu (frappe → résultats affichés) | > 250 ms |
+| Recherche locale (bibliothèque en cache) — **perçu de bout en bout** (frappe → résultats affichés à l'écran, inclut le rendu React) | < 100 ms | > 250 ms |
+| Recherche locale — **calcul moteur seul** (requête à l'index FlexSearch → résultats triés, hors rendu UI, ajout Moteur de Recherche) | < 50 ms | > 100 ms |
 | Recherche distante (fallback serveur) | < 400 ms | > 800 ms |
+
+**Amendement Moteur de Recherche — tension explicitement résolue, pas silencieuse** : le cadrage de cette phase a introduit une exigence de « < 50 ms sur une recherche classique », plus stricte que le budget perçu de bout en bout déjà engagé (< 100 ms). Plutôt qu'une contradiction, les deux chiffres coexistent à deux échelles différentes : 50 ms est le budget du **calcul moteur seul** (nouvelle ligne ci-dessus, imbriquée dans le budget existant), 100 ms reste le budget **perçu** incluant le rendu — un calcul moteur à 50 ms laisse ~50 ms de marge pour le rendu React avant d'atteindre le seuil perçu déjà acté. Voir [[SEARCH_ENGINE.md]] §0bis pour le détail architectural de cette distinction.
 
 ## 3. Temps de rendu et fluidité
 | Métrique | Cible | Seuil d'alerte |
@@ -75,3 +78,5 @@ Mesuré sur : machine de référence Desktop (matériel milieu de gamme, 3 ans d
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Principal Frontend Engineer |
 | 0.2.0 | 2026-08-03 | Amendement Phase 0.5 : référence de bibliothèque de stress-test relevée de 100 000 à 200 000 titres (budgets de rendu et mémoire ajustés en conséquence) ; voir [[PERFORMANCE_GUIDE.md]] | Lead Frontend Engineer |
 | 0.2.1 | 2026-08-03 | Amendement Phase 0.5 complément : ajout d'un appareil de référence tablette (gap identifié dans [[EXTREME_SCENARIOS.md]] §4) | Staff Performance Engineer |
+| 0.3.0 | 2026-08-04 | Amendement Moteur de Recherche : §2 distingue désormais le budget perçu de bout en bout (< 100 ms, inchangé) du budget de calcul moteur seul (< 50 ms, nouveau) — tension avec le cadrage résolue explicitement plutôt que silencieusement | Principal Search Architect |
+| 0.3.1 | 2026-08-05 | TASK-002 : correction du numéro de version en en-tête, resté désynchronisé (« 0.1.0 ») du tableau ci-dessus depuis l'amendement 0.2.0 — trouvé lors de la revue croisée manuelle des 10 documents à plus forte cascade | Staff Technical Lead |

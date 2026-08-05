@@ -1,7 +1,7 @@
 # STACK_DECISIONS.md — Décisions de stack (Phase 0.5)
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.3.0
 > **Date de création** : 2026-08-03
 > **Propriétaire** : CTO / Principal Software Architect
 > **Documents liés** : [[TECH_STACK.md]], [[ARCHITECTURE.md]], [[ENGINEERING_GUIDE.md]] §2
@@ -42,7 +42,7 @@ Ce document ne re-décide **rien** de ce qui a déjà été tranché en Phase 0 
 ### Alternatives comparées
 | Option | Avantages | Inconvénients |
 |---|---|---|
-| **Fuse.js** | Très populaire, API simple, bon pour de petites listes | Performance dégradée au-delà de quelques dizaines de milliers d'entrées — insuffisant pour l'objectif de 200 000 titres ([[PERFORMANCE_BUDGET.md]] §0) |
+| **Fuse.js** | Très populaire, API simple, bon pour de petites listes | Performance dégradée au-delà de quelques dizaines de milliers d'entrées — insuffisant pour l'objectif de 200 000 titres ([[PERFORMANCE_BUDGET.md]] §8) |
 | **MiniSearch** | Léger, full-text correct, bonne DX | Moins performant que FlexSearch à grande échelle sur la latence de requête |
 | **Orama** | Moderne, TypeScript natif, API agréable, recherche vectorielle possible à terme | Historique de production plus court à l'échelle de 200 000+ documents ; écosystème encore jeune |
 | **FlexSearch** | Le plus rapide et le plus économe en mémoire du marché à cette échelle (benchmarks publics constants sur 100k-1M+ documents), index sérialisable | API plus bas niveau, DX légèrement moins immédiate que MiniSearch/Orama |
@@ -86,3 +86,4 @@ Ce document ne re-décide **rien** de ce qui a déjà été tranché en Phase 0 
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0.5) | CTO / Principal Software Architect |
 | 0.2.0 | 2026-08-03 | Ajout de la checklist de validation et des renvois vers les documents du complément Phase 0.5 | Principal Software Architect |
+| 0.3.0 | 2026-08-05 | TASK-002 : correction de la citation Fuse.js vers PERFORMANCE_BUDGET.md (section 0, inexistante → section 8) ; correction du numéro de version en en-tête, resté désynchronisé (« 0.1.0 ») du tableau ci-dessus | Staff Technical Lead |

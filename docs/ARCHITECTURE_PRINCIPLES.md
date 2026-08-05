@@ -1,7 +1,7 @@
 # ARCHITECTURE_PRINCIPLES.md — Principes d'architecture
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.2.1
 > **Date de création** : 2026-08-03
 > **Propriétaire** : Lead Software Architect
 > **Documents liés** : [[PROJECT_CHARTER.md]], [[ENGINEERING_GUIDE.md]], [[TECH_STACK.md]], [[CODING_STANDARDS.md]]
@@ -169,3 +169,4 @@ Ces trois axes sont des critères de conception (« est-ce que cette interface b
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 0) | Lead Software Architect |
 | 0.2.0 | 2026-08-04 | Phase 12 : ajout §8bis (glossaire SOLID/KISS/YAGNI/Clean Architecture/Ports & Adapters/DI/Repository Pattern) — au lieu de créer SOFTWARE_PRINCIPLES.md en doublon | Principal Software Architect |
+| 0.2.1 | 2026-08-05 | TASK-002 : correction du numéro de version en en-tête, resté désynchronisé (« 0.1.0 ») du tableau ci-dessus depuis l'amendement 0.2.0 — trouvé lors de la revue croisée manuelle des 10 documents à plus forte cascade | Staff Technical Lead |

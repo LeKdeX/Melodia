@@ -1,7 +1,7 @@
 # PLAYER_SPECIFICATION.md — Spécification du lecteur (Phase 1, volume 2)
 
 > **Statut** : document fondateur, vivant
-> **Version** : 0.1.0
+> **Version** : 0.2.1
 > **Date de création** : 2026-08-03
 > **Propriétaire** : Music Experience Designer / Interaction Designer
 > **Documents liés** : [[AUDIO_ENGINE.md]], [[FRONTEND_ARCHITECTURE.md]] §6, [[PRODUCT_RULES.md]] §1-2
@@ -115,3 +115,4 @@ Un morceau déjà en cache/téléchargé se lit identiquement en ligne ou hors l
 |---|---|---|---|
 | 0.1.0 | 2026-08-03 | Création initiale du document (Phase 1, volume 2) | Music Experience Designer / Interaction Designer |
 | 0.2.0 | 2026-08-04 | Phase 9 : ajout §5bis (Sleep Timer, réellement nouveau) et §5ter (Crossfade, renvoi vers AUDIO_ENGINE.md) — au lieu de créer PLAYBACK_CONTROLS.md en doublon | Senior Audio UX Engineer |
+| 0.2.1 | 2026-08-05 | TASK-002 : correction du numéro de version en en-tête, resté désynchronisé (« 0.1.0 ») du tableau ci-dessus depuis l'amendement 0.2.0 — trouvé lors de la revue croisée manuelle des 10 documents à plus forte cascade | Staff Technical Lead |

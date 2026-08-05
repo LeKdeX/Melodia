@@ -1,7 +1,7 @@
 # STATISTICS_ENGINE.md — Architecture de calcul des statistiques (Phase 13)
 
 > **Statut** : document fondateur, vivant
-> **Version** : 1.0.0
+> **Version** : 1.1.0
 > **Date de création** : 2026-08-04
 > **Propriétaire** : Senior Performance Engineer
 > **Documents liés** : [[STATISTICS_SPECIFICATION.md]], [[DOMAIN_MODELS.md]] §4, [[PERFORMANCE_GUIDE.md]] §6ter, [[REPOSITORY_PATTERN.md]]
@@ -30,7 +30,7 @@ Le résultat calculé est mis en cache dans `statistics_cache` ([[DATABASE_SCHEM
 
 ## 5. Ordre de grandeur et budget
 
-Le calcul sur un historique de plusieurs années (potentiellement plusieurs centaines de milliers d'événements `history` pour un utilisateur de longue date) reste borné par les mêmes principes que la bibliothèque de référence ([[PERFORMANCE_BUDGET.md]] §0) : requêtes indexées sur `history` (`trackId`, `startedAt`, [[DATABASE_SCHEMA.md]] §3), jamais un scan complet non filtré par période.
+Le calcul sur un historique de plusieurs années (potentiellement plusieurs centaines de milliers d'événements `history` pour un utilisateur de longue date) reste borné par les mêmes principes que la bibliothèque de référence ([[PERFORMANCE_BUDGET.md]] §8) : requêtes indexées sur `history` (`trackId`, `startedAt`, [[DATABASE_SCHEMA.md]] §3), jamais un scan complet non filtré par période.
 
 ## 6. Wrapped — cas particulier
 
@@ -55,3 +55,4 @@ La rétrospective annuelle ([[WRAPPED_SPECIFICATION.md]]) réutilise strictement
 | Version | Date | Changement | Auteur |
 |---|---|---|---|
 | 1.0.0 | 2026-08-04 | Création initiale du document (Phase 13) | Senior Performance Engineer |
+| 1.1.0 | 2026-08-05 | TASK-002 : correction de la citation sur le calcul d'historique vers PERFORMANCE_BUDGET.md (section 0, inexistante → section 8) | Staff Technical Lead |

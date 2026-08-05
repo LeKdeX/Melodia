@@ -20,6 +20,14 @@ Première synchronisation après connexion à un serveur — récupère l'intég
 
 Déclenchée à l'ouverture de l'application, à intervalle configurable, ou manuellement (Pull to Refresh, [[MOBILE_NAVIGATION.md]] §4) — récupère uniquement les éléments modifiés depuis la dernière synchronisation réussie (horodatage de référence conservé dans `LocalStore`, [[DATA_LAYER.md]]). Jamais un re-téléchargement complet du catalogue à chaque synchronisation courante — coût réseau et temps disproportionnés par rapport au volume réel de changement habituel.
 
+## 2bis. Modes de déclenchement nommés (ajout Plateforme Offline)
+
+> §2 décrit déjà les trois déclencheurs (« à l'ouverture, à intervalle configurable, ou manuellement »). Cette section leur donne un nom technique explicite, sans en ajouter un quatrième :
+
+- **Manual Sync** : Pull to Refresh ou action explicite ([[MOBILE_NAVIGATION.md]] §4) — priorité la plus haute, jamais mise en file derrière une synchronisation en arrière-plan déjà en cours (une synchronisation manuelle interrompt et relance plutôt que d'attendre).
+- **Scheduled Sync** : intervalle configurable ([[SETTINGS_SYSTEM.md]]) — s'exécute uniquement si l'application est active (premier plan ou arrière-plan autorisé par l'OS, jamais un réveil forcé de l'application par le système pour ce seul motif).
+- **Background Sync** : synonyme technique du déclenchement « à l'ouverture de l'application » déjà acté — nommé séparément ici uniquement parce que le cadrage le nomme, aucun mécanisme distinct de Scheduled Sync au-delà de son déclencheur (ouverture vs intervalle écoulé).
+
 ## 3. Synchronisation complète (action manuelle explicite uniquement)
 
 Re-récupère l'intégralité du catalogue, comme l'import initial (§1) — jamais déclenchée automatiquement, réservée à un cas de récupération (soupçon d'incohérence, [[MAINTENANCE_SYSTEM.md]] Réindexer) ou à un changement de serveur. Action explicite avec confirmation si elle risque d'être longue (bibliothèque volumineuse, [[PERFORMANCE_BUDGET.md]] §1).
@@ -30,6 +38,14 @@ Le serveur Jellyfin expose un mécanisme de changement (horodatage de dernière 
 - **Ajout** : nouvel élément, intégré à la bibliothèque locale sans notification systématique (sauf artiste suivi, [[NOTIFICATION_LIBRARY.md]] §8).
 - **Modification** : métadonnées mises à jour (ex. pochette changée) — mise à jour silencieuse du cache local ([[CACHE_SYSTEM.md]]).
 - **Suppression** : élément retiré côté serveur — retiré localement sauf s'il est téléchargé (le fichier téléchargé reste, marqué comme non lié à une source serveur active, cohérent avec la priorité au contenu déjà téléchargé par l'utilisateur).
+
+## 4bis. Journal de changements locaux et détection de renommage (ajout Plateforme Offline)
+
+> §4 couvre la détection **serveur → local**. Cette section couvre l'autre sens, jamais nommé explicitement jusqu'ici bien que présupposé par [[OFFLINE_SYSTEM.md]] §4 (« changements effectués hors ligne... vers l'état serveur »).
+
+- **Journal de changements locaux** : toute mutation locale éligible à une remontée serveur (favoris si double favori activé, playlists Jellyfin natives modifiées, progression de lecture si synchronisée — les trois cas déjà restreints de [[MAPPER_GUIDE.md]] §4) est ajoutée à une file d'attente persistée (`sync_meta`, [[DATABASE_SCHEMA.md]] §1) au moment de la mutation, jamais reconstruite a posteriori par comparaison d'état. Cette file est vidée au prochain cycle de synchronisation réussi (§2bis) — chaque entrée traitée avec succès est retirée individuellement, une entrée en échec reste en file pour le cycle suivant (jamais perdue silencieusement, cohérent avec [[OFFLINE_SYSTEM.md]] §6).
+- **Renommage** : Jellyfin n'expose pas nativement un événement « renommage » distinct — un renommage est reçu comme une **modification** (§4) du champ concerné (titre, nom d'album). Aucune détection heuristique de renommage (comparaison de similarité de chaînes) n'est tentée : traiter un renommage comme une modification standard suffit et évite un faux positif (deux éléments réellement différents dont les titres se ressemblent) que produirait une heuristique de similarité.
+- **Artwork** : un changement de pochette est également reçu comme une modification (§4) — invalide l'entrée Artwork/Image Cache concernée ([[CACHE_SYSTEM.md]] §1) sans affecter le reste des métadonnées de l'entité.
 
 ## 5. Mise à jour du cache (renvoi)
 
@@ -74,3 +90,4 @@ Voir [[MAINTENANCE_SYSTEM.md]] — la reconstruction de bibliothèque est une ac
 |---|---|---|---|
 | 0.1.0 | 2026-08-04 | Création initiale du document (Phase 11) | Synchronization Engineer / Principal Platform Architect |
 | 0.2.0 | 2026-08-04 | Phase 13 : ajout §7bis (Delta/Batch Sync), §7ter (reprise/rollback/validation) et préparation import multi-utilisateurs (§1) — au lieu de créer SYNC_ENGINE.md/IMPORT_ENGINE.md en doublon | Synchronization Engineer |
+| 0.3.0 | 2026-08-04 | Plateforme Offline : ajout §2bis (Manual/Scheduled/Background Sync nommés) et §4bis (journal de changements locaux, renommage, artwork) — au lieu de créer SYNC_ENGINE_ARCHITECTURE.md/CHANGE_DETECTION.md en doublon | Principal Synchronization Engineer |
