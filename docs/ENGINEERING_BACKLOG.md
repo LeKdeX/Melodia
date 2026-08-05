@@ -15,7 +15,7 @@ Point d'entrée unique pour naviguer le backlog complet — recompose [[EPICS.md
 | Jalon | Epic | Features | Tasks décomposées | Statut |
 |---|---|---|---|---|
 | M0 | EPIC-001 | 2 | 5 | **Sorti (GO, TASK-005)** — les 5 Tasks sont terminées, revue de sortie favorable |
-| M1 | EPIC-002 | 4 | 13 | En cours — TASK-006 à 015 terminées (ADR-0001 Accepté), TASK-016 est la prochaine action |
+| M1 | EPIC-002 | 4 | 13 | En cours — TASK-006 à 017 terminées (ADR-0001 Accepté), FEATURE-006 close, TASK-018 est la prochaine action (clôture M1) |
 | M2 | EPIC-003 | 7 (dont FEATURE-083, ADR-0002) | 20 (dont TASK-046 à 049) | Prêt (dépend de M1) — critère de sortie étendu au rendu réel Web + Desktop |
 | M3 | EPIC-004 | 5 | 11 | Prêt (dépend de M2) |
 | M4 | EPIC-005 | 6 | Rolling wave — décomposition au démarrage de M4 ([[TASK_BREAKDOWN.md]] §1) | Feature-level uniquement |
@@ -30,7 +30,7 @@ Point d'entrée unique pour naviguer le backlog complet — recompose [[EPICS.md
 | M13 | EPIC-014 | 4 | Rolling wave | Feature-level uniquement |
 | M14 | EPIC-015 | 4 | Rolling wave | Feature-level uniquement |
 
-**Total** : 15 Epics, 83 Features (+1, ADR-0002), 49 Tasks déjà décomposées (M0-M3, +4, ADR-0002), 15 Tasks développées (TASK-001 à TASK-015) — voir `CLAUDE.md` (entrées correspondantes). **M0 officiellement sorti (GO).** M1 en cours ; FEATURE-004 (squelettes des 4 packages) et FEATURE-005 (configuration partagée) terminées. **Gap de planification confirmé et corrigé (ADR-0002)** : FEATURE-083 (Bootstrap de l'application, TASK-046 à 049) ajoutée à EPIC-003/M2 — aucune Task antérieure ne créait le point d'entrée réel de l'application.
+**Total** : 15 Epics, 83 Features (+1, ADR-0002), 49 Tasks déjà décomposées (M0-M3, +4, ADR-0002), 17 Tasks développées (TASK-001 à TASK-017) — voir `CLAUDE.md` (entrées correspondantes). **M0 officiellement sorti (GO).** M1 en cours ; FEATURE-004 (squelettes des 4 packages), FEATURE-005 (configuration partagée) et FEATURE-006 (CI de base, lint + typecheck) terminées. **Gap de planification confirmé et corrigé (ADR-0002)** : FEATURE-083 (Bootstrap de l'application, TASK-046 à 049) ajoutée à EPIC-003/M2 — aucune Task antérieure ne créait le point d'entrée réel de l'application.
 
 ## 2. Comment lire ce backlog selon le rôle
 
@@ -47,7 +47,11 @@ Point d'entrée unique pour naviguer le backlog complet — recompose [[EPICS.md
 
 **ADR-0001 accepté par l'utilisateur** (`docs/adr/0001-tailwind-v4-theme-mechanism.md`) — Tailwind CSS v4, mécanisme natif `@theme` CSS, aucune couche de compatibilité v3. [[DESIGN_SYSTEM_ARCHITECTURE.md]] §1 mis à jour en conséquence dans le même lot. TASK-015 reprise et terminée : `packages/config/tailwind-theme.css` créé (bloc `@theme` volontairement vide — DESIGN_TOKENS.md/COLOR_SYSTEM.md restent v1 non finale, valeurs réservées à TASK-019/020), validé empiriquement par une compilation PostCSS réelle (probe utilitaire résolu correctement), outillage de validation retiré après usage. Détail complet dans `CLAUDE.md` (entrées TASK-006 à TASK-015).
 
-La prochaine Task exploitable est **TASK-016** (Job GitHub Actions `lint`, EPIC-002/M1, FEATURE-006, [[TASK_BREAKDOWN.md]] §6) — dépend de TASK-014, désormais satisfaite. **Non commencée.**
+**TASK-016 terminée** : `.github/workflows/ci.yml` créé (premier workflow CI du projet), job `lint` (`pnpm turbo lint` sur tout le monorepo, déclenché sur PR et push vers `main`), validé empiriquement (4/4 packages verts, y compris à froid sans cache). Gap signalé sans correction (hors périmètre, backlog non modifiable ce tour) : [[CI_CD_GUIDE.md]] §1 décrit le job `lint` comme incluant Prettier, jamais installé par aucune Task — même traitement que le gap `build` déjà signalé dans ADR-0002.
+
+**TASK-017 terminée** : job `typecheck` ajouté au même workflow (`pnpm turbo typecheck`, un job GitHub Actions distinct dans le même fichier de pipeline). Tâche `typecheck` ajoutée à `turbo.json` ; script `"typecheck": "tsc --noEmit"` et devDependency `typescript@6.0.3` ajoutés aux 4 packages consommateurs. **Gap réel trouvé et résolu dans le périmètre de la Task** : `tsc --noEmit` échouait avec `TS18003` sur les 4 packages (aucun n'a de fichier `.ts` réel, seulement des `.gitkeep` — écart déjà observé une fois lors de TASK-014 mais jamais traité en continu puisque limité alors à une vérification ponctuelle) — bloquant, puisque ce job doit rester vert en continu (contrairement à la vérification unique de TASK-014). Résolu en ajoutant un fichier `src/index.ts` minimal (`export {};`, aucune logique) à chacun des 4 packages — placeholder de compilation, même nature que `.gitkeep` mais pour l'outillage `tsc`, explicitement commenté comme temporaire jusqu'au rolling wave M4+. Validé empiriquement à froid : lint et typecheck 4/4 verts simultanément, `pnpm audit` → 0 vulnérabilité. FEATURE-006 (CI de base) close.
+
+**TASK-018 est la prochaine Task exploitable** (Vérifier CI verte sur commit vide — clôture M1, [[TASK_BREAKDOWN.md]] §6) — dépend de TASK-016+017, désormais satisfaites. **Non commencée.**
 
 ---
 
@@ -83,3 +87,5 @@ La prochaine Task exploitable est **TASK-016** (Job GitHub Actions `lint`, EPIC-
 | 1.15.0 | 2026-08-05 | TASK-015 arrêtée (§1, §3) — incohérence d'architecture Tailwind v4 détectée, ADR-0001 créé (Proposé), aucune implémentation tant que non tranché | Principal Engineering Manager |
 | 1.16.0 | 2026-08-05 | ADR-0001 accepté, TASK-015 reprise et terminée (§1, §3) — `tailwind-theme.css` créé et validé, FEATURE-005 close, prochaine action → TASK-016 | Principal Engineering Manager |
 | 1.17.0 | 2026-08-05 | ADR-0002 : gap de planification confirmé et corrigé — FEATURE-083 (TASK-046 à 049) ajoutée à EPIC-003/M2, compteurs mis à jour (83 Features, 49 Tasks M0-M3), critère de sortie M2 étendu | Principal Engineering Manager |
+| 1.18.0 | 2026-08-05 | TASK-016 marquée terminée (§1, §3) — `.github/workflows/ci.yml` créé, job `lint` validé empiriquement, gap Prettier signalé (non corrigé, hors périmètre), prochaine action → TASK-017 | Principal Engineering Manager |
+| 1.19.0 | 2026-08-05 | TASK-017 marquée terminée (§1, §3) — job `typecheck` ajouté au pipeline CI, gap TS18003 (src vide) trouvé et résolu par placeholder de compilation, FEATURE-006 close, prochaine action → TASK-018 (clôture M1) | Principal Engineering Manager |
