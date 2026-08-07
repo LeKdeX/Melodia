@@ -15,7 +15,7 @@ Point d'entrée unique pour naviguer le backlog complet — recompose [[EPICS.md
 | Jalon | Epic | Features | Tasks décomposées | Statut |
 |---|---|---|---|---|
 | M0 | EPIC-001 | 2 | 5 | **Sorti (GO, TASK-005)** — les 5 Tasks sont terminées, revue de sortie favorable |
-| M1 | EPIC-002 | 4 | 13 | En cours — TASK-006 à 017 terminées (ADR-0001 Accepté), FEATURE-006 close, TASK-018 est la prochaine action (clôture M1) |
+| M1 | EPIC-002 | 4 | 13 | **Sorti** — TASK-006 à 018 terminées (ADR-0001 Accepté), CI verte confirmée sur `origin/main` (commit `40430ab`) |
 | M2 | EPIC-003 | 7 (dont FEATURE-083, ADR-0002) | 20 (dont TASK-046 à 049) | Prêt (dépend de M1) — critère de sortie étendu au rendu réel Web + Desktop |
 | M3 | EPIC-004 | 5 | 11 | Prêt (dépend de M2) |
 | M4 | EPIC-005 | 6 | Rolling wave — décomposition au démarrage de M4 ([[TASK_BREAKDOWN.md]] §1) | Feature-level uniquement |
@@ -30,7 +30,7 @@ Point d'entrée unique pour naviguer le backlog complet — recompose [[EPICS.md
 | M13 | EPIC-014 | 4 | Rolling wave | Feature-level uniquement |
 | M14 | EPIC-015 | 4 | Rolling wave | Feature-level uniquement |
 
-**Total** : 15 Epics, 83 Features (+1, ADR-0002), 49 Tasks déjà décomposées (M0-M3, +4, ADR-0002), 17 Tasks développées (TASK-001 à TASK-017) — voir `CLAUDE.md` (entrées correspondantes). **M0 officiellement sorti (GO).** M1 en cours ; FEATURE-004 (squelettes des 4 packages), FEATURE-005 (configuration partagée) et FEATURE-006 (CI de base, lint + typecheck) terminées. **Gap de planification confirmé et corrigé (ADR-0002)** : FEATURE-083 (Bootstrap de l'application, TASK-046 à 049) ajoutée à EPIC-003/M2 — aucune Task antérieure ne créait le point d'entrée réel de l'application.
+**Total** : 15 Epics, 83 Features (+1, ADR-0002), 49 Tasks déjà décomposées (M0-M3, +4, ADR-0002), 18 Tasks développées (TASK-001 à TASK-018) — voir `CLAUDE.md` (entrées correspondantes). **M0 officiellement sorti (GO). M1 officiellement sorti** — FEATURE-004 (squelettes des 4 packages), FEATURE-005 (configuration partagée) et FEATURE-006 (CI de base, lint + typecheck) toutes terminées ; CI GitHub Actions vérifiée verte en conditions réelles (commit `40430ab`, confirmation externe de l'utilisateur — aucun accès direct à l'API GitHub Actions depuis cet environnement). **Gap de planification confirmé et corrigé (ADR-0002)** : FEATURE-083 (Bootstrap de l'application, TASK-046 à 049) ajoutée à EPIC-003/M2 — aucune Task antérieure ne créait le point d'entrée réel de l'application.
 
 ## 2. Comment lire ce backlog selon le rôle
 
@@ -51,7 +51,9 @@ Point d'entrée unique pour naviguer le backlog complet — recompose [[EPICS.md
 
 **TASK-017 terminée** : job `typecheck` ajouté au même workflow (`pnpm turbo typecheck`, un job GitHub Actions distinct dans le même fichier de pipeline). Tâche `typecheck` ajoutée à `turbo.json` ; script `"typecheck": "tsc --noEmit"` et devDependency `typescript@6.0.3` ajoutés aux 4 packages consommateurs. **Gap réel trouvé et résolu dans le périmètre de la Task** : `tsc --noEmit` échouait avec `TS18003` sur les 4 packages (aucun n'a de fichier `.ts` réel, seulement des `.gitkeep` — écart déjà observé une fois lors de TASK-014 mais jamais traité en continu puisque limité alors à une vérification ponctuelle) — bloquant, puisque ce job doit rester vert en continu (contrairement à la vérification unique de TASK-014). Résolu en ajoutant un fichier `src/index.ts` minimal (`export {};`, aucune logique) à chacun des 4 packages — placeholder de compilation, même nature que `.gitkeep` mais pour l'outillage `tsc`, explicitement commenté comme temporaire jusqu'au rolling wave M4+. Validé empiriquement à froid : lint et typecheck 4/4 verts simultanément, `pnpm audit` → 0 vulnérabilité. FEATURE-006 (CI de base) close.
 
-**TASK-018 est la prochaine Task exploitable** (Vérifier CI verte sur commit vide — clôture M1, [[TASK_BREAKDOWN.md]] §6) — dépend de TASK-016+017, désormais satisfaites. **Non commencée.**
+**TASK-018 terminée — M1 officiellement sorti.** Commit `40430ab` (TASK-016+017) poussé vers `origin/main` sur autorisation explicite de l'utilisateur, déclenchant un run GitHub Actions réel. Verdict vert confirmé **par l'utilisateur** (« Le workflow GitHub Actions est vert »), cet environnement n'ayant ni `gh` CLI ni accès à l'API GitHub Actions authentifiée pour le vérifier lui-même — limite signalée explicitement avant la confirmation, jamais masquée. FEATURE-006 (CI de base) confirmée close.
+
+**M2 (EPIC-003) est le prochain jalon exploitable** — non commencé, conformément à l'instruction explicite de ne pas l'anticiper.
 
 ---
 
@@ -89,3 +91,4 @@ Point d'entrée unique pour naviguer le backlog complet — recompose [[EPICS.md
 | 1.17.0 | 2026-08-05 | ADR-0002 : gap de planification confirmé et corrigé — FEATURE-083 (TASK-046 à 049) ajoutée à EPIC-003/M2, compteurs mis à jour (83 Features, 49 Tasks M0-M3), critère de sortie M2 étendu | Principal Engineering Manager |
 | 1.18.0 | 2026-08-05 | TASK-016 marquée terminée (§1, §3) — `.github/workflows/ci.yml` créé, job `lint` validé empiriquement, gap Prettier signalé (non corrigé, hors périmètre), prochaine action → TASK-017 | Principal Engineering Manager |
 | 1.19.0 | 2026-08-05 | TASK-017 marquée terminée (§1, §3) — job `typecheck` ajouté au pipeline CI, gap TS18003 (src vide) trouvé et résolu par placeholder de compilation, FEATURE-006 close, prochaine action → TASK-018 (clôture M1) | Principal Engineering Manager |
+| 1.20.0 | 2026-08-06 | TASK-018 marquée terminée (§1, §3) — **M1 officiellement sorti** (CI verte confirmée sur `origin/main`, commit `40430ab`, confirmation externe de l'utilisateur), prochaine action → M2 (non commencé) | Principal Engineering Manager |

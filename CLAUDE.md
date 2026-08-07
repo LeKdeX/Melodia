@@ -2,6 +2,10 @@
 
 Instructions pour Claude Code dans ce dépôt. Gardé volontairement court : la référence de fond vit dans `docs/`, jamais dupliquée ici (voir [[docs/DOCUMENTATION_GUIDE.md]] pour la carte complète).
 
+## Architecture et Dépendances (Graphify)
+- Avant d'explorer l'arborescence du projet ou de chercher des fichiers à la main, lis le rapport dans `graphify-out/GRAPH_REPORT.md`.
+- **Règle absolue :** Ne lis JAMAIS le fichier `graphify-out/graph.json` ni les fichiers `.json` du dossier `graphify-out/`. Utilise uniquement le rapport Markdown.
+
 ## Le projet en une phrase
 Melodia est un client musical premium auto-hébergé pour Jellyfin (Jellyfin = source de données, pas le produit). Vision complète : `docs/PROJECT_CHARTER.md`.
 
@@ -668,3 +672,53 @@ Section alimentée à la fin de chaque phase (voir `docs/ROADMAP.md` pour la dé
 - Auto-review effectuée (`docs/DEVELOPER_PLAYBOOK.md` §8) : architecture (conforme, aucune frontière touchée, placeholder neutre) ; build (`pnpm install` clean) ; lint (4/4 verts, revalidé après ajout des placeholders) ; typecheck (4/4 verts, à froid) ; tests (11/11) ; sécurité (`pnpm audit` clean) ; documentation relue.
 - Non commité, non poussé sur `origin/main` à ce stade.
 - Ouvert : TASK-018 (Vérifier CI verte sur commit vide — clôture M1, dépend de TASK-016+017) est la prochaine et dernière Task de M1 — non commencée. Gap Prettier (CI_CD_GUIDE.md §1) et gap `build` (ADR-0002) toujours non traités, inchangés.
+
+### TASK-018 — CI verte confirmée, M1 officiellement sorti (2026-08-06)
+
+- Suite directe de TASK-016/017. Spécification lue (`docs/TASK_BREAKDOWN.md` §6 : « Vérifier CI verte sur commit vide — clôture M1 », XS, dépend de TASK-016+017 — toutes deux revérifiées terminées).
+- **Décision explicite demandée à l'utilisateur avant d'agir** : le titre littéral de la Task implique un vrai run GitHub Actions — impossible sans commit+push, alors qu'aucune autorisation de push n'était en vigueur ce tour (règle permanente : une autorisation de push ne vaut que pour la demande explicite qui l'a accordée, jamais par défaut). Proposé deux options via question structurée (commiter+pousser maintenant vs. rester en local sur la seule base des validations `turbo lint`/`turbo typecheck` déjà faites) — **l'utilisateur a choisi de commiter et pousser**.
+- **Commit et push exécutés** : `git status` revu intégralement avant staging (aucun fichier inattendu/sensible) ; commit `40430ab` (« feat(ci): add GitHub Actions lint + typecheck jobs (TASK-016, TASK-017) », 13 fichiers) poussé vers `origin/main` — déclenchant un run réel du workflow CI créé par TASK-016/017.
+- **Limite d'environnement signalée avant toute conclusion, pas après** : ni `gh` CLI ni token GitHub authentifié disponibles dans ce sandbox (`gh --version` → command not found ; l'API REST publique non authentifiée est rate-limited). Impossible de vérifier soi-même le résultat du run — demandé explicitement à l'utilisateur de consulter `https://github.com/LeKdeX/Melodia/actions` et de rapporter le résultat, plutôt que de prétendre à une vérification jamais faite (cohérent avec la règle d'honnêteté du projet, `CLAUDE.md` en-tête : « je ne prétends jamais avoir vérifié ce qui ne l'a pas été »).
+- **Confirmation externe reçue de l'utilisateur** : « Le workflow GitHub Actions est vert. » — traitée comme la vérification empirique réelle exigée par le titre de la Task, seule source possible dans cet environnement.
+- **Revalidation locale finale avant clôture** (dernière garde-fou avant de déclarer M1 sorti) : `pnpm turbo lint typecheck --force` (à froid, 0 caché) → 8/8 tâches réussies (4 packages × 2 jobs) ; `node scripts/verify-docs.mjs` → 244 documents, 0 lien cassé, 0 orphelin ; `node --test scripts/lib/doc-graph.test.mjs` → 11/11.
+- **Documentation mise à jour** : `docs/ENGINEERING_BACKLOG.md` §1/§3/§6 (M1 marqué **Sorti**, FEATURE-006 confirmée close, prochaine action → M2 non commencé).
+- Auto-review effectuée (`docs/DEVELOPER_PLAYBOOK.md` §8) : architecture (aucune touchée) ; build (non applicable, aucun script `build` encore) ; lint/typecheck (8/8 verts, à froid, + CI réelle verte confirmée) ; tests (11/11) ; sécurité (aucune nouvelle dépendance) ; documentation relue.
+- Commité et poussé sur `origin/main` (commit `40430ab`, fait dans le cadre de cette Task elle-même).
+- **M1 (« Workspace ») officiellement clos.** Rapport de clôture complet ci-dessous.
+
+### Rapport de clôture — Milestone M1 « Workspace » (2026-08-06)
+
+**Critère de sortie officiel** (`docs/MILESTONES.md` §1) : « Monorepo pnpm/Turborepo installé, CI de base (lint/typecheck) verte sur un commit vide » — **satisfait dans son intégralité.**
+
+**1. Résumé des livrables** — 4 Features (EPIC-002), 13 Tasks (TASK-006 à TASK-018), toutes terminées :
+- **FEATURE-003** (Initialisation monorepo) : `pnpm-workspace.yaml`, `turbo.json`, arborescence `apps/{web,desktop,mobile}` (TASK-006/007/008).
+- **FEATURE-004** (Squelette des 4 packages) : `@melodia/{core,ui,platform,app}` — `package.json`, `tsconfig.json`, dossiers `src/` conformes à `ARCHITECTURE.md` §1-2 (TASK-009 à 012).
+- **FEATURE-005** (Configuration partagée) : `packages/config` — `tsconfig.base.json` (strict + `noUncheckedIndexedAccess`), `eslint-preset.js` (flat config ESLint 9), `tailwind-theme.css` (Tailwind v4 natif, ADR-0001) (TASK-013 à 015).
+- **FEATURE-006** (CI de base) : `.github/workflows/ci.yml` — jobs `lint` et `typecheck`, vérifiés verts en conditions réelles sur `origin/main` (TASK-016 à 018).
+
+**2. État du workspace** — `pnpm-workspace.yaml` (`apps/*`, `packages/*`), `turbo.json` (tâches `build`/`lint`/`typecheck`/`test`/`dev`), `package.json` racine (`packageManager: pnpm@11.20.0`). `pnpm install` propre (`Already up to date` en état stable). Limite d'environnement persistante : pnpm accessible uniquement via `npx pnpm` sur cette machine (pas d'installation globale, `corepack enable` bloqué par des droits administrateur absents) — sans impact fonctionnel, contournement stable depuis TASK-006.
+
+**3. État des packages** — 5 packages workspace : `@melodia/{core,ui,platform,app,config}`. Les 4 premiers ont un `src/` avec un seul fichier réel (`index.ts`, placeholder de compilation `export {};`, TASK-017) — aucune logique métier n'existe encore nulle part dans le monorepo, voulu et conforme au rolling wave (`TASK_BREAKDOWN.md` §1, décomposition Task complète réservée à M0-M3 uniquement pour le squelette, le code applicatif réel commence au fil de M2+).
+
+**4. État de la CI** — `.github/workflows/ci.yml`, un seul pipeline à 2 jobs (`lint`, `typecheck`), déclenché sur `pull_request` et `push` vers `main`. **Vérifié vert en conditions réelles** sur le commit `40430ab` (confirmation externe de l'utilisateur — ni `gh` CLI ni token GitHub authentifié disponibles dans cet environnement pour une vérification autonome, limite signalée explicitement avant la confirmation). Job `build` absent (gap connexe signalé dans ADR-0002, non traité — aucune Task ne le couvre à ce jour). Prettier absent du job `lint` malgré sa mention dans `CI_CD_GUIDE.md` §1 (gap signalé lors de TASK-016, non corrigé — aucune Task ne l'a jamais installé).
+
+**5. État du lint** — ESLint 9 (flat config), preset partagé (`@typescript-eslint/no-explicit-any` en erreur, `import/order`, 3 règles `jsx-a11y` en erreur, `eslint-plugin-boundaries` enregistré mais sans règle active — préparé pour une future Task d'activation). `pnpm turbo lint --force` → 4/4 packages verts, à froid, revérifié à la clôture.
+
+**6. État des tests** — Suite unique du projet à ce jour : `scripts/lib/doc-graph.test.mjs` (11 tests, logique de `scripts/verify-docs.mjs`) → 11/11. Aucun test applicatif (Vitest/Playwright) — normal, aucun code applicatif n'existe encore ; `docs/TESTING_STRATEGY.md` s'appliquera dès que du code réel sera écrit (M2+).
+
+**7. État des ADR** — 2 ADR, tous deux **Accepté** : ADR-0001 (mécanisme natif Tailwind v4 `@theme`, remplace l'hypothèse `tailwind.config` v3 de `DESIGN_SYSTEM_ARCHITECTURE.md`) ; ADR-0002 (gap de planification du bootstrap applicatif, FEATURE-083 ajoutée à EPIC-003/M2). Aucun ADR en attente.
+
+**8. Dette technique restante** (signalée explicitement, aucune corrigée par anticipation) :
+- Job CI `build` absent malgré sa mention dans `CI_CD_GUIDE.md` §1 (ADR-0002).
+- Prettier absent du job `lint` malgré sa mention dans `CI_CD_GUIDE.md` §1 (TASK-016).
+- 6 citations de section non résolues, hors périmètre du top 10 (TASK-002/003/004, jamais traitées).
+- 54 désynchronisations mineures de version d'en-tête sur des documents hors top 10 (TASK-002/003).
+- `eslint-import-resolver-typescript` absent — `import/no-unresolved` volontairement non activé (TASK-014).
+- Package.json racine contient des devDependencies redondantes avec `packages/config` (TASK-015).
+- Les 4 placeholders `src/index.ts` (`export {};`) devront être remplacés par du code réel dès que M4+ y introduit des fichiers sources.
+
+**9. Risques connus** — aucun nouveau risque introduit par M1 lui-même. Risques déjà actés dans `docs/RISK_REGISTER_TECHNICAL.md`/`docs/TECHNICAL_RISKS.md` restent valables et non réévalués par cette clôture (hors périmètre de M1).
+
+**10. Préparation de M2** — EPIC-003 (Fondations), 7 Features (dont FEATURE-083, ADR-0002), 20 Tasks déjà décomposées (TASK-019 à 049, dont TASK-046 à 049). Critère de sortie de M2 déjà étendu par ADR-0002 pour exiger un rendu réel Web + Desktop, pas seulement l'existence des packages. **M2 non commencé, conformément à l'instruction explicite de ne pas l'anticiper.**
+
+- Non poussé au-delà du commit `40430ab` déjà sur `origin/main` — les mises à jour de documentation de cette clôture (`ENGINEERING_BACKLOG.md`, `CLAUDE.md`) restent locales, non commitées, en attente d'une demande explicite de commit/push.
